@@ -1,0 +1,13 @@
+#git db
+cd /opt/shibboleth/userportal/mydlink_v3/
+#inital
+git config --global user.name "whille"
+git config --global user.email "Whille_Wang@cn.dlink.com"
+git remote add 151 root@172.18.195.151:/root/whille_git/mydlink
+
+git status
+git add -A
+git commit -m "add api for device"
+git diff
+git branch
+git push 151 master

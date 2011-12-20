@@ -1,0 +1,10 @@
+
+统计service portal 的API 与wiki 的区别
+
+mydlink_3.0 • gabriel.thrift
+Please refer the gabriel.thrift file in the mydlink V3 repository
+enum GabrielDeviceType  {    PRIVATE=0,  
+                                                         OTHERS=1,
+                                                         PUBLIC=2,
+                                                         SHARED=4,
+

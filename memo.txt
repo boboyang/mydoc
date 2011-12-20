@@ -8,89 +8,19 @@ wsgi-gateway
 https://scdc.mydlink.com:16888/wiki/doku.php?id=mydlink_3.0
 [8:41:06] Edward Wang: whillewang/whillewang2011
 
-
-#redis commands
-set foo bar
-get foo
-incr mycounts #automic operation
-del foo
-ttl foo # -1 means never expire
-expire foo 120 # 120 seconds
-ttl foo
-#for containers
-rpush friends "tom"
-rpush friends "bob"
-lpush friends 'sam'
-lrange friends 0 -1
-#lpop rpop
-
 setup.py
   [paste.paster_command]
-
-#ssh 使用
-ssh root@172.18.195.151
-# then input password
-who     #in server, show how many users now
-
-# key auth key in server
-chmod 755 ~/.ssh
-scp ~/.ssh/id_rsa.pub root@172.18.195.151:.ssh/authorized_keys
-# ok, then u need not input password every time to ssh, scp
-
-# update projects to server
-cd env
-scp -r mydlink_v3 root@172.18.195.214:env/mydlink_v3
-scp -r servicesmock root@172.18.195.214:env/servicesmock
 
 # 熟悉supervisior和fabric, virtualenv,<<持续交付>>
 
 #supervisitor
 sudo apt-get install supervisor
 
-统计service portal 的API 与wiki 的区别
-
-mydlink_3.0 • gabriel.thrift
-Please refer the gabriel.thrift file in the mydlink V3 repository
-enum GabrielDeviceType  {    PRIVATE=0,  
-                                                         OTHERS=1,
-                                                         PUBLIC=2,
-                                                         SHARED=4,
-
-
-ssh -L 8901:localhost:8901 -p 2226 whillewang@scdc.mydlink.com
-#scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:temp_key
-
-virtualenv --no-site-packages env
-cd env
-#sudo bin/easy_install pyramid
-bin/easy_install pyramid
-
-copy mydlink_v3
-/home/whille/env/shibboleth/userportal/mydlink_v3
-
-cd mydlink_v3
-../bin/python setup.py develop
-../bin/easy_install pyramid_jinja2
-../bin/pserve development.ini --reload
-
-#test
+#test on SCDC
 localhost:8901
 username:   test1@mydlink.com  
-password:    12345678  
+password:    12345678
 
 
-#git db
-cd /opt/shibboleth/userportal/mydlink_v3/
-#inital
-git config --global user.name "whille"
-git config --global user.email "Whille_Wang@cn.dlink.com"
-git remote add 151 root@172.18.195.151:/root/whille_git/mydlink
-
-git status
-git add -A
-git commit -m "add api for device"
-git diff
-git branch
-git push 151 master
 
 

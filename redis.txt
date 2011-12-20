@@ -1,0 +1,14 @@
+#redis commands
+set foo bar
+get foo
+incr mycounts #automic operation
+del foo
+ttl foo # -1 means never expire
+expire foo 120 # 120 seconds
+ttl foo
+#for containers
+rpush friends "tom"
+rpush friends "bob"
+lpush friends 'sam'
+lrange friends 0 -1
+#lpop rpop
