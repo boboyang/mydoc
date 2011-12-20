@@ -4,7 +4,74 @@
 mydlink_3.0 • gabriel.thrift
 Please refer the gabriel.thrift file in the mydlink V3 repository
 enum GabrielDeviceType  {    PRIVATE=0,  
-                                                         OTHERS=1,
-                                                         PUBLIC=2,
-                                                         SHARED=4,
+                             OTHERS=1,
+                             PUBLIC=2,
+                             SHARED=4,
+--------------------------------------------
+share devices:
+
+socialcam_invite()
+path = '/me/device/invite'
+
+socialcam_unshare()
+path = '/me/device/unshare'
+
+
+1. Owner shares her/his device to a person(sharer) by E-mail
+2. If sharer is an existed mydlink user, accept by clicking the invite URL
+3. If sharer don't have mydlink account, portal directs use to create one and accept the invitation
+4. Sharer removes shared device
+5. Owner revokes sharing device
+
+async or not?
+i think response time of invited-url is uncertain, should be async.
+so Owner should not wait, socialcam_invite() response OK or fail.
+
+Both Owner and sharer need be messaged. Should we limit mesage sent to online user or not?
+
+sequence should be taged or numbered, for multiple peers
+
+
+2.
+Owner ------------> Sharer
+        invite(url)
+
+      <------------
+       (1) accept
+update acl
+      ------------>
+          updated  update devices
+      
+      <------------
+       (2) reject
+(end)
+
+3.account does not exist: limit max sharer number to 100, to avoid malicious act
+
+4.
+Owner <------------ Sharer
+        remove me
+update acl
+      ------------>
+          updated  update devices
+
+5.
+Owner ------------> Sharer
+        revoke     
+                   update devices
+
+____________________________
+
+我們需要restful api來建立client連device的session
+ /api/devices/{device id}/sessions POST
+F07D6804791430130743
+ /api/devices/{{device id}}/sessions
+這個是用/lib/NBS/client.py中device_connect()
+
+這個function中要傳入一個device_data的dict, 裡面要有device的mac & mydlink_id
+[2:30:45 PM CST] flow: device id應該是mac + mydlink_id, 你用這種方式去切
+
+第二個API是publiccam的connect
+POST /api/services/publiccams/cam/{publiccam id}/sessions
+
 

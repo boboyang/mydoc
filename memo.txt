@@ -19,7 +19,7 @@ sudo apt-get install supervisor
 #test on SCDC
 localhost:8901
 username:   test1@mydlink.com  
-password:    12345678
+password:   12345678
 
 
 
