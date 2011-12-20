@@ -1,0 +1,43 @@
+mysql -u root -p
+create database csp_development;
+create database md_global;
+
+redis
+sudo apt-get install tcl8.5
+
+wget http://redis.googlecode.com/files/redis-2.4.4.tar.gz
+tar xzf redis-2.4.4.tar.gz
+cd redis-2.4.4
+# readme
+make
+make test
+make install
+cd ../utils/
+sudo ./install_server.sh 
+# deamon server start
+sudo /etc/init.d/redis_6379 start
+# or sudo redis-server /etc/redis/6379.conf 
+# sudo /etc/init.d/redis_6379 stop
+redis-benchmark
+whereis redis-cli
+redis-cli
+
+#redis commands
+set foo bar
+get foo
+incr mycounts #automic operation
+del foo
+ttl foo # -1 means never expire
+expire foo 120 # 120 seconds
+ttl foo
+#for containers
+rpush friends "tom"
+rpush friends "bob"
+lpush friends 'sam'
+lrange friends 0 -1
+#lpop rpop
+
+setup.py
+  [paste.paster_command]
+ ‘ı√¥”√£ø 
+  

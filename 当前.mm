@@ -1,0 +1,93 @@
+<map version="0.9.0">
+<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<node COLOR="#000000" CREATED="1303105184475" ID="ID_122560524" MODIFIED="1303105201084" TEXT="&#x5f53;&#x524d;">
+<font NAME="SansSerif" SIZE="20"/>
+<hook NAME="accessories/plugins/AutomaticLayout.properties"/>
+<node COLOR="#0033ff" CREATED="1303105191428" ID="ID_1038738644" MODIFIED="1303105201084" POSITION="right" TEXT="&#x5de5;&#x7a0b;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1303105203334" ID="ID_17670806" MODIFIED="1303105207381" TEXT="&#x667a;&#x80fd;&#x6307;&#x9488;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303105207959" ID="ID_1681404119" MODIFIED="1303105216272" TEXT="Winsock Server">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303105227318" ID="ID_1408993424" MODIFIED="1303105254240" TEXT="&#x5de5;&#x5177;&#x5e93;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1303105233084" ID="ID_1655463935" MODIFIED="1303105254240" TEXT="&#x7cfb;&#x7edf;&#x5316;">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+<node COLOR="#990000" CREATED="1303105216818" ID="ID_348818784" MODIFIED="1303105256302" TEXT="&#x6574;&#x7406;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1303105273802" ID="ID_513450749" MODIFIED="1303105280115" TEXT="Log">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1303106294227" ID="ID_1767490782" MODIFIED="1303106310961" TEXT="ostream"/>
+<node COLOR="#990000" CREATED="1303105280115" ID="ID_648396741" MODIFIED="1303105301599" TEXT="trace">
+<node COLOR="#111111" CREATED="1303106263305" ID="ID_71655526" MODIFIED="1303106265852" TEXT="debug view">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#111111" CREATED="1303106268649" ID="ID_754595623" MODIFIED="1303106279070" TEXT="mustiEmu">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node COLOR="#990000" CREATED="1303106255508" ID="ID_1403696689" MODIFIED="1303106259383" TEXT="file"/>
+<node COLOR="#990000" CREATED="1303105284568" ID="ID_1687021930" MODIFIED="1303105290880" TEXT="performance"/>
+<node COLOR="#990000" CREATED="1303105303224" ID="ID_646785516" MODIFIED="1303105312864" TEXT="code project"/>
+</node>
+<node COLOR="#00b439" CREATED="1303105314692" ID="ID_1317988200" MODIFIED="1303105322020" TEXT="MSMQ&#xff08;CFW&#xff09;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303105331442" ID="ID_364348258" MODIFIED="1303105337458" TEXT="Cppunit">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303105341082" ID="ID_1779130110" MODIFIED="1303105358285" TEXT="chm">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1303105359442" ID="ID_1169376004" MODIFIED="1303105362457" TEXT="oxygen"/>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1303105389754" ID="ID_1619520150" MODIFIED="1303105392332" POSITION="left" TEXT="&#x4e2a;&#x4eba;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1303105393160" ID="ID_46141544" MODIFIED="1303105401441" TEXT="&#x8f93;&#x5165;&#x6cd5;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1303105403550" ID="ID_1284108047" MODIFIED="1303105408847" TEXT="PoemLab"/>
+<node COLOR="#990000" CREATED="1303105409269" ID="ID_694430857" MODIFIED="1303105421253" TEXT="SuperStore"/>
+</node>
+<node COLOR="#00b439" CREATED="1303105423363" ID="ID_864870266" MODIFIED="1303105430378" TEXT="MindMap&#x56fe;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1303105438019" ID="ID_1224725930" MODIFIED="1303105447128" POSITION="left" TEXT="Issue tracker">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1303105448456" ID="ID_1675135226" MODIFIED="1303105460409" TEXT="Recon performance">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1303105367645" ID="ID_138409979" MODIFIED="1303105369582" POSITION="left" TEXT="&#x5b66;&#x4e60;">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1303105371738" ID="ID_1166227083" MODIFIED="1303105375754" TEXT="&#x6838;&#x5fc3;&#x7f16;&#x7a0b;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303105376254" ID="ID_491996837" MODIFIED="1303105385051" TEXT="c++ &#x6f14;&#x5316;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+</node>
+</node>
+</map>
