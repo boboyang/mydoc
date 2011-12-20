@@ -11,3 +11,12 @@ git commit -m "add api for device"
 git diff
 git branch
 git push 151 master
+
+#mydoc
+git add .
+git commit -m 'modify'
+git push -u origin master
+git add .
+git commit -m 'modify'
+git push -u origin master
+
