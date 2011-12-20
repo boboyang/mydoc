@@ -1,0 +1,233 @@
+C,S,O= customer, server, Oauth Server
+-------------------------------------------------------
+
+Example 9-34.  S->C 
+An Atom feed containing available vouchers
+
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Coffee Vouchers for jim</title>
+<link rel="self" href="http://vouchers.example.org/jim" />
+<author>
+<name>vouchers@example.org</name>
+</author>
+<id>http://vouchers.example.org/jim</id>
+<generator uri="http://vouchers.example.org/">Coffee Voucher Service</generator>
+<updated>2010-04-03T00:20:00Z</updated>
+<entry>
+<title>Coffee Voucher</title>
+<link rel="http://relations.vouchers.example.org/coffee"
+href="http://vouchers.example.org/voucher/jim/1234" />
+<author>
+<name>vouchers@example.org</name>
+</author>
+<id>http://vouchers.example.org/voucher/jim/1234</id>
+<updated>2010-04-03T00:20:50Z</updated>
+<content>Exchange this voucher for a coffee of your choice at your local
+Restbucks store.</content>
+</entry>
+<!-- Many more entries removed for brevity -->
+</feed>
+
+Example 9-35. C->S 
+Paying with a voucher
+
+PUT /payment/1234 HTTP/1.1
+Accept: application/vnd.restbucks+xml
+Content-Type: application/vnd.restbucks+xml
+User-Agent: Java/1.6.0_17
+Host: restbucks.com
+Content-Length: 205
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<voucherPayment xmlns="http://schemas.restbucks.com">
+<voucherUri>http://vouchers.example.org/voucher/jim/1234</voucherUri>
+</voucherPayment>
+
+Example 9-36.  S->O 
+Restbucks attempts to redeem the voucher
+
+DELETE /voucher/jim/1234 HTTP/1.1
+Accept: application/vnd.coffeevoucher+xml
+Host: vouchers.example.org
+
+Example 9-37.  O->S 
+Voucher service challenges the redemption
+
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: OAuth realm="http://vouchers.example.org/"
+Content-Type: application/x-www-form-urlencoded
+Date: Sat, 03 Apr 2010 00:27:47 GMT
+
+Example 9-38.  S->O, callback = payment
+Restbucks acquires a set of temporary credentials
+
+POST /requestToken/voucher/jim/1234 HTTP/1.1
+Accept: application/x-www-form-urlencoded
+Authorization: OAuth
+oauth_callback="http://restbucks.com/payment/9baea738",
+oauth_signature="GHU4a/v9JnvZFTXnRiVf3HqDGfk=", 
+oauth_version="1.0",
+oauth_nonce="05565e78", 
+oauth_signature_method="HMAC-SHA1",
+oauth_consumer_key="light", 
+oauth_timestamp="1270254467"
+Host: vouchers.example.org
+
+Example 9-39. O->S
+OAuth temporary credentials created
+
+HTTP/1.1 200 OK
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 79
+Date: Sat, 03 Apr 2010 00:27:47 GMT
+ oauth_token=b0c2ec2c
+&oauth_token_secret=f41eab9d
+&oauth_callback_confirmed=true
+
+Example 9-40.  S->C, Redirect client for sign-in
+
+HTTP/1.1 303 See Other
+Location: http://vouchers.example.org/signIn/voucher/jim/1234?oauth_token=b0c2ec2c
+Content-Type: application/vnd.restbucks+xml
+Content-Length: 0
+Date: Sat, 03 Apr 2010 00:27:47 GMT
+
+Example 9-41. C->O
+Requesting a sign-in form
+
+GET /signIn/voucher/jim/1234?oauth_token=b0c2ec2c HTTP/1.1
+Accept: application/xhtml+xml
+Host: vouchers.example.org
+
+Example 9-42.  O->C
+The XHTML sign-in form
+HTTP/1.1 200 OK
+Content-Type: application/xhtml+xml
+Content-Length: 360
+Date: Sat, 03 Apr 2010 00:27:47 GMT
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+<form action="http://vouchers.example.org/signIn/voucher/jim/1234"
+method="post">
+<input type="hidden" name="oauth_token" value="b0c2ec2c"/>
+<input type="password" name="password"/>
+</form>
+</body>
+</html>
+
+Example 9-43.  C->O
+Signing in
+
+POST /signIn/voucher/jim/1234 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Accept: application/xhtml+xml
+Host: vouchers.example.org
+Content-Length: 68
+password=sc00byd00&oauth_token=b0c2ec2c
+
+Example 9-44.  O->C, give oauth_verifier
+Redirecting back to Restbucks
+
+HTTP/1.1 303 See Other
+Location: http://restbucks.com/payment/1234/voucherReady?oauth_token=b0c2ec2c
+&oauth_verifier=c87677a4
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 0
+Date: Sat, 03 Apr 2010 00:27:47 GMT
+
+
+Example 9-45. C->S
+Notifying Restbucks of a successful sign-in
+
+GET /payment/1234/voucherReady?oauth_token=b0c2ec2c&oauth_verifier=c87677a4
+HTTP/1.1
+Host: restbucks.com
+
+Example 9-46.  S->O, with oauth_verifier
+Restbucks requests a set of token credentials
+
+POST /accessToken/voucher/jim/1234 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Authorization: OAuth 
+oauth_signature="m7ials2v0VJuKD05BrNGISi7Nog%3D",
+oauth_version="1.0", 
+oauth_nonce="10d13b8e", 
+oauth_signature_method="HMAC-SHA1",
+oauth_consumer_key="light", 
+oauth_verifier="c87677a4", 
+oauth_token="b0c2ec2c",
+oauth_timestamp="1270254468"
+Host: vouchers.example.org
+Accept: application/x-www-form-urlencoded
+
+Example 9-47.  O->S
+Voucher service generates a set of token credentials
+
+HTTP/1.1 200 OK
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 49
+Date: Sat, 03 Apr 2010 00:27:48 GMT
+oauth_token=99fe97e1&oauth_token_secret=255ae587
+
+Example 9-48.  S->O
+Restbucks redeems a voucher using the access token
+
+DELETE /voucher/jim/1234 HTTP/1.1
+Accept: application/vnd.coffeevoucher+xml
+Authorization: OAuth 
+oauth_signature="k2awEpciJkd2X8rt3NmgDg8AyUo%3D",
+oauth_version="1.0", 
+oauth_nonce="9ceea445", 
+oauth_signature_method="HMAC-SHA1",
+oauth_consumer_key="light", 
+oauth_token="99fe97e1", 
+oauth_timestamp="1270254468"
+Host: vouchers.example.org
+
+Example 9-49.  O->S
+Voucher service corroborates the redemption
+
+HTTP/1.1 200 OK
+Content-Type: application/vnd.coffeevoucher+xml
+Content-Length: 252
+Date: Sat, 03 Apr 2010 00:27:48 GMT
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<link xmlns="http://voucher.example.org/schema"
+mediaType="application/vnd.coffeevoucher+xml"
+uri="http://vouchers.example.org/voucher/jim/1234" rel="voucher"/>
+
+Example 9-50.  S->C
+The voucher service has one less voucher
+
+HTTP/1.1 200 OK
+Content-Type: application/atom+xml
+Content-Length: 977
+Date: Sat, 03 Apr 2010 00:27:48 GMT
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Coffee Vouchers for jim</title>
+<link rel="self" href="http://vouchers.example.org/jim" />
+<author>
+<name>vouchers@example.org</name>
+</author>
+<id>http://vouchers.example.org/jim</id>
+<generator uri="http://vouchers.example.org/">Coffee Voucher Service</generator>
+<updated>2010-04-03T00:19:12Z</updated>
+<entry>
+<title>Coffee Voucher</title>
+<link rel="http://relations.vouchers.example.org/coffee"
+href="http://vouchers.example.org/voucher/jim/25983cab" />
+<author>
+<name>vouchers@example.org</name>
+</author>
+<id>http://vouchers.example.org/voucher/jim/25983cab</id>
+<updated>2010-04-03T00:21:20Z</updated>
+<content>Exchange this voucher for a coffee of your choice at your local
+Restbucks store.
+</content>
+</entry>
+</feed>
+

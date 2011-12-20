@@ -1,26 +1,13 @@
-mysql -u root -p
-create database csp_development;
-create database md_global;
+我们的web框架用的是pyramid
+ js框架有用jquery , mustache  iCanHaz
+ 还有coffee-script
+ 后端通信协议为thrift
+wsgi-gateway
 
-redis
-sudo apt-get install tcl8.5
 
-wget http://redis.googlecode.com/files/redis-2.4.4.tar.gz
-tar xzf redis-2.4.4.tar.gz
-cd redis-2.4.4
-# readme
-make
-make test
-make install
-cd ../utils/
-sudo ./install_server.sh 
-# deamon server start
-sudo /etc/init.d/redis_6379 start
-# or sudo redis-server /etc/redis/6379.conf 
-# sudo /etc/init.d/redis_6379 stop
-redis-benchmark
-whereis redis-cli
-redis-cli
+https://scdc.mydlink.com:16888/wiki/doku.php?id=mydlink_3.0
+[8:41:06] Edward Wang: whillewang/whillewang2011
+
 
 #redis commands
 set foo bar
@@ -39,5 +26,71 @@ lrange friends 0 -1
 
 setup.py
   [paste.paster_command]
- 怎么用？ 
-  
+
+#ssh 使用
+ssh root@172.18.195.151
+# then input password
+who     #in server, show how many users now
+
+# key auth key in server
+chmod 755 ~/.ssh
+scp ~/.ssh/id_rsa.pub root@172.18.195.151:.ssh/authorized_keys
+# ok, then u need not input password every time to ssh, scp
+
+# update projects to server
+cd env
+scp -r mydlink_v3 root@172.18.195.214:env/mydlink_v3
+scp -r servicesmock root@172.18.195.214:env/servicesmock
+
+# 熟悉supervisior和fabric, virtualenv,<<持续交付>>
+
+#supervisitor
+sudo apt-get install supervisor
+
+统计service portal 的API 与wiki 的区别
+
+mydlink_3.0 • gabriel.thrift
+Please refer the gabriel.thrift file in the mydlink V3 repository
+enum GabrielDeviceType  {    PRIVATE=0,  
+                                                         OTHERS=1,
+                                                         PUBLIC=2,
+                                                         SHARED=4,
+
+
+ssh -L 8901:localhost:8901 -p 2226 whillewang@scdc.mydlink.com
+#scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:temp_key
+
+virtualenv --no-site-packages env
+cd env
+#sudo bin/easy_install pyramid
+bin/easy_install pyramid
+
+copy mydlink_v3
+/home/whille/env/shibboleth/userportal/mydlink_v3
+
+cd mydlink_v3
+../bin/python setup.py develop
+../bin/easy_install pyramid_jinja2
+../bin/pserve development.ini --reload
+
+#test
+localhost:8901
+username:   test1@mydlink.com  
+password:    12345678  
+
+
+#git db
+cd /opt/shibboleth/userportal/mydlink_v3/
+#inital
+git config --global user.name "whille"
+git config --global user.email "Whille_Wang@cn.dlink.com"
+git remote add 151 root@172.18.195.151:/root/whille_git/mydlink
+
+git status
+git add -A
+git commit -m "add api for device"
+git diff
+git branch
+git push 151 master
+
+
