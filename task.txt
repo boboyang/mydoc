@@ -17,20 +17,64 @@ socialcam_unshare()
 path = '/me/device/unshare'
 
 
-1. Owner shares her/his device to a person(sharer) by E-mail
+1. Owner shares her/his device to a person(sharer) by <E-mail>
+    /me/device/invite
 2. If sharer is an existed mydlink user, accept by clicking the invite URL
-3. If sharer don't have mydlink account, portal directs use to create one and accept the invitation
-4. Sharer removes shared device
-5. Owner revokes sharing device
+3. If sharer don't have mydlink account, portal directs user to create one and accept the invitation
 
-async or not?
-i think response time of invited-url is uncertain, should be async.
-so Owner should not wait, socialcam_invite() response OK or fail.
+result:
+device pending ->members
 
-Both Owner and sharer need be messaged. Should we limit mesage sent to online user or not?
 
-sequence should be taged or numbered, for multiple peers
+4. me/device/unshare
+update_device_acl_view() calls:
+    socialcam_invite()
+    socialcam_unshare()
 
+5. delete device:
+
+socialcam_remove
+    me/device/renounce    remove self email from device/accessible
+ 
+device_unbinding
+    me/device/del         clear device/accessible
+
+6. query:
+
+owner
+/me/device/accessible
+    data['data'].update({
+        "members": [ "JohnJones@mydlink.com", "MaryLan@dlink.com"],
+        "pending": [ "guest1@mydlink.com" ]
+        }
+    )
+
+/me/device/info
+    data['data'].update({
+        "devType": True,
+        "device_model": " DCS-930L",
+        "device_name": "Back yard",
+        "cur_fw": "2.0.4",
+        "shared_with": "guest1@gmail.com,grandpa@yahoo.com",
+        }
+    ) 
+
+?
+robot attack, like massive share, frequent share/unshare
+
+Nexus API:
+
+acceptSharingDevice
+deleteSharingDevice
+revokeDeviceFromSharers
+setSharingDevice
+setSharingDevice(1: AccessToken token,2:DeviceId deviceId,3:bool sharable)
+
+
+
+get sharing listed
+
+email,account
 
 2.
 Owner ------------> Sharer
@@ -72,6 +116,15 @@ F07D6804791430130743
 [2:30:45 PM CST] flow: device id應該是mac + mydlink_id, 你用這種方式去切
 
 第二個API是publiccam的connect
-POST /api/services/publiccams/cam/{publiccam id}/sessions
+POST /api/services/publiccams/cams/{publiccam id}/sessions
 
+http://scdc.mydlink.com:7777/api/services/publiccams
+
+http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85757055-87756740-67756740-72357335/sessions
+
+    csrf_token = request.session.get_csrf_token()
+26c3326aa6693c346816ab010c029d5c81412580
+
+479fdb86ceefc367513040acbb49ebaa6fc441c8
+str: ac66f77e6be6ee98fefda66ef29f84dd9626b6c2
 

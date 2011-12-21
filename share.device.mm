@@ -1,0 +1,80 @@
+<map version="0.9.0">
+<!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<node COLOR="#000000" CREATED="1324432369157" ID="ID_1689906079" MODIFIED="1324432428013" TEXT="share.device">
+<font NAME="SansSerif" SIZE="20"/>
+<hook NAME="accessories/plugins/AutomaticLayout.properties"/>
+<node COLOR="#0033ff" CREATED="1324432446691" ID="ID_65451722" MODIFIED="1324434668720" POSITION="right" TEXT="realtime notification">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1324433038659" FOLDED="true" ID="ID_1504498219" MODIFIED="1324434661182" TEXT="&#x65b9;&#x5f0f;">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1324432453682" ID="ID_824792293" MODIFIED="1324433056666" TEXT="pull">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1324432805522" ID="ID_1520092202" MODIFIED="1324433056672" TEXT="&#x65f6;&#x95f4;&#x95f4;&#x9694;&#x7b49;&#x4e8e;&#x6570;&#x636e;&#x66f4;&#x65b0;&#x95f4;&#x9694;&#x6700;&#x597d;">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node COLOR="#990000" CREATED="1324432455673" ID="ID_599856843" MODIFIED="1324433058529" TEXT="push">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1324432462204" ID="ID_716155051" MODIFIED="1324433058534" TEXT="Page Stream">
+<font NAME="SansSerif" SIZE="12"/>
+<node COLOR="#111111" CREATED="1324432506489" ID="ID_1118185391" MODIFIED="1324432509727" TEXT="iframe">
+<node COLOR="#111111" CREATED="1324432519230" ID="ID_738822377" MODIFIED="1324432523913" TEXT="hiden"/>
+<node COLOR="#111111" CREATED="1324432982527" ID="ID_766573841" MODIFIED="1324432986810" TEXT="control frame"/>
+<node COLOR="#111111" CREATED="1324432987292" ID="ID_1352859462" MODIFIED="1324432991910" TEXT="display frame"/>
+</node>
+<node COLOR="#111111" CREATED="1324432922384" ID="ID_1198265481" MODIFIED="1324432923343" TEXT="&#x957f;&#x8fde;&#x63a5;"/>
+</node>
+<node COLOR="#111111" CREATED="1324432469425" ID="ID_888996000" MODIFIED="1324433058549" TEXT="Service Stream">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node COLOR="#990000" CREATED="1324432540738" ID="ID_807064544" MODIFIED="1324433060731" TEXT="long polling">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1324432631290" ID="ID_1591628446" LINK="http://svn.xantus.org/shortbus/trunk/bayeux/bayeux.html" MODIFIED="1324433060733" TEXT="BAYEUX&#x534f;&#x8bae;">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node COLOR="#990000" CREATED="1324432661822" FOLDED="true" ID="ID_1220842438" MODIFIED="1324433072574" TEXT="Flash XMLSocket">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1324432693895" ID="ID_973610353" MODIFIED="1324433069888" TEXT="&#x5b89;&#x88c5;&#x4e86; Flash &#x64ad;&#x653e;&#x5668;">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#111111" CREATED="1324432700340" ID="ID_767685214" MODIFIED="1324433069891" TEXT="Flash &#x63d0;&#x4f9b;&#x4e86; XMLSocket &#x7c7b;">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+</node>
+<node COLOR="#990000" CREATED="1324432670141" ID="ID_270631312" MODIFIED="1324433064422" TEXT="Java Applet">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1324432738083" FOLDED="true" ID="ID_1738352645" MODIFIED="1324434662484" TEXT="suggestion">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1324432766578" ID="ID_579776540" MODIFIED="1324432771836" TEXT="push&#x597d;">
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1324432748771" ID="ID_105362703" MODIFIED="1324433035293" TEXT="&#x4f46;push&#x7684;CPU&#x4f7f;&#x7528;&#x7387;&#x662f;poll&#x7684;7&#x500d;">
+<font NAME="SansSerif" SIZE="12"/>
+</node>
+<node COLOR="#111111" CREATED="1324433111506" ID="ID_1495398765" MODIFIED="1324433113708" TEXT="&#x670d;&#x52a1;&#x5668;&#x7aef;&#x9700;&#x8981;&#x8003;&#x8651;&#x8d1f;&#x8f7d;&#x5747;&#x8861;&#x548c;&#x96c6;&#x7fa4;&#x6280;&#x672f;"/>
+</node>
+<node COLOR="#990000" CREATED="1324432961254" ID="ID_223535617" MODIFIED="1324432961803" TEXT="&#x5ba2;&#x6237;&#x7aef;&#x7684;&#x63a7;&#x5236;&#x8bf7;&#x6c42;&#x548c;&#x6570;&#x636e;&#x8bf7;&#x6c42;&#x4f7f;&#x7528;&#x4e0d;&#x540c;&#x7684; HTTP &#x8fde;&#x63a5;">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+<node COLOR="#990000" CREATED="1324433121068" ID="ID_1950207949" MODIFIED="1324433127726" TEXT="heart beat">
+<font NAME="SansSerif" SIZE="14"/>
+<node COLOR="#111111" CREATED="1324433151629" ID="ID_272652794" MODIFIED="1324433154441" TEXT="block read">
+<node COLOR="#111111" CREATED="1324433155040" ID="ID_175069906" MODIFIED="1324433157859" TEXT="time out"/>
+<node COLOR="#111111" CREATED="1324433206192" ID="ID_1372696212" MODIFIED="1324433214109" TEXT="notice user"/>
+</node>
+</node>
+</node>
+</node>
+</node>
+</map>
