@@ -525,6 +525,13 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
 </node>
+<node COLOR="#00b439" CREATED="1324634526498" ID="ID_634868604" MODIFIED="1324634528754" TEXT="script">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1324634529099" ID="ID_1559057193" MODIFIED="1324634543006" TEXT="pyramid.paster.bootstrap() ">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
 </node>
 <node COLOR="#0033ff" CREATED="1322882572510" ID="ID_1590439883" MODIFIED="1322882573100" POSITION="right" TEXT="Internationalization and Localization">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
