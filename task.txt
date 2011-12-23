@@ -133,5 +133,5 @@ http://192.168.0.204:8088/oauth/cfm_email?redirect_uri=http://scdc.mydlink.com&&
 #op group problems
 1.member empty str
 2.note on member modify
-
-
+http://scdc.mydlink.com:15432/cfmDevShare?sharing_key=MTEzNzEwMC1SRFVT
+http://localhost:8901/cfmDevShare?sharing_key=MTEzODEwMC1SRFVT

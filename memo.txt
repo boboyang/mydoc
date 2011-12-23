@@ -21,6 +21,17 @@ localhost:8901
 username:   test1@mydlink.com  
 password:   12345678
 
+# curl
+# save cookie file
+curl -s -c cookie.txt localhost:6543/test_csrf
+#cat cookie.txt 
 
+token=$(curl -s -b cookie.txt localhost:6543/test_csrf| tr -d '"')
+
+#send POST, renew token
+token=$(curl -s -b cookie.txt  localhost:6543/test_csrf -d 'csrf_token='$token |tr -d '"')
+
+# list files sort by time, revert
+ll -rt
 
 

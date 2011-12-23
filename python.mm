@@ -1,6 +1,6 @@
 <map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node COLOR="#000000" CREATED="1303868524495" ID="ID_1852631055" MODIFIED="1324453769729" TEXT="python">
+<node COLOR="#000000" CREATED="1303868524495" ID="ID_1852631055" MODIFIED="1324614452770" TEXT="python">
 <font NAME="SansSerif" SIZE="20"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties"/>
 <node COLOR="#0033ff" CREATED="1303868531244" ID="ID_740578310" MODIFIED="1303869571394" POSITION="left" TEXT="install">
@@ -31,19 +31,56 @@
 </node>
 </node>
 </node>
-<node COLOR="#0033ff" CREATED="1303868837496" ID="ID_1480915298" MODIFIED="1303869571394" POSITION="right" TEXT="function">
+<node COLOR="#0033ff" CREATED="1303882587145" ID="ID_112853880" MODIFIED="1324614770736" POSITION="right" TEXT="__builtin__">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1303868840855" ID="ID_126185981" MODIFIED="1303869571394" TEXT="def func(params):">
+<node COLOR="#00b439" CREATED="1303869435970" ID="ID_1908103255" MODIFIED="1303883906487" TEXT="help(object)">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="SansSerif" SIZE="16"/>
-</node>
-<node COLOR="#00b439" CREATED="1303868981529" ID="ID_1202174858" MODIFIED="1303869571394" TEXT="doc string">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1303869039117" ID="ID_231792202" MODIFIED="1324366161655" TEXT="&quot;&quot;&quot;">
+<node COLOR="#990000" CREATED="1303884595046" ID="ID_584543104" MODIFIED="1324366161692" TEXT="help(&quot;__builtin__&quot;)">
 <font NAME="SansSerif" SIZE="14"/>
 </node>
+<node COLOR="#990000" CREATED="1303887799410" ID="ID_1265333829" MODIFIED="1324366161693" TEXT="help(&quot;pass&quot;)">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1303882592254" ID="ID_1399095798" MODIFIED="1303882595738" TEXT="type()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303882596003" ID="ID_1114651225" MODIFIED="1303882598644" TEXT="str()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303882709305" ID="ID_1496420142" MODIFIED="1303882710727" TEXT="dir()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303882852916" ID="ID_793055649" MODIFIED="1303882854869" TEXT="callable()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303883231192" ID="ID_999097227" MODIFIED="1303884259109" TEXT="getattr()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1303884307214" ID="ID_873323911" MODIFIED="1324366161699" TEXT="Get a named attribute from an object">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+<node COLOR="#990000" CREATED="1303884308479" ID="ID_452406078" MODIFIED="1324366161700" TEXT="kernel of introspection">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1303885298884" ID="ID_1888230007" MODIFIED="1303885305540" TEXT="lambda function">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1324615367836" ID="ID_1473644722" MODIFIED="1324615379407" TEXT="repr()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1324615373979" ID="ID_1004733726" MODIFIED="1324615376645" TEXT="eval()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
 </node>
 </node>
 <node COLOR="#0033ff" CREATED="1303869857429" ID="ID_1309579113" MODIFIED="1303871142431" POSITION="right" TEXT="data type">
@@ -182,6 +219,21 @@
 </node>
 </node>
 </node>
+<node COLOR="#0033ff" CREATED="1303868837496" ID="ID_1480915298" MODIFIED="1324614778505" POSITION="right" TEXT="function">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="SansSerif" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1303868840855" ID="ID_126185981" MODIFIED="1303869571394" TEXT="def func(params):">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+</node>
+<node COLOR="#00b439" CREATED="1303868981529" ID="ID_1202174858" MODIFIED="1303869571394" TEXT="doc string">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="SansSerif" SIZE="16"/>
+<node COLOR="#990000" CREATED="1303869039117" ID="ID_231792202" MODIFIED="1324366161655" TEXT="&quot;&quot;&quot;">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
+</node>
+</node>
 <node COLOR="#0033ff" CREATED="1303869748799" ID="ID_1214160396" MODIFIED="1303869749955" POSITION="left" TEXT="__name__">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
@@ -206,50 +258,6 @@
 <node COLOR="#990000" CREATED="1303869539991" ID="ID_520028533" MODIFIED="1324366161689" TEXT="insert()">
 <font NAME="SansSerif" SIZE="14"/>
 </node>
-</node>
-</node>
-<node COLOR="#0033ff" CREATED="1303882587145" ID="ID_112853880" MODIFIED="1303883044398" POSITION="right" TEXT="__builtin__">
-<edge STYLE="sharp_bezier" WIDTH="8"/>
-<font NAME="SansSerif" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1303869435970" ID="ID_1908103255" MODIFIED="1303883906487" TEXT="help(object)">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1303884595046" ID="ID_584543104" MODIFIED="1324366161692" TEXT="help(&quot;__builtin__&quot;)">
-<font NAME="SansSerif" SIZE="14"/>
-</node>
-<node COLOR="#990000" CREATED="1303887799410" ID="ID_1265333829" MODIFIED="1324366161693" TEXT="help(&quot;pass&quot;)">
-<font NAME="SansSerif" SIZE="14"/>
-</node>
-</node>
-<node COLOR="#00b439" CREATED="1303882592254" ID="ID_1399095798" MODIFIED="1303882595738" TEXT="type()">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-</node>
-<node COLOR="#00b439" CREATED="1303882596003" ID="ID_1114651225" MODIFIED="1303882598644" TEXT="str()">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-</node>
-<node COLOR="#00b439" CREATED="1303882709305" ID="ID_1496420142" MODIFIED="1303882710727" TEXT="dir()">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-</node>
-<node COLOR="#00b439" CREATED="1303882852916" ID="ID_793055649" MODIFIED="1303882854869" TEXT="callable()">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-</node>
-<node COLOR="#00b439" CREATED="1303883231192" ID="ID_999097227" MODIFIED="1303884259109" TEXT="getattr()">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1303884307214" ID="ID_873323911" MODIFIED="1324366161699" TEXT="Get a named attribute from an object">
-<font NAME="SansSerif" SIZE="14"/>
-</node>
-<node COLOR="#990000" CREATED="1303884308479" ID="ID_452406078" MODIFIED="1324366161700" TEXT="kernel of introspection">
-<font NAME="SansSerif" SIZE="14"/>
-</node>
-</node>
-<node COLOR="#00b439" CREATED="1303885298884" ID="ID_1888230007" MODIFIED="1303885305540" TEXT="lambda function">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
 </node>
 </node>
 <node COLOR="#0033ff" CREATED="1303887596179" ID="ID_141192239" MODIFIED="1303887602944" POSITION="left" TEXT="import">
