@@ -122,9 +122,16 @@ http://scdc.mydlink.com:7777/api/services/publiccams
 
 http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85757055-87756740-67756740-72357335/sessions
 
-    csrf_token = request.session.get_csrf_token()
-26c3326aa6693c346816ab010c029d5c81412580
 
-479fdb86ceefc367513040acbb49ebaa6fc441c8
-str: ac66f77e6be6ee98fefda66ef29f84dd9626b6c2
+
+http://localhost:6543/api/devices/F07D680478CF30130738/acl/fakeput
+
+'http://192.168.0.204:8088''/oauth/cfm_email'?redirect_uri=http://scdc.mydlink.com&&confirmation_code=290a6495
+
+http://192.168.0.204:8088/oauth/cfm_email?redirect_uri=http://scdc.mydlink.com&&confirmation_code=1f7fb0ae
+
+#op group problems
+1.member empty str
+2.note on member modify
+
 
