@@ -63,6 +63,8 @@ sudo apt-get install mysql-server
 mysql -u root -p
 #create database csp_development libmysqld-dev
 #create database md_global;
+#修改密码
+mysqladmin -u用户名 -p password 新密码
 
 #redis
 sudo apt-get install tcl8.5
