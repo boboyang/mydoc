@@ -1,0 +1,21 @@
+＃grub 启动
+sudo grub
+>find /boot/grub/core.img 
+＃(hdx,y) (显示查找到的分区号）
+>find /boot/grub/stage1
+>root (hdx,y)
+>setup (hdx)
+>kernel /boot/grub/core.img (/boot分区的用 kernel /grub/core.img)
+>boot
+#这样一来，就可以进入linux系统了。
+
+#产生grub引导目录
+sudo update-grub
+如果不行的话，在重新进入linux后，可能需要执行grub-install。
+另外，如果手动清理了内核，可能需要执行一下grub-mkconfig -o /boot/grub/grub.cfg。
+
+#windows菜单
+grub
+>rootnoverify (hd0,0)
+>chainloader +1
+>boot
