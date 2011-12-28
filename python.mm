@@ -116,6 +116,9 @@
 <font NAME="SansSerif" SIZE="12"/>
 </node>
 </node>
+<node COLOR="#990000" CREATED="1325062036481" ID="ID_1179466531" MODIFIED="1325062045505" TEXT="dic=dict(zip(ls1,ls2))">
+<font NAME="SansSerif" SIZE="14"/>
+</node>
 </node>
 <node COLOR="#00b439" CREATED="1303869874225" ID="ID_1305167574" MODIFIED="1303884908531" TEXT="list">
 <edge STYLE="bezier" WIDTH="thin"/>

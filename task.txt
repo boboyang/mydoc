@@ -70,40 +70,6 @@ revokeDeviceFromSharers
 setSharingDevice
 setSharingDevice(1: AccessToken token,2:DeviceId deviceId,3:bool sharable)
 
-
-
-get sharing listed
-
-email,account
-
-2.
-Owner ------------> Sharer
-        invite(url)
-
-      <------------
-       (1) accept
-update acl
-      ------------>
-          updated  update devices
-      
-      <------------
-       (2) reject
-(end)
-
-3.account does not exist: limit max sharer number to 100, to avoid malicious act
-
-4.
-Owner <------------ Sharer
-        remove me
-update acl
-      ------------>
-          updated  update devices
-
-5.
-Owner ------------> Sharer
-        revoke     
-                   update devices
-
 ____________________________
 
 我們需要restful api來建立client連device的session
@@ -122,16 +88,50 @@ http://scdc.mydlink.com:7777/api/services/publiccams
 
 http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85757055-87756740-67756740-72357335/sessions
 
-
-
-http://localhost:6543/api/devices/F07D680478CF30130738/acl/fakeput
-
-'http://192.168.0.204:8088''/oauth/cfm_email'?redirect_uri=http://scdc.mydlink.com&&confirmation_code=290a6495
+### device share
+#invite
+http://localhost:8901/api/devices/F07D680478CF30130738/acl/fakeput
 
 http://192.168.0.204:8088/oauth/cfm_email?redirect_uri=http://scdc.mydlink.com&&confirmation_code=1f7fb0ae
+
+setEmailCfmUrl(settings['nbs_host']+settings['email_cfm_path'])
+
+nexus_server = ['127.0.0.1:9090']
+email_cfm_path = '/oauth/cfm_email'
+forget_pwd_path = '/oauth/forgetpwd'
+reset_pwd_path = '/oauth/resetpwd'
 
 #op group problems
 1.member empty str
 2.note on member modify
 http://scdc.mydlink.com:15432/cfmDevShare?sharing_key=MTEzNzEwMC1SRFVT
 http://localhost:8901/cfmDevShare?sharing_key=MTEzODEwMC1SRFVT
+return:
+{"mac": "F07D680478D3", "mydlink_id": "30131823"}
+
+MAC:F07D680478D3
+whille5@163.com
+cfmDevShare?sharing_key=MTE0NTEwMC1SRFVT
+{"mac": "F07D680478D3", "mydlink_id": "30131823"}
+1. why? whille5 still cannot see it
+but test1 can see acl emails of whille5
+
+recall error:
+path:/me/device/recall
+params:{'access_token': '629527c2-41ff-4775-85af-e19815825355'}
+data:{"data": {"mac": "F07D680478D3", "mydlink_id": "30131823", "members": ["whille3@163.com", "whille4@163.com"]}}
+remote ip:None
+res.status:400
+{'error_type': 'DeviceException', 'error_message': 'Invalid Parameter', 'result': False}
+
+2. why 400?
+
+#unbind
+http://localhost:8901/api/devices/F07D680478CC30131825/fakedel
+POST /me/device/del
+{
+"data": { "mac": "F07D68022D93", "mydlink_id": "30038291", "password": "12345678" }
+}
+password used here, so user UI redirection needed.
+
+

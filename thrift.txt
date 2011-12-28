@@ -1,0 +1,5 @@
+tar -zxvf thrift-0.8.0.tar.gz 
+./configure -without-erlang
+make;sudo make install
+#whereis thrift
+

@@ -2,7 +2,7 @@
  js框架有用jquery , mustache  iCanHaz
  还有coffee-script
  后端通信协议为thrift
-wsgi-gateway
+wsgi-gateway:uWSGI
 
 
 https://scdc.mydlink.com:16888/wiki/doku.php?id=mydlink_3.0
@@ -14,24 +14,57 @@ setup.py
 # 熟悉supervisior和fabric, virtualenv,<<持续交付>>
 
 #supervisitor
-sudo apt-get install supervisor
+cd ~/env
+bin/easy_install supervisor
+mkdir deploy
+bin/echo_supervisord_conf >deploy/supervisord.conf
+vim deploy/supervisord.conf
+
 
 #test on SCDC
 localhost:8901
 username:   test1@mydlink.com  
 password:   12345678
 
-# curl
-# save cookie file
-curl -s -c cookie.txt localhost:6543/test_csrf
-#cat cookie.txt 
-
-token=$(curl -s -b cookie.txt localhost:6543/test_csrf| tr -d '"')
-
-#send POST, renew token
-token=$(curl -s -b cookie.txt  localhost:6543/test_csrf -d 'csrf_token='$token |tr -d '"')
-
 # list files sort by time, revert
 ll -rt
 
+# curl
+#GET: 
+#	curl "uri?key1=value1&key2=value2"
+#POST: 
+#   curl -d "key1=val1&key2=val2" "uri"
+#PUT: 
+#   First, create a file named "envelope" that contains:
+#   k1=v1&k2=v2
+#Then, run:
+#   curl -T envelope "uri"
+#DELETE: 
+#   curl -X DELETE "uri"
+
+SERVER_IP=localhost:8901
+USER=test1@mydlink.com
+PASSWD=12345678
+
+TOKEN=$(curl -s -c cookie.txt $SERVER_IP/signin |grep -o "csrf_token.*"|grep -o '[^ ]\{40,\}')
+curl -s -b cookie.txt $SERVER_IP/signin -d "name="$USER"&passwd="$PASSWD"&csrf_token="$TOKEN
+
+#test
+#curl -s -b cookie.txt $SERVER_IP/api/devices
+# save cookie file
+#cat cookie.txt 
+
+#fake udpate acl
+echo '{"emails":{"append":["whille@163.com"],"remove":["whille4@163.com"]}}'>PUTDATA
+curl -s -b cookie.txt -T PUTDATA $SERVER_IP/api/devices/F07D680478EF30131828/acl
+
+#delete device
+curl -s -b cookie.txt -X DELETE $SERVER_IP/api/devices/F07D680478EF30131828
+
+# connect divice
+curl -s -b cookie.txt -X POST $SERVER_IP/api/devices/F07D680478F830130760/session
+
+ {'error_type': 'DeviceException', 'error_message': 'Invalid Owner', 'result': False}
+
+# so should bind first
 
