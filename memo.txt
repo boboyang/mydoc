@@ -2,7 +2,7 @@
  js框架有用jquery , mustache  iCanHaz
  还有coffee-script
  后端通信协议为thrift
-wsgi-gateway
+wsgi-gateway:uWSGI
 
 
 https://scdc.mydlink.com:16888/wiki/doku.php?id=mydlink_3.0
@@ -14,22 +14,11 @@ setup.py
 # 熟悉supervisior和fabric, virtualenv,<<持续交付>>
 
 #supervisitor
-sudo apt-get install supervisor
-
-#test on SCDC
-localhost:8901
-username:   test1@mydlink.com  
-password:   12345678
-
-# curl
-# save cookie file
-curl -s -c cookie.txt localhost:6543/test_csrf
-#cat cookie.txt 
-
-token=$(curl -s -b cookie.txt localhost:6543/test_csrf| tr -d '"')
-
-#send POST, renew token
-token=$(curl -s -b cookie.txt  localhost:6543/test_csrf -d 'csrf_token='$token |tr -d '"')
+cd ~/env
+bin/easy_install supervisor
+mkdir deploy
+bin/echo_supervisord_conf >deploy/supervisord.conf
+vim deploy/supervisord.conf
 
 # list files sort by time, revert
 ll -rt

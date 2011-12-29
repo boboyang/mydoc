@@ -2,7 +2,6 @@
 统计service portal 的API 与wiki 的区别
 
 mydlink_3.0 • gabriel.thrift
-Please refer the gabriel.thrift file in the mydlink V3 repository
 enum GabrielDeviceType  {    PRIVATE=0,  
                              OTHERS=1,
                              PUBLIC=2,
@@ -25,13 +24,16 @@ path = '/me/device/unshare'
 result:
 device pending ->members
 
-
 4. me/device/unshare
 update_device_acl_view() calls:
     socialcam_invite()
     socialcam_unshare()
 
 5. delete device:
+devType:
+bit 2: device sharing
+bit 1: the public cam
+bit 0: for the ownership
 
 socialcam_remove
     me/device/renounce    remove self email from device/accessible
@@ -59,9 +61,7 @@ owner
         }
     ) 
 
-?
-robot attack, like massive share, frequent share/unshare
-
+____________________________
 Nexus API:
 
 acceptSharingDevice
@@ -69,48 +69,10 @@ deleteSharingDevice
 revokeDeviceFromSharers
 setSharingDevice
 setSharingDevice(1: AccessToken token,2:DeviceId deviceId,3:bool sharable)
-
-
-
-get sharing listed
-
-email,account
-
-2.
-Owner ------------> Sharer
-        invite(url)
-
-      <------------
-       (1) accept
-update acl
-      ------------>
-          updated  update devices
-      
-      <------------
-       (2) reject
-(end)
-
-3.account does not exist: limit max sharer number to 100, to avoid malicious act
-
-4.
-Owner <------------ Sharer
-        remove me
-update acl
-      ------------>
-          updated  update devices
-
-5.
-Owner ------------> Sharer
-        revoke     
-                   update devices
-
 ____________________________
 
 我們需要restful api來建立client連device的session
  /api/devices/{device id}/sessions POST
-F07D6804791430130743
- /api/devices/{{device id}}/sessions
-這個是用/lib/NBS/client.py中device_connect()
 
 這個function中要傳入一個device_data的dict, 裡面要有device的mac & mydlink_id
 [2:30:45 PM CST] flow: device id應該是mac + mydlink_id, 你用這種方式去切
@@ -122,16 +84,8 @@ http://scdc.mydlink.com:7777/api/services/publiccams
 
 http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85757055-87756740-67756740-72357335/sessions
 
-
-
-http://localhost:6543/api/devices/F07D680478CF30130738/acl/fakeput
-
-'http://192.168.0.204:8088''/oauth/cfm_email'?redirect_uri=http://scdc.mydlink.com&&confirmation_code=290a6495
-
-http://192.168.0.204:8088/oauth/cfm_email?redirect_uri=http://scdc.mydlink.com&&confirmation_code=1f7fb0ae
-
 #op group problems
-1.member empty str
 2.note on member modify
-http://scdc.mydlink.com:15432/cfmDevShare?sharing_key=MTEzNzEwMC1SRFVT
-http://localhost:8901/cfmDevShare?sharing_key=MTEzODEwMC1SRFVT
+
+
+
