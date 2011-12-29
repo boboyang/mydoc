@@ -6,12 +6,12 @@
 <node COLOR="#0033ff" CREATED="1324573777561" ID="ID_989984349" MODIFIED="1324714312382" POSITION="right" TEXT="URL Dispatch route">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1322886139682" FOLDED="true" ID="ID_913706982" MODIFIED="1324714312415" TEXT="config.">
+<node COLOR="#00b439" CREATED="1322886139682" ID="ID_913706982" MODIFIED="1325164466560" TEXT="config.">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
-<node COLOR="#ff66cc" CREATED="1324575988381" FOLDED="true" ID="ID_446029751" MODIFIED="1324714312409" TEXT="root_factory">
+<node COLOR="#ff66cc" CREATED="1324575988381" ID="ID_446029751" MODIFIED="1325164466571" TEXT="root_factory">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
-<node COLOR="#111111" CREATED="1324575771980" FOLDED="true" ID="ID_934270246" MODIFIED="1324714312398" TEXT="__acl__">
+<node COLOR="#111111" CREATED="1324575771980" ID="ID_934270246" MODIFIED="1325164466580" TEXT="__acl__">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 <node COLOR="#111111" CREATED="1324575767925" ID="ID_923020976" MODIFIED="1324649086011" TEXT="resource object">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -24,7 +24,7 @@
 <node COLOR="#ff66cc" CREATED="1322886141182" ID="ID_1688985538" MODIFIED="1324649086012" TEXT="add_route">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
-<node COLOR="#ff66cc" CREATED="1324576068590" FOLDED="true" ID="ID_797534905" MODIFIED="1324714312412" TEXT=".include">
+<node COLOR="#ff66cc" CREATED="1324576068590" ID="ID_797534905" MODIFIED="1325164466584" TEXT=".include">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1324576063806" ID="ID_270877437" MODIFIED="1324649086014" TEXT="route_prefix">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -34,7 +34,7 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1324573782270" FOLDED="true" ID="ID_1928969169" MODIFIED="1324714312423" TEXT="syntax">
+<node COLOR="#00b439" CREATED="1324573782270" ID="ID_1928969169" MODIFIED="1325164466587" TEXT="syntax">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324573786142" ID="ID_615370784" MODIFIED="1324649086017" TEXT="replacement marker {}">
@@ -44,14 +44,14 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1324574370194" FOLDED="true" ID="ID_262088207" MODIFIED="1324714312426" TEXT="append_slash_notfound_view">
+<node COLOR="#00b439" CREATED="1324574370194" ID="ID_262088207" MODIFIED="1325164466592" TEXT="append_slash_notfound_view">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324574380914" ID="ID_257662356" MODIFIED="1324649086024" TEXT="config.add_view">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1324574622724" FOLDED="true" ID="ID_1013538706" MODIFIED="1324714312428" TEXT="debug_routematch">
+<node COLOR="#00b439" CREATED="1324574622724" ID="ID_1013538706" MODIFIED="1325164466604" TEXT="debug_routematch">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324574638996" ID="ID_579542346" MODIFIED="1324649086027" TEXT=".ini">
@@ -84,10 +84,10 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1322880602351" FOLDED="true" ID="ID_1501915883" MODIFIED="1324714312477" TEXT="Application Configuration">
+<node COLOR="#00b439" CREATED="1322880602351" ID="ID_1501915883" MODIFIED="1325164466608" TEXT="Application Configuration">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
-<node COLOR="#ff66cc" CREATED="1322881338571" FOLDED="true" ID="ID_63112426" MODIFIED="1324714312471" TEXT="imperative">
+<node COLOR="#ff66cc" CREATED="1322881338571" ID="ID_63112426" MODIFIED="1325164466617" TEXT="imperative">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1322880735668" ID="ID_248423830" MODIFIED="1324649086037" TEXT="config = Configurator()">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -99,21 +99,21 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 </node>
 </node>
-<node COLOR="#ff66cc" CREATED="1322881344567" FOLDED="true" ID="ID_611751805" MODIFIED="1324714312475" TEXT="declarative">
+<node COLOR="#ff66cc" CREATED="1322881344567" ID="ID_611751805" MODIFIED="1325164466622" TEXT="declarative">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1322881403113" ID="ID_697720129" MODIFIED="1324649086046" TEXT="@view_config">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 </node>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1322880612688" FOLDED="true" ID="ID_856808747" MODIFIED="1324714312482" TEXT="WSGI Application Creation">
+<node COLOR="#00b439" CREATED="1322880612688" ID="ID_856808747" MODIFIED="1325164466624" TEXT="WSGI Application Creation">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1322880725859" ID="ID_1055550877" MODIFIED="1324649086049" TEXT="app = config.make_wsgi_app()">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1322880673314" FOLDED="true" ID="ID_586740916" MODIFIED="1324714312485" TEXT="WSGI Application Serving">
+<node COLOR="#00b439" CREATED="1322880673314" ID="ID_586740916" MODIFIED="1325164466628" TEXT="WSGI Application Serving">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1322880709715" ID="ID_550304534" MODIFIED="1324649086056" TEXT="serve(app, host=&apos;0.0.0.0&apos;)">
@@ -124,14 +124,14 @@
 <node COLOR="#0033ff" CREATED="1322879296870" ID="ID_836576627" MODIFIED="1324714312493" POSITION="left" TEXT="create app">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1322876463853" FOLDED="true" ID="ID_699661538" MODIFIED="1324714312523" TEXT="create using Scaffolds">
+<node COLOR="#00b439" CREATED="1322876463853" ID="ID_699661538" MODIFIED="1325164466633" TEXT="create using Scaffolds">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1322876350265" ID="ID_1853218400" MODIFIED="1324649086074" TEXT="bin/paster create -t pyramid_starter">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
-<node COLOR="#ff66cc" CREATED="1322878081632" FOLDED="true" ID="ID_158229779" MODIFIED="1324714312521" TEXT="bin/paster create -t pyramid_routesalchemy">
+<node COLOR="#ff66cc" CREATED="1322878081632" ID="ID_158229779" MODIFIED="1325164466640" TEXT="bin/paster create -t pyramid_routesalchemy">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1322878181755" ID="ID_23182141" MODIFIED="1324649086076" TEXT="csp">
@@ -143,7 +143,7 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1322878797414" FOLDED="true" ID="ID_762850829" MODIFIED="1324714312528" TEXT="install">
+<node COLOR="#00b439" CREATED="1322878797414" ID="ID_762850829" MODIFIED="1325164466645" TEXT="install">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1322878208004" ID="ID_65840655" MODIFIED="1324649086080" TEXT="cd csp&#xa;../bin/python setup.py develop">
@@ -151,7 +151,7 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1322878806072" FOLDED="true" ID="ID_1702886754" MODIFIED="1324714312530" TEXT="run test">
+<node COLOR="#00b439" CREATED="1322878806072" ID="ID_1702886754" MODIFIED="1325164466649" TEXT="run test">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1322878744469" ID="ID_830287633" MODIFIED="1324649086087" TEXT="../bin/python setup.py test -q">
@@ -159,7 +159,7 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1322878834376" FOLDED="true" ID="ID_1399755132" MODIFIED="1324714312532" TEXT="run app">
+<node COLOR="#00b439" CREATED="1322878834376" ID="ID_1399755132" MODIFIED="1325164466655" TEXT="run app">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1322878837880" ID="ID_1975922248" MODIFIED="1324649086093" TEXT="../bin/paster serve development.ini">
@@ -171,17 +171,17 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1322879086816" FOLDED="true" ID="ID_1524814856" MODIFIED="1324649086096" TEXT="The Project Structure">
+<node COLOR="#00b439" CREATED="1322879086816" ID="ID_1524814856" MODIFIED="1325164466659" TEXT="The Project Structure">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
-<node COLOR="#ff66cc" CREATED="1322879131681" FOLDED="true" ID="ID_345474556" MODIFIED="1324714312546" TEXT="development.ini">
+<node COLOR="#ff66cc" CREATED="1322879131681" ID="ID_345474556" MODIFIED="1325164466679" TEXT="development.ini">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
-<node COLOR="#111111" CREATED="1322879596736" FOLDED="true" ID="ID_1974284822" MODIFIED="1324714312539" TEXT="db">
+<node COLOR="#111111" CREATED="1322879596736" ID="ID_1974284822" MODIFIED="1325164466690" TEXT="db">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
-<node COLOR="#111111" CREATED="1322879820412" FOLDED="true" ID="ID_100155416" MODIFIED="1324714312536" TEXT="mysql">
+<node COLOR="#111111" CREATED="1322879820412" ID="ID_100155416" MODIFIED="1325164466696" TEXT="mysql">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
-<node COLOR="#111111" CREATED="1322879592004" FOLDED="true" ID="ID_1970574107" MODIFIED="1324714312534" TEXT="sqlalchemy.localdb.url">
+<node COLOR="#111111" CREATED="1322879592004" ID="ID_1970574107" MODIFIED="1325164466701" TEXT="sqlalchemy.localdb.url">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 <node COLOR="#111111" CREATED="1322879756926" ID="ID_1357595849" MODIFIED="1324649086101" TEXT="mysql://root@127.0.0.1/csp_development">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -198,7 +198,7 @@
 <node COLOR="#111111" CREATED="1322879850927" ID="ID_1540596907" MODIFIED="1324649086103" TEXT="redis">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 </node>
-<node COLOR="#111111" CREATED="1322879852456" FOLDED="true" ID="ID_1459687644" MODIFIED="1324714312544" TEXT="cspservice">
+<node COLOR="#111111" CREATED="1322879852456" ID="ID_1459687644" MODIFIED="1325164466704" TEXT="cspservice">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 <node COLOR="#111111" CREATED="1322879886781" ID="ID_1622379869" MODIFIED="1324649086121" TEXT="host">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -215,10 +215,10 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
-<node COLOR="#ff66cc" CREATED="1322879105680" FOLDED="true" ID="ID_1683606021" MODIFIED="1324714312557" TEXT="setup.py">
+<node COLOR="#ff66cc" CREATED="1322879105680" ID="ID_1683606021" MODIFIED="1325164466707" TEXT="setup.py">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
-<node COLOR="#111111" CREATED="1322879922623" FOLDED="true" ID="ID_727095111" MODIFIED="1324714312555" TEXT="requires">
+<node COLOR="#111111" CREATED="1322879922623" ID="ID_727095111" MODIFIED="1325164466716" TEXT="requires">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 <node COLOR="#111111" CREATED="1322879949291" ID="ID_1851072004" MODIFIED="1324649086125" TEXT="     &apos;redis&apos;,&#xa;    &apos;pyramid_mailer&apos;,&#xa;    &apos;coverage&apos;,&#xa;    &apos;MySQL-python&apos;,&#xa;    &apos;thrift&apos;,&#xa;    &apos;pyramid_jinja2&apos;,">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -238,13 +238,13 @@
 <node COLOR="#0033ff" CREATED="1322882448138" ID="ID_1767880717" MODIFIED="1324714312562" POSITION="right" TEXT="Views">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1324576215471" FOLDED="true" ID="ID_907091158" MODIFIED="1324714312577" TEXT="callable">
+<node COLOR="#00b439" CREATED="1324576215471" ID="ID_907091158" MODIFIED="1325164466720" TEXT="callable">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324576219343" ID="ID_573515187" MODIFIED="1324649086139" TEXT="function">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
-<node COLOR="#ff66cc" CREATED="1324576222543" FOLDED="true" ID="ID_360257064" MODIFIED="1324714312575" TEXT="class">
+<node COLOR="#ff66cc" CREATED="1324576222543" ID="ID_360257064" MODIFIED="1325164466726" TEXT="class">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1324576236223" ID="ID_1325727219" MODIFIED="1324649086140" TEXT="__init__ ">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -258,17 +258,17 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1324576305599" FOLDED="true" ID="ID_1163410329" MODIFIED="1324714312583" TEXT="exception">
+<node COLOR="#00b439" CREATED="1324576305599" ID="ID_1163410329" MODIFIED="1325164466730" TEXT="exception">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
-<node COLOR="#ff66cc" CREATED="1324576319567" FOLDED="true" ID="ID_38312694" MODIFIED="1324714312582" TEXT="raise">
+<node COLOR="#ff66cc" CREATED="1324576319567" ID="ID_38312694" MODIFIED="1325164466733" TEXT="raise">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1324576336384" ID="ID_734046664" MODIFIED="1324649086146" TEXT="pyramid.httpexceptions ">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 </node>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1324576385200" FOLDED="true" ID="ID_1743993982" MODIFIED="1324714312586" TEXT="redirect">
+<node COLOR="#00b439" CREATED="1324576385200" ID="ID_1743993982" MODIFIED="1325164466737" TEXT="redirect">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324576417536" ID="ID_1809014701" MODIFIED="1324649086148" TEXT="raise HTTPFound(location= &apos;XXX&apos;)">
@@ -283,7 +283,7 @@
 <node COLOR="#0033ff" CREATED="1322882453610" ID="ID_247035930" MODIFIED="1324714312589" POSITION="right" TEXT="Renderers">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1324576551809" FOLDED="true" ID="ID_1270427757" MODIFIED="1324714312595" TEXT="built-in">
+<node COLOR="#00b439" CREATED="1324576551809" ID="ID_1270427757" MODIFIED="1325164466740" TEXT="built-in">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324576556401" ID="ID_563205573" MODIFIED="1324649086158" TEXT="string">
@@ -309,15 +309,15 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1322965611858" FOLDED="true" ID="ID_355461712" MODIFIED="1324714312659" TEXT="pyramid_jinja2">
+<node COLOR="#00b439" CREATED="1322965611858" ID="ID_355461712" MODIFIED="1325164466747" TEXT="pyramid_jinja2">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1322964699093" ID="ID_718170453" MODIFIED="1324649086173" TEXT="sudo easy_install pyramid_jinja2">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
-<node COLOR="#ff66cc" CREATED="1322965617074" FOLDED="true" ID="ID_1725411703" MODIFIED="1324714312632" TEXT="setup">
+<node COLOR="#ff66cc" CREATED="1322965617074" ID="ID_1725411703" MODIFIED="1325164466759" TEXT="setup">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
-<node COLOR="#111111" CREATED="1322965633154" FOLDED="true" ID="ID_151215789" MODIFIED="1324714312629" TEXT="development.ini">
+<node COLOR="#111111" CREATED="1322965633154" ID="ID_151215789" MODIFIED="1325164466764" TEXT="development.ini">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 <node COLOR="#111111" CREATED="1322965637330" ID="ID_241017089" MODIFIED="1324649086181" TEXT="config.include(&apos;pyramid_jinja2&apos;)">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -327,9 +327,9 @@
 </node>
 </node>
 </node>
-<node COLOR="#ff66cc" CREATED="1322965785936" FOLDED="true" ID="ID_385569467" MODIFIED="1324714312645" TEXT="Usage">
+<node COLOR="#ff66cc" CREATED="1322965785936" ID="ID_385569467" MODIFIED="1325164466767" TEXT="Usage">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
-<node COLOR="#111111" CREATED="1322966064078" FOLDED="true" ID="ID_1810758988" MODIFIED="1324714312635" TEXT="Template Lookups">
+<node COLOR="#111111" CREATED="1322966064078" ID="ID_1810758988" MODIFIED="1325164466771" TEXT="Template Lookups">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
 <node COLOR="#111111" CREATED="1322967437704" ID="ID_1016129280" MODIFIED="1324649086185" TEXT="Template Inheritance">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -342,7 +342,7 @@
 <node COLOR="#ff66cc" CREATED="1322968246389" ID="ID_1100184591" MODIFIED="1324649086191" TEXT="Filters">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
-<node COLOR="#ff66cc" CREATED="1322968251429" FOLDED="true" ID="ID_494610817" MODIFIED="1324714312648" TEXT="create a project">
+<node COLOR="#ff66cc" CREATED="1322968251429" ID="ID_494610817" MODIFIED="1325164466773" TEXT="create a project">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1322969786522" ID="ID_1018638522" MODIFIED="1324649086192" TEXT="paster create -t pyramid_jinja2_starter">
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="12"/>
@@ -360,7 +360,7 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1324605069226" FOLDED="true" ID="ID_263378178" MODIFIED="1324714312704" TEXT="parameters">
+<node COLOR="#00b439" CREATED="1324605069226" ID="ID_263378178" MODIFIED="1325164466777" TEXT="parameters">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324605418273" ID="ID_848150968" MODIFIED="1324649086202" TEXT="renderer ">
@@ -379,7 +379,7 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
-<node COLOR="#ff66cc" CREATED="1324605794208" FOLDED="true" ID="ID_890646111" MODIFIED="1324714312702" TEXT="request_param">
+<node COLOR="#ff66cc" CREATED="1324605794208" ID="ID_890646111" MODIFIED="1325164466786" TEXT="request_param">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1324608848842" ID="ID_746434344" MODIFIED="1324649086216" TEXT="=&quot;foo=123&quot;">
@@ -414,7 +414,7 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1324610617869" FOLDED="true" ID="ID_927102673" MODIFIED="1324714312719" TEXT="Request ">
+<node COLOR="#00b439" CREATED="1324610617869" ID="ID_927102673" MODIFIED="1325164466789" TEXT="Request ">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324615418594" ID="ID_619688379" MODIFIED="1324649086227" TEXT="params">
@@ -429,7 +429,7 @@
 <node COLOR="#0033ff" CREATED="1322882517180" ID="ID_1331660312" MODIFIED="1324714312727" POSITION="right" TEXT="Sessions">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1324621144291" FOLDED="true" ID="ID_925841145" MODIFIED="1324714312744" TEXT="factory">
+<node COLOR="#00b439" CREATED="1324621144291" ID="ID_925841145" MODIFIED="1325164466793" TEXT="factory">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324621147458" ID="ID_1025631938" MODIFIED="1324649086231" TEXT="UnencryptedCookieSessionFactoryConfig ">
@@ -440,7 +440,7 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1324621409931" FOLDED="true" ID="ID_742838976" MODIFIED="1324714312749" TEXT="using session obj">
+<node COLOR="#00b439" CREATED="1324621409931" ID="ID_742838976" MODIFIED="1325164466798" TEXT="using session obj">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324621421785" ID="ID_1617832779" MODIFIED="1324649086233" TEXT="dict method">
@@ -463,7 +463,7 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1324621349540" FOLDED="true" ID="ID_424217390" MODIFIED="1324714312754" TEXT="session.csrf_token ">
+<node COLOR="#00b439" CREATED="1324621349540" ID="ID_424217390" MODIFIED="1325164466804" TEXT="session.csrf_token ">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324621618333" ID="ID_1099664467" MODIFIED="1324649086242" TEXT="get_csrf_token()">
@@ -485,10 +485,10 @@
 <node COLOR="#0033ff" CREATED="1322882539725" ID="ID_1254027529" MODIFIED="1324714312761" POSITION="right" TEXT="Logging">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1324632207892" FOLDED="true" ID="ID_666658549" MODIFIED="1324714312778" TEXT=".ini">
+<node COLOR="#00b439" CREATED="1324632207892" ID="ID_666658549" MODIFIED="1325164466810" TEXT=".ini">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
-<node COLOR="#ff66cc" CREATED="1324632205493" FOLDED="true" ID="ID_962816935" MODIFIED="1324714312775" TEXT="[loggers]">
+<node COLOR="#ff66cc" CREATED="1324632205493" ID="ID_962816935" MODIFIED="1325164466819" TEXT="[loggers]">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1324632224060" ID="ID_101237737" MODIFIED="1324649086251" TEXT="[logger_root]">
@@ -529,7 +529,7 @@
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 </node>
-<node COLOR="#00b439" CREATED="1324634526498" FOLDED="true" ID="ID_634868604" MODIFIED="1324714312783" TEXT="script">
+<node COLOR="#00b439" CREATED="1324634526498" ID="ID_634868604" MODIFIED="1325164466823" TEXT="script">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324634529099" ID="ID_1559057193" MODIFIED="1324649086261" TEXT="pyramid.paster.bootstrap() ">
@@ -552,7 +552,7 @@
 <node COLOR="#0033ff" CREATED="1322882607791" ID="ID_1945236148" MODIFIED="1324649086264" POSITION="right" TEXT="Resources">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1324649549254" FOLDED="true" ID="ID_1880983071" MODIFIED="1324714312786" TEXT="Location-Aware">
+<node COLOR="#00b439" CREATED="1324649549254" ID="ID_1880983071" MODIFIED="1325164466831" TEXT="Location-Aware">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324649551813" ID="ID_548228420" MODIFIED="1324649561091" TEXT="__parent__">
@@ -562,7 +562,7 @@
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1324649653189" FOLDED="true" ID="ID_699205515" MODIFIED="1324714312789" TEXT="url = request.resource_url(resource) ">
+<node COLOR="#00b439" CREATED="1324649653189" ID="ID_699205515" MODIFIED="1325164466836" TEXT="url = request.resource_url(resource) ">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324649776614" ID="ID_1587786614" MODIFIED="1324649786813" TEXT="query= {&#x2019;a&#x2019;:&#x2019;1&#x2019;})">
@@ -581,10 +581,10 @@
 <node COLOR="#0033ff" CREATED="1322882614479" ID="ID_1715196321" MODIFIED="1324655196548" POSITION="right" TEXT="Traversal">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1324653895844" FOLDED="true" ID="ID_26156711" MODIFIED="1324714312793" TEXT="resource tree">
+<node COLOR="#00b439" CREATED="1324653895844" ID="ID_26156711" MODIFIED="1325164466840" TEXT="resource tree">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
-<node COLOR="#ff66cc" CREATED="1324653891218" FOLDED="true" ID="ID_537947205" MODIFIED="1324714312791" TEXT="root resource ">
+<node COLOR="#ff66cc" CREATED="1324653891218" ID="ID_537947205" MODIFIED="1325164466844" TEXT="root resource ">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="14"/>
 <node COLOR="#111111" CREATED="1324653910674" ID="ID_302189255" MODIFIED="1324654070836" TEXT="root_factory ">
@@ -592,7 +592,7 @@
 </node>
 </node>
 </node>
-<node COLOR="#00b439" CREATED="1324655203668" FOLDED="true" ID="ID_192669232" MODIFIED="1324714312797" TEXT="Interface">
+<node COLOR="#00b439" CREATED="1324655203668" ID="ID_192669232" MODIFIED="1325164466846" TEXT="Interface">
 <edge STYLE="bezier" WIDTH="thin"/>
 <font NAME="&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;" SIZE="16"/>
 <node COLOR="#ff66cc" CREATED="1324655305680" ID="ID_1093694244" MODIFIED="1324655313787" TEXT="alsoProvides() ">
