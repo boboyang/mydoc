@@ -46,6 +46,12 @@ sudo update-alternatives --config java
 #python
 sudo apt-get install python2.7-dev python-setuptools python-virtualenv
 
+$ curl -kL http://github.com/utahta/pythonbrew/raw/master/pythonbrew-install | bash
+$ . $HOME/.pythonbrew/etc/bashrc
+$ pythonbrew install 2.7.2
+$ pythonbrew switch 2.7.2
+$ python -V
+
 #scdc
 ssh whillewang@scdc.mydlink.com -p 2221
 #password: whillewang2011
