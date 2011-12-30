@@ -4,6 +4,9 @@
  后端通信协议为thrift
 wsgi-gateway:uWSGI
 
+linux中一些deamon程序，由于一般只运行一个，因此就只有一个唯一的pid，
+因此为了其他程序方便知道该deamon的pid，就自建了一个pid file,一般是/var/run/deamon_name.pid
+
 
 https://scdc.mydlink.com:16888/wiki/doku.php?id=mydlink_3.0
 [8:41:06] Edward Wang: whillewang/whillewang2011
@@ -11,16 +14,40 @@ https://scdc.mydlink.com:16888/wiki/doku.php?id=mydlink_3.0
 setup.py
   [paste.paster_command]
 
-# 熟悉supervisior和fabric, virtualenv,<<持续交付>>
+# <<持续交付>>
+
+# 熟悉supervisior和fabric, virtualenv,
+# fab -f fab_206_wzg.py deploy
+
 
 #supervisitor
+#install
 cd ~/env
 bin/easy_install supervisor
+
+#create supervisord.conf
 mkdir deploy
 bin/echo_supervisord_conf >deploy/supervisord.conf
+#http://supervisord.org/configuration.html#programx-section
+#It is used by both supervisord and supervisorctl
+
 vim deploy/supervisord.conf
+
 
 # list files sort by time, revert
 ll -rt
+
+#gearman
+sudo apt-get install gearman-job-server
+sudo apt-get install gearman-tools
+easy_install gearman
+#job server start
+gearmand -d
+
+# worker example
+gearman -w -f mywc -- wc -l &
+# client example
+gearman -f mywc < /etc/passwd
+
 
 

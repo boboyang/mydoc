@@ -1,4 +1,8 @@
 #redis commands
+$redis-cli
+redis 127.0.0.1:6379>
+>quit
+$
 set foo bar
 get foo
 incr mycounts #automic operation

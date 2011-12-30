@@ -1,12 +1,12 @@
 
 统计service portal 的API 与wiki 的区别
-
+____________________________
 mydlink_3.0 • gabriel.thrift
 enum GabrielDeviceType  {    PRIVATE=0,  
                              OTHERS=1,
                              PUBLIC=2,
                              SHARED=4,
---------------------------------------------
+____________________________
 share devices:
 
 socialcam_invite()
@@ -29,9 +29,8 @@ update_device_acl_view() calls:
     socialcam_invite()
     socialcam_unshare()
 
-5. delete device:
 devType:
-bit 2: device sharing
+bit 2: 1 for device sharing, /api/devices/{id}/share/1
 bit 1: the public cam
 bit 0: for the ownership
 
@@ -72,7 +71,7 @@ setSharingDevice(1: AccessToken token,2:DeviceId deviceId,3:bool sharable)
 ____________________________
 
 我們需要restful api來建立client連device的session
- /api/devices/{device id}/sessions POST
+POST /api/devices/{device id}/sessions
 
 這個function中要傳入一個device_data的dict, 裡面要有device的mac & mydlink_id
 [2:30:45 PM CST] flow: device id應該是mac + mydlink_id, 你用這種方式去切
@@ -80,12 +79,8 @@ ____________________________
 第二個API是publiccam的connect
 POST /api/services/publiccams/cams/{publiccam id}/sessions
 
-http://scdc.mydlink.com:7777/api/services/publiccams
-
 http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85757055-87756740-67756740-72357335/sessions
 
-#op group problems
-2.note on member modify
-
+process_deviceConnReq
 
 
