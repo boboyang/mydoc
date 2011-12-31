@@ -83,4 +83,27 @@ http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85
 
 process_deviceConnReq
 
+# demo of membuffer to binary buffer
+MsInfoDataEncoder(gearman.DataEncoder):
+    @classmethod
+    def encode(cls, encodable_object):
+        transportOut = TTransport.TMemoryBuffer()
+        protocolOut = TBinaryProtocol.TBinaryProtocol(transportOut)
+        #outThrift = MediaService.Client(iprot=None,oprot=protocolOut)
+        #outThrift.send_GetMsInfo(encodable_object)
+        EntityStorage.Client(iprot=None,oprot=protocolOut).send_getMsInfo(encodable_object)
+        bytes = transportOut.getvalue()
+        return bytes
+
+    @classmethod
+    def decode(cls, decodable_string):
+        transportIn = TTransport.TMemoryBuffer(decodable_string)
+        protocolIn = TBinaryProtocol.TBinaryProtocol(transportIn)
+        #inThrift = MediaService.Client(iprot=protocolIn,oprot=None) # This is the thrift client
+        #rcv = inThrift.recv_GetMsInfo()
+        rcv = EntityStorage.Client(iprot=protocolIn,oprot=None).recv_getMsInfo()
+        return rcv
+
+class Client(gabriel.SharedService.Client, Iface):
+	def deviceConnReqToSld(self, req):
 

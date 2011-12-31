@@ -15,4 +15,5 @@ rpush friends "tom"
 rpush friends "bob"
 lpush friends 'sam'
 lrange friends 0 -1
+llen friends
 #lpop rpop

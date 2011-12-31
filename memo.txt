@@ -1,3 +1,10 @@
+#iPython
+wget http://ipython.scipy.org/dist/0.10.2/ipython-0.10.2.tar.gz
+tar zxvf ipython[TAB]
+cd ipython[TAB]
+sudo python setup.py install
+
+
 我们的web框架用的是pyramid
  js框架有用jquery , mustache  iCanHaz
  还有coffee-script
@@ -22,17 +29,20 @@ setup.py
 
 #supervisitor
 #install
-cd ~/env
-bin/easy_install supervisor
+easy_install supervisor
 
 #create supervisord.conf
-mkdir deploy
-bin/echo_supervisord_conf >deploy/supervisord.conf
+bin/echo_supervisord_conf >supervisord.conf
 #http://supervisord.org/configuration.html#programx-section
 #It is used by both supervisord and supervisorctl
 
-vim deploy/supervisord.conf
+#add a program to .conf
+mkdir ~/log
+mkdir ~/log/supervisord
+mkdir ~/tmp
 
+#running
+supervisord -c supervisord.conf 
 
 # list files sort by time, revert
 ll -rt
