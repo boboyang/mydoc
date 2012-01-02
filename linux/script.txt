@@ -1,0 +1,50 @@
+#scripts
+sh temp.sh
+source temp.sh      # diff from sh, data in .sh will be used in parent shell
+
+test or []  # remember to use ' ' in both side of []
+
+test -e user
+test -f /etc/passwd1 && echo 'y' || echo 'n'
+#same as:
+[ -f /etc/passwd ] && echo 'yes' || echo 'no'  
+# short:
+[ -f /etc/passwd ]; echo $?    
+
+#script args: 
+$0,$1,...    #$0: script name
+$#
+$@
+$*
+shift   #shift an arg right away
+
+#if
+if [  ];then
+
+elif [  ];then
+
+fi
+
+case $1 in  XXX)
+    
+    ;;
+    YYY)
+    ;;
+    *)
+    
+#case    
+    ;;
+esca
+#ex: cat /etc/init.d/sudo
+
+function fname() {
+	程序段
+}    
+
+while [ condition ] 
+do    
+done  
+
+for var in con1 con2 con3
+do
+done
