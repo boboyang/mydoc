@@ -1,0 +1,81 @@
+#remeber, use --help or man, with grep, to learn by use, not by memorize
+#ex, i remember grep can show lines ahead or after, so i use:
+grep --help|grep line
+#then i can use:
+man script |grep arg -A3 -B3 -n
+
+#terminal
+Shift+Ctrl+C:复制 
+Shift+Ctrl+V:粘贴
+
+#show all shells
+cat /etc/shells
+
+type sh
+type ll
+
+#job control
+&
+jobs
+fg 
+bg
+
+alias lm='ls -l |more'
+#type lm
+unalias lm
+
+stty -a
+
+^C
+^Z
+^D  #EOF
+^M  #ENTER
+^S
+^Q
+^U
+
+#redirection
+stdin  0, < or <<
+stdout 1, > or >>
+stderr 2, 2> or 2>>
+2>/dev/null     #ignore error
+2>&1            #error to normal
+
+cat >catfile
+...
+^D  #to exit edit
+
+# || &&
+ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
+ls /tmp/abc && echo "exit" || echo "not exit"
+
+cut
+echo $PATH | cut -d ':' -f 2  #-f 2,5 #or 2-5
+cut -c 12-  #from 12th char
+
+grep
+sort
+uniq
+wc  #word count
+col
+join
+paste
+
+split -b 1024k help.zip help_ 
+ll -s help_*
+cat help_* >>help2.zip
+rm help_*
+
+cut -d ':' -f1 /etc/passwd|head -n 3| xargs finger
+
+tee 
+
+awk
+
+diff f1 f2>f.patch
+patch -p0 f1 f.patch
+cmp
+
+
+
+
