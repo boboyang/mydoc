@@ -1,0 +1,22 @@
+at
+ps ax |grep " at"
+atd restart
+chkconfig atd on
+
+#permission:
+/etc/at.allow
+/etc/at.deny
+
+#management:
+atq
+atrm jobnum
+
+batch : CPU load <0.8
+
+#crontab
+crontab -e
+crontab -l
+
+cat /etc/crontab
+crontab -l
+

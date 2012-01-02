@@ -76,6 +76,7 @@ diff f1 f2>f.patch
 patch -p0 f1 f.patch
 cmp
 
-
+# batch rename linux.* \1
+for i in `ls linux.*`; do mv $i `echo $i|sed 's/linux.//'`;done
 
 
