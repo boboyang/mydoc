@@ -1,5 +1,7 @@
 #folder:
 cd,pwd,mkdir,rmdir
+#create link
+ln -s ~/env favor
 $PATH
 ls
 
