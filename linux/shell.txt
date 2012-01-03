@@ -14,11 +14,6 @@ cat /etc/shells
 type sh
 type ll
 
-#job control
-&
-jobs
-fg 
-bg
 
 alias lm='ls -l |more'
 #type lm
@@ -54,6 +49,10 @@ echo $PATH | cut -d ':' -f 2  #-f 2,5 #or 2-5
 cut -c 12-  #from 12th char
 
 grep
+#find pattern in files
+grep "netstat" ./*.txt -irn
+
+
 sort
 uniq
 wc  #word count

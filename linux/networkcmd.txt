@@ -4,6 +4,8 @@ ifconfig
 ifdown/ifup
 route
 ip  #parent of ifdown/ifup
+ip route
+
 iwlist/iwconfig     #wireless
 dhclient    
 
@@ -30,6 +32,8 @@ sudo netstat -tulnp
 host www.google.com
 #or
 nslookup www.google.com
+#or
+dig www.google.com
 
 #remote_con
 telnet [host|IP [port]]
@@ -56,4 +60,6 @@ nc localhost 25
 nc -l localhost 20000 &     #server
 nc localhost 20000          #client
 
+#DNS ip
+/etc/resolv.conf
 
