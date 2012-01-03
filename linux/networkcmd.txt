@@ -52,7 +52,9 @@ wget    #download
 tcpdump
 sudo tcpdump -i eth0 -nn port 21
 
-sudo wireshark
+# snap to cap and open by wireshark
+sudo tcpdump -i eth0 port 80 -w tmp.cap
+wireshark -r tmp.cap -R http
 
 #nc
 nc localhost 25

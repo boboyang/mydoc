@@ -50,7 +50,7 @@ cut -c 12-  #from 12th char
 
 grep
 #find pattern in files
-grep "netstat" ./*.txt -irn
+grep "netstat" ./ -irn
 
 
 sort
