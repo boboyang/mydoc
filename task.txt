@@ -1,64 +1,18 @@
 
 统计service portal 的API 与wiki 的区别
 ____________________________
-mydlink_3.0 • gabriel.thrift
-enum GabrielDeviceType  {    PRIVATE=0,  
-                             OTHERS=1,
-                             PUBLIC=2,
-                             SHARED=4,
-____________________________
-share devices:
-
-socialcam_invite()
-path = '/me/device/invite'
-
-socialcam_unshare()
-path = '/me/device/unshare'
-
 
 1. Owner shares her/his device to a person(sharer) by <E-mail>
     /me/device/invite
 2. If sharer is an existed mydlink user, accept by clicking the invite URL
 3. If sharer don't have mydlink account, portal directs user to create one and accept the invitation
 
-result:
-device pending ->members
-
-4. me/device/unshare
-update_device_acl_view() calls:
-    socialcam_invite()
-    socialcam_unshare()
-
-devType:
-bit 2: 1 for device sharing, /api/devices/{id}/share/1
-bit 1: the public cam
-bit 0: for the ownership
-
-socialcam_remove
-    me/device/renounce    remove self email from device/accessible
- 
-device_unbinding
-    me/device/del         clear device/accessible
-
-6. query:
-
-owner
-/me/device/accessible
-    data['data'].update({
-        "members": [ "JohnJones@mydlink.com", "MaryLan@dlink.com"],
-        "pending": [ "guest1@mydlink.com" ]
-        }
-    )
-
-/me/device/info
-    data['data'].update({
-        "devType": True,
-        "device_model": " DCS-930L",
-        "device_name": "Back yard",
-        "cur_fw": "2.0.4",
-        "shared_with": "guest1@gmail.com,grandpa@yahoo.com",
-        }
-    ) 
+enum GabrielDeviceType  {    
+    PRIVATE=0,  
+    OTHERS=1,
+    PUBLIC=2,
+    SHARED=4,
+}
 
 ____________________________
 Nexus API:
@@ -80,6 +34,15 @@ POST /api/devices/{device id}/sessions
 POST /api/services/publiccams/cams/{publiccam id}/sessions
 
 http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85757055-87756740-67756740-72357335/sessions
+
+# connect device:
+user -> portal -> NBS -> Nexus -> gearmand -> SLD
+     <-	   	   <-     <-        <------------  
+				  
+https://github.com/mydlink/shibboleth/blob/master/py4mydlink/pygabriel/gabriel/SldService.py
+http://packages.python.org/gearman/worker.html#extending-the-worker
+gabriel.thrift, Line 338,724
+
 
 process_deviceConnReq
 

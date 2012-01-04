@@ -54,10 +54,13 @@ easy_install gearman
 #job server start
 gearmand -d
 
+#for src install
+sudo apt-get install libboost-program-options-dev libboost-thread-dev uuid-dev
+
 # worker example
 gearman -w -f mywc -- wc -l &
 # client example
 gearman -f mywc < /etc/passwd
 
-
+http://launchpad.net/gearmand/trunk/0.26/+download/gearmand-0.26.tar.gz
 
