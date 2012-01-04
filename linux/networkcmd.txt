@@ -1,0 +1,67 @@
+#setting
+
+ifconfig
+ifdown/ifup
+route
+ip  #parent of ifdown/ifup
+ip route
+
+iwlist/iwconfig     #wireless
+dhclient    
+
+# test
+ping    #use ICMP 64bytes
+#如果你的主机与待侦测主机并不在同一个网域内，那么TTL预设使用255 ，如果是同一个网域内，那么TTL预设则使用64喔
+
+#用ping追踪路径中的最大MTU数值
+ping -c 2 -s 1472 -M do 192.168.1.1 # if >1472, 0 received
+
+网路介面	MTU
+Ethernet	    1500
+PPPoE	        1492
+Dial-up(Modem)	576
+
+traceroute -n tw.yahoo.com
+
+#列出目前的所有网路连线状态
+netstat -an
+#秀出目前已经启动的网路服务 
+sudo netstat -tulnp
+
+#name ->ip
+host www.google.com
+#or
+nslookup www.google.com
+#or
+dig www.google.com
+
+#remote_con
+telnet [host|IP [port]]
+
+ftp [host|IP [port]]
+ftp ftp.ksu.edu.tw
+>help
+>bye
+
+lftp    #similar to ftp
+
+links   # txt view of web/local file sys
+wget    #download
+
+#pick package
+tcpdump
+sudo tcpdump -i eth0 -nn port 21
+
+# snap to cap and open by wireshark
+sudo tcpdump -i eth0 port 80 -w tmp.cap
+wireshark -r tmp.cap -R http
+
+#nc
+nc localhost 25
+# p2p communicate
+nc -l localhost 20000 &     #server
+nc localhost 20000          #client
+
+#DNS ip
+/etc/resolv.conf
+

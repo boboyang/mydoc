@@ -62,5 +62,8 @@ gearman -w -f mywc -- wc -l &
 # client example
 gearman -f mywc < /etc/passwd
 
+<<<<<<< HEAD
 http://launchpad.net/gearmand/trunk/0.26/+download/gearmand-0.26.tar.gz
+=======
+>>>>>>> 75c3ddfb1d2a824abdc35160e3550d47cd8d8a99
 

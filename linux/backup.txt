@@ -1,0 +1,6 @@
+backup personal
+weekly.sh
+daily.sh
+schedule it by /etc/crontab
+rsync to remote
+
