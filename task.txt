@@ -1,72 +1,14 @@
-
 统计service portal 的API 与wiki 的区别
-____________________________
 
-1. Owner shares her/his device to a person(sharer) by <E-mail>
-    /me/device/invite
-2. If sharer is an existed mydlink user, accept by clicking the invite URL
-3. If sharer don't have mydlink account, portal directs user to create one and accept the invitation
+next task:
+1.signalingd: device connection
+aim:minimize the change in signalingd and send the event/logs via the syslog mechanism. 
+2. Another module will be needed to receive the logs and convert it into Nexus.
 
-enum GabrielDeviceType  {    
-    PRIVATE=0,  
-    OTHERS=1,
-    PUBLIC=2,
-    SHARED=4,
-}
+supervisor: TY Lin
+consultor:  Brian in SIRCD
 
-____________________________
-Nexus API:
+tornato
+markdown
 
-acceptSharingDevice
-deleteSharingDevice
-revokeDeviceFromSharers
-setSharingDevice
-setSharingDevice(1: AccessToken token,2:DeviceId deviceId,3:bool sharable)
-____________________________
-
-我們需要restful api來建立client連device的session
-POST /api/devices/{device id}/sessions
-
-這個function中要傳入一個device_data的dict, 裡面要有device的mac & mydlink_id
-[2:30:45 PM CST] flow: device id應該是mac + mydlink_id, 你用這種方式去切
-
-第二個API是publiccam的connect
-POST /api/services/publiccams/cams/{publiccam id}/sessions
-
-http://localhost:8901/api/services/publiccams/cams/79178238-79887456-67887338-85757055-87756740-67756740-72357335/sessions
-
-# connect device:
-user -> portal -> NBS -> Nexus -> gearmand -> SLD
-     <-	   	   <-     <-        <------------  
-				  
-https://github.com/mydlink/shibboleth/blob/master/py4mydlink/pygabriel/gabriel/SldService.py
-http://packages.python.org/gearman/worker.html#extending-the-worker
-gabriel.thrift, Line 338,724
-
-
-process_deviceConnReq
-
-# demo of membuffer to binary buffer
-MsInfoDataEncoder(gearman.DataEncoder):
-    @classmethod
-    def encode(cls, encodable_object):
-        transportOut = TTransport.TMemoryBuffer()
-        protocolOut = TBinaryProtocol.TBinaryProtocol(transportOut)
-        #outThrift = MediaService.Client(iprot=None,oprot=protocolOut)
-        #outThrift.send_GetMsInfo(encodable_object)
-        EntityStorage.Client(iprot=None,oprot=protocolOut).send_getMsInfo(encodable_object)
-        bytes = transportOut.getvalue()
-        return bytes
-
-    @classmethod
-    def decode(cls, decodable_string):
-        transportIn = TTransport.TMemoryBuffer(decodable_string)
-        protocolIn = TBinaryProtocol.TBinaryProtocol(transportIn)
-        #inThrift = MediaService.Client(iprot=protocolIn,oprot=None) # This is the thrift client
-        #rcv = inThrift.recv_GetMsInfo()
-        rcv = EntityStorage.Client(iprot=protocolIn,oprot=None).recv_getMsInfo()
-        return rcv
-
-class Client(gabriel.SharedService.Client, Iface):
-	def deviceConnReqToSld(self, req):
 

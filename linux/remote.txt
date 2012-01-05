@@ -24,7 +24,7 @@ ssh-keygen -C 'whille@163.com' -t rsa
 
 #制作不用密码可立即登入的ssh 用户:
 ＃scp --help
-scp -P 2226 /home/gamer/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:~/
+scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:~/
 
 #登录ssh, ex: scdc
 ssh whillewang@scdc.mydlink.com -p 2226
