@@ -1,14 +1,9 @@
 统计service portal 的API 与wiki 的区别
 
 next task:
-1.signalingd: device connection
 aim:minimize the change in signalingd and send the event/logs via the syslog mechanism. 
-2. Another module will be needed to receive the logs and convert it into Nexus.
+signalingd <====> syslogd-ng <====> mongled
 
 supervisor: TY Lin
 consultor:  Brian in SIRCD
-
-tornato
-markdown
-
 

@@ -1,0 +1,18 @@
+sudo apt-get install gearman-job-server
+sudo apt-get install gearman-tools
+easy_install gearman
+#job server start
+gearmand -d
+
+#for src install
+sudo apt-get install libboost-program-options-dev libboost-thread-dev uuid-dev
+
+# worker example
+gearman -w -f mywc -- wc -l &
+# client example
+gearman -f mywc < /etc/passwd
+
+<<<<<<< HEAD
+http://launchpad.net/gearmand/trunk/0.26/+download/gearmand-0.26.tar.gz
+=======
+>>>>>>> 75c3ddfb1d2a824abdc35160e3550d47cd8d8a99

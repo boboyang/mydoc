@@ -15,55 +15,7 @@ linux中一些deamon程序，由于一般只运行一个，因此就只有一个唯一的pid，
 因此为了其他程序方便知道该deamon的pid，就自建了一个pid file,一般是/var/run/deamon_name.pid
 
 
-https://scdc.mydlink.com:16888/wiki/doku.php?id=mydlink_3.0
-[8:41:06] Edward Wang: whillewang/whillewang2011
-
-setup.py
-  [paste.paster_command]
-
+tornato
+markdown
 # <<持续交付>>
-
-# 熟悉supervisior和fabric, virtualenv,
-# fab -f fab_206_wzg.py deploy
-
-
-#supervisitor
-#install
-easy_install supervisor
-
-#create supervisord.conf
-bin/echo_supervisord_conf >supervisord.conf
-#http://supervisord.org/configuration.html#programx-section
-#It is used by both supervisord and supervisorctl
-
-#add a program to .conf
-mkdir ~/log
-mkdir ~/log/supervisord
-mkdir ~/tmp
-
-#running
-supervisord -c supervisord.conf 
-
-# list files sort by time, revert
-ll -rt
-
-#gearman
-sudo apt-get install gearman-job-server
-sudo apt-get install gearman-tools
-easy_install gearman
-#job server start
-gearmand -d
-
-#for src install
-sudo apt-get install libboost-program-options-dev libboost-thread-dev uuid-dev
-
-# worker example
-gearman -w -f mywc -- wc -l &
-# client example
-gearman -f mywc < /etc/passwd
-
-<<<<<<< HEAD
-http://launchpad.net/gearmand/trunk/0.26/+download/gearmand-0.26.tar.gz
-=======
->>>>>>> 75c3ddfb1d2a824abdc35160e3550d47cd8d8a99
 

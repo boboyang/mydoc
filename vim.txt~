@@ -1,0 +1,122 @@
+#install
+sudo apt-get install vim ctags
+
+#get help
+:help {txt}
+Ctrl-w Ctrl-w       #jump to next window
+:q                  #quit help
+
+
+#move cursor
+h j k l
+< v ^ >
+w           #move a word
+e           #move to end of a word
+{num}w/e    #move {num} words
+Ctrl-g      #show current line position
+{num}g      #goto line {num}
+G           #goto EOF
+gg          #goto start of file
+
+Shift-Up    #page up
+Shift-Down  #page down
+
+#exiting
+:q
+:q!
+:wq
+
+#undo/redo editing
+{num}u
+{num}Ctrl-r
+U       #return the line to orginal state
+
+#edit
+#delete
+:help x
+{num}x  #del chars
+
+d{num}w/e      #del {num} word
+d{num}d        #del num lines
+d$             #del to $
+d^
+
+#replace
+r   #replace a word
+R   
+
+#change 
+c{num}e  #cha{num}ge to end of a word
+c$
+
+#append
+a
+A   #append at $
+
+#iunsert
+i
+I   #insert at ^
+
+o   #open a line to insert
+O   #open a line above
+
+#copy/paste
+v   #visual selection
+y   #copy
+p   #paste prvious del text
+
+#search
+/   #search forward
+?   #search backward
+n   #next
+
+#subtitute
+:s/old/new/g        #first occur
+:#,#s/old/new/g     #between line #,#
+:%s/old/new/g       #whole file
+:%s/old/new/gc      #whole file with confirm
+
+#execute external cmd
+:!{cmd}
+:w {filename}
+:r {filename}   #insert file contents
+
+:{cmd}{Ctrl-d}{Tab} #cmd completion
+
+:e ~/.vimrc
+:r $VIMRUNTIME/vimrc_example.vim
+:wq
+
+#~/.vimrc
+set sta
+set number
+set smartindent
+set tabstop=4
+set shiftwidth=4
+
+#Taglist
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+%   #goto matching of ),],}
+gD  #goto loc var def
+[[ 转到上一个位于第一列的“{”
+]] 转到下一个位于第一列的“{”
+{   转到上一个空行
+}   转到下一个空行
+''	跳转到光标上次停靠的地方, 是两个', 而不是一个"
+mx	设置书签,x只能是a-z的26个字母
+`x	跳转到书签处("`"是1左边的键)
+>	增加缩进,"x>"表示增加以下x行的缩进
+<	减少缩进,"x<"表示减少以下x行的缩进
+
+#ctags    
+ctags -R        #create index
+vim -t foo_bar  #open file and goto def of foo_bar
+:ta foo_bar     #goto def in vim
+Ctrl-t          #go back
+
+:Tlist
+#click and {ENTER}
+
+

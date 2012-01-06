@@ -1,0 +1,19 @@
+#install
+easy_install supervisor
+
+#create supervisord.conf
+bin/echo_supervisord_conf >supervisord.conf
+#http://supervisord.org/configuration.html#programx-section
+#It is used by both supervisord and supervisorctl
+
+#add a program to .conf
+mkdir ~/log
+mkdir ~/log/supervisord
+mkdir ~/tmp
+
+#running
+supervisord -c supervisord.conf 
+
+# list files sort by time, revert
+ll -rt
+
