@@ -2,8 +2,11 @@
 
 next task:
 aim:minimize the change in signalingd and send the event/logs via the syslog mechanism. 
-signalingd <====> syslogd-ng <====> mongled
+devcie <====> signalingd <====> syslogd-ng <====> mongodb <====> Nexus/NoSQL
 
 supervisor: TY Lin
 consultor:  Brian in SIRCD
+
+PRI value
+syslog
 
