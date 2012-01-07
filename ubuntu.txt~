@@ -96,14 +96,5 @@ sudo apt-get install git
 
 git clone git@github.com:mydlink/shibboleth.git 
 
-#update Ubuntu
-#1.gui
-sudo update-manager -d
-#
-#2.cli 
-sudo do-release-upgrade -d
-#
-#3.alternate:
-mount -t iso9660 -o loop ~/Ubuntu-11.04-alternate-i386.iso /cdrom 
-sudo /cdrom/cdromupgrade 
+
 
