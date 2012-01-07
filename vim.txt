@@ -114,7 +114,8 @@ mx	设置书签,x只能是a-z的26个字母
 #src
 ctags -R        #create index
 vim -t foo_bar  #open file and goto def of foo_bar
-:ta foo_bar     #goto def in vim
+:ta foo_bar     #goto def of foo_bar
+Ctrl-]          #goto def 
 Ctrl-t          #go back
 
 :Tlist
