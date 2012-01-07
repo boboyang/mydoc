@@ -131,6 +131,7 @@ nmap wm :WMToggle<cr>
 #wm will togle layout show/hide
 
 #cscope
+sudo apt-get install cscope
 #~/.vimrc
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 # src
