@@ -117,6 +117,16 @@ vim -t foo_bar  #open file and goto def of foo_bar
 :ta foo_bar     #goto def in vim
 Ctrl-t          #go back
 
+为了不让__THROW干扰ctags，需要在运行ctags时使用-I选项。我一般使用下面的命令生成系统头文件tags
+
+ctags -I __THROW --file-scope=yes --langmap=c:+.h --languages=c,c++ --links=yes --c-kinds=+p -R -f ~/.vim/systags /usr/include /usr/local/include
+
+其关键是-I __THROW部分和--c-kinds=+p部分。设置-I后，ctags会在处理文件时，就会忽略-I后面写出来的符号。而--c-kinds=+p则告诉ctags需要为函数原型的声明也生成tag。--langmap=c:+.h表示.h视为c文件而不是c++文件。
+
+最后，设置你的~/.vimrc，加入一行：
+set tags+=~/.vim/systags
+就可以享受系统库函数名补全、原型预览等功能了。
+
 :Tlist
 #click and [ENTER]
 #click and [SPACE]
@@ -148,4 +158,5 @@ set foldlevel=100  " 启动vim时不要自动折叠代码
 za
 zM
 zR
+
 

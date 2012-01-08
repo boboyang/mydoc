@@ -107,3 +107,9 @@ sudo do-release-upgrade -d
 mount -t iso9660 -o loop ~/Ubuntu-11.04-alternate-i386.iso /cdrom 
 sudo /cdrom/cdromupgrade 
 
+#lyrics
+sudo add-apt-repository ppa:osd-lyrics/ppa
+
+开始安装：Update & install
+sudo apt-get update
+sudo apt-get install osdlyrics
