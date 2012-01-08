@@ -1,5 +1,6 @@
 ScriptID SourceID Filename
 --------------------------
+<<<<<<< HEAD
 1440 11032 :AutoInstall: winmanager.vim
 "vba为扩展名的插件安装
 1502 15362 :AutoInstall: vimball.vim
@@ -33,3 +34,21 @@ ScriptID SourceID Filename
 213 17127 :AutoInstall: cvim.zip
 "vimwiki
 2226 15854 :AutoInstall: vimwiki.vba.gz
+=======
+642 15781 GetLatestVimScripts.vim
+489 16670 Manpageview.vim
+551 15177 Mines.vim
+628 3593 SeeTab.vim
+508 9865 ZoomWin.vim
+29 1022 ctags.vim
+31 7218 a.vim
+213 17127 c.vim
+311 7645 grep.vim
+1520 7722 omnicppcomplete.vim
+273 7701 taglist.vim
+861 14236 viki.vim
+1440 11032 winmanager.vim
+1735 16637 echofunc.vim
+
+1502 15362 :AutoInstall: vimball.vim
+>>>>>>> 54307f46b47056439e0ee5ce31c3cf32fcd9ad53
