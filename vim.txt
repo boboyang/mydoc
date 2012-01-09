@@ -160,4 +160,16 @@ za
 zM
 zR
 
+#vimgdb
+[F7]
+[SPACE]     # jump to gdb
+file [filename]
+[CTRL-B]    #add bp at cursor
+r   #run
+c   #continue
+s   #step
+:bel 20vsplit gdb-variables 
+
+
+
 
