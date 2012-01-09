@@ -22,7 +22,3 @@ grub
 
 sudo gedit /boot/grub/menu.lst
 
-title		Windows XP
-root		(hd0,0)
-makeactive
-chainloader	+1

@@ -106,10 +106,16 @@ let Tlist_Exit_OnlyWindow=1
 
 let g:winManagerWindowLayout='FileExplorer|TagList'
 nmap wm :WMToggle<cr>
-set completeopt=longest,menu
+
 set foldmethod=syntax
 set foldlevel=100	"not fold on start
+if filereadable("cscope.out")
+	cs add cscope.out
+endif
+source ~/.vim/cscope_maps.vim
+
 set tags=tags;
+set tags+=~/.vim/systags
 set autochdir
 
 set previewheight=12		" set gdb window initial height
