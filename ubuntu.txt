@@ -6,6 +6,8 @@ SSID: mydlink01
 
 sudo apt-get update
 
+sudo apt-get install git
+
 #memcached
 sudo apt-get install memcached libmemcached-tools
 sudo apt-get install build-essential libmemcached-dev
@@ -52,6 +54,11 @@ $ pythonbrew install 2.7.2
 $ pythonbrew switch 2.7.2
 $ python -V
 
+#scdc
+ssh whillewang@scdc.mydlink.com -p 2221
+#password: whillewang2011
+
+
 # find files in pwd, size >1500k
 find -size +1500
 
@@ -87,12 +94,17 @@ sudo /etc/init.d/redis_6379 start
 whereis redis-cli
 redis-cli
 
-
-#chrome, skype,freemind, stardict, Administration/language support 
+Administration/language support 
 #Davmail thunderbird
 
-#git
-sudo apt-get install git
+创建SSH密匙
+ssh-keygen -C 'whille@163.com' -t rsa
+notice id_rsa.pub
+提交密匙
+https://github.com/accYount/ssh
+选择Add another public key。Title随便取，Key是一段东西。
+cat ~/.ssh/id_rsa.pub
+把它打开可以看到一堆文字，拷贝下来黏贴到github页面key的空白处。然后Apply，就好了。
 
 git clone git@github.com:mydlink/shibboleth.git 
 
@@ -107,9 +119,4 @@ sudo do-release-upgrade -d
 mount -t iso9660 -o loop ~/Ubuntu-11.04-alternate-i386.iso /cdrom 
 sudo /cdrom/cdromupgrade 
 
-#lyrics
-sudo add-apt-repository ppa:osd-lyrics/ppa
 
-开始安装：Update & install
-sudo apt-get update
-sudo apt-get install osdlyrics

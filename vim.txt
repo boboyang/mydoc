@@ -164,6 +164,21 @@ zR
 :set mouse=a    #mouse active, could not copy
 
 #vimgdb
+#install
+sudo apt-get install lua5.1-dev
+
+wget ftp://ftp.vim.org/pub/vim/unix/vim-7.3.tar.bz2
+wget https://github.com/downloads/larrupingpig/vimgdb-for-vim7.3/vimgdb-for-vim7.3.tar.gz
+tar xjvf  vim-7.3.tar.bz2  -C /tmp
+tar xzvf  vimgdb-for-vim7.3.tar.gz  -C /tmp
+cd /tmp
+patch  -p0 < vimgdb-for-vim7.3/vim73.patch
+cd vim73/src
+make
+sudo make install
+
+cp  -rf /tmp/vimgdb-for-vim7.3/vimgdb_runtime/*  ~/.vim
+
 [F7]
 [SPACE]     # jump to gdb
 file [filename]
