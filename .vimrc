@@ -110,6 +110,7 @@ set completeopt=longest,menu
 set foldmethod=syntax
 set foldlevel=100	"not fold on start
 set tags=tags;
+set tags+=~/.vim/systags
 set autochdir
 
 set previewheight=12		" set gdb window initial height
@@ -117,3 +118,4 @@ run macros/gdb_mappings.vim	" source key mappings listed in this document
 set asm=0				    " don't show any assembly stuff
 set gdbprg=/usr/bin/gdb		" set GDB invocation string (default 'gdb')
 
+nnoremap <silent> <F3> :Grep<CR> 

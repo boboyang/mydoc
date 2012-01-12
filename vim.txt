@@ -160,16 +160,61 @@ za
 zM
 zR
 
+:set mouse=     # copy enabled
+:set mouse=a    #mouse active, could not copy
+
 #vimgdb
 [F7]
 [SPACE]     # jump to gdb
 file [filename]
 [CTRL-B]    #add bp at cursor
+b [line]    # add bp at [line]
+clear [line]
+[CTRL-E]    #clear bp
+[CTRL-N]    #next 
 r   #run
 c   #continue
 s   #step
 :bel 20vsplit gdb-variables 
+createvar [var]
+p *[pvar]   #show cotents of *pvar
 
+frame
+[CTRL-U]    #up frame
+[CTRL-D]    #down frame
+
+frame [num]
+info locals
+
+ (gdb) quit – exit the debugger
+ (gdb) file – load an executable file
+ (gdb) break line-number/function name -- Set a break-point on a line/at start of function
+ (gdb) run <args> -- start running the program; if there are command-line arguments, put them after the run invocation
+ (gdb) cont -- continue running, after a break
+ (gdb) next -- Next program line (step over function calls)
+ (gdb) step -- Step into function calls.
+ (gdb) finish - Step out of the present function
+ (gdb) print expression -- Show value of a variable or expression
+ (gdb) list – List 10 lines of the program being debugged. The sixth line is the preset statement. Subsequent, consecutive entry of list will list the next 10 lines.
+ (gdb) where – obtain a backtrace showing all function calls before the current statement
+ (gdb) up – Move to the function that called the present function. Useful if your program crashes in a library function; use up to get to the last function call in your program
+ (gdb) down – Reverses the action of up
+ (gdb) delete – Removes breakpoint by number (see example following). If no number, all deleted.
+ (gdb) kill – Terminates the program.
+
+#marks
+ma	 set mark a at current cursor location
+'a	 jump to line of mark a (first non-blank character in line)
+`a	 jump to position (line and column) of mark a
+d'a	 delete from current line to line of mark a
+d`a	 delete from current cursor position to position of mark a
+c'a	 change text from current line to line of mark a
+y`a	 yank text to unnamed buffer from cursor to position of mark a
+:marks	 list all the current marks
+:marks aB	 list marks a, B
+
+#grep
+[F3], then set txt
 
 
 

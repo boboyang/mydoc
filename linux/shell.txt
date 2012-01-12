@@ -5,8 +5,17 @@ grep --help|grep line
 man script |grep arg -A3 -B3 -n
 
 #terminal
-Shift+Ctrl+C:澶嶅埗 
-Shift+Ctrl+V:绮樿创
+Shift+Ctrl+C: copy  
+Shift+Ctrl+V: paste
+
+#linux version
+uname -r
+
+#tar cmd
+tar cvf test.tar test.f  压缩test.f 到test.tar
+tar xvf test.tar  解压test.tar到本地文件夹
+tar czvf test.tar.gz test.f   压缩test.f 到test.tar.gz
+tar xzvf test.tar.gz      解压l.tar.gz 到本地文件夹
 
 #show all shells
 cat /etc/shells

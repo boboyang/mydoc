@@ -19,3 +19,8 @@ tornato
 markdown
 # <<³ÖÐø½»¸¶>>
 
+#python
+
+hex(255)
+int('ab', 16)
+

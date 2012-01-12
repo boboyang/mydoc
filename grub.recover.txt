@@ -12,10 +12,19 @@ sudo grub
 #产生grub引导目录
 sudo update-grub
 如果不行的话，在重新进入linux后，可能需要执行grub-install。
-另外，如果手动清理了内核，可能需要执行一下grub-mkconfig -o /boot/grub/grub.cfg。
+另外，如果手动清理了内核，可能需要执行一下sudo grub-mkconfig -o /boot/grub/grub.cfg。
+
+
+#mdio-gpio driver already register problem
+Create the initramfs image
+#sudo update-initramfs -c -k 2.6.3
+Update your grub.cfg
+#sudo update-grub
 
 #windows菜单
 grub
 >rootnoverify (hd0,0)
 >chainloader +1
 >boot
+
+
