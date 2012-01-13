@@ -119,3 +119,5 @@ set asm=0				    " don't show any assembly stuff
 set gdbprg=/usr/bin/gdb		" set GDB invocation string (default 'gdb')
 
 nnoremap <silent> <F3> :Grep<CR> 
+:map <F8> :bel 30vsplit gdb-variables<cr>
+:map <F9> :close<Esc>
