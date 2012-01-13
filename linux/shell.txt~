@@ -11,6 +11,10 @@ Shift+Ctrl+V: paste
 #linux version
 uname -r
 
+#history
+!grep		#show all related grep comd
+
+
 #tar cmd
 tar cvf test.tar test.f  压缩test.f 到test.tar
 tar xvf test.tar  解压test.tar到本地文件夹
@@ -57,7 +61,6 @@ cut
 echo $PATH | cut -d ':' -f 2  #-f 2,5 #or 2-5
 cut -c 12-  #from 12th char
 
-grep
 #find pattern in files, with filter
 grep "netstat" ./**/*.txt -irn
 

@@ -11,6 +11,9 @@ Shift+Ctrl+V: paste
 #linux version
 uname -r
 
+#history
+!grep		#show all history cmd start with grep
+
 #tar cmd
 tar cvf test.tar test.f  压缩test.f 到test.tar
 tar xvf test.tar  解压test.tar到本地文件夹

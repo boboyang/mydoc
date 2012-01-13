@@ -110,12 +110,17 @@ mx	设置书签,x只能是a-z的26个字母
 #ctags    
 #src
 ctags -R        #create index
+ctags -R --fields=+lS  # create tags and echofunc, need +balloon_eval when compiling vim
+cscope -Rbq
+
+
 vim -t foo_bar  #open file and goto def of foo_bar
 :ta foo_bar     #goto def of foo_bar
 Ctrl-]          #goto def 
 Ctrl-t          #go back
+Ctrl-o		#go forward
 
-为了不让__THROW干扰ctags，需要在运行ctags时使用-I选项。我一般使用下面的命令生成系统头文件tags
+为了不让__THROW干扰ctags，需要在运行ctags时使用-I选项。我一般使用下面的命令生成系统头文件tags:
 
 ctags -I __THROW --file-scope=yes --langmap=c:+.h --languages=c,c++ --links=yes --c-kinds=+p -R -f ~/.vim/systags /usr/include /usr/local/include
 
@@ -125,29 +130,17 @@ ctags -I __THROW --file-scope=yes --langmap=c:+.h --languages=c,c++ --links=yes 
 set tags+=~/.vim/systags
 就可以享受系统库函数名补全、原型预览等功能了。
 
-:Tlist
 #click and [ENTER]
 #click and [SPACE]
 
-#winmanager
-http://www.vim.org/scripts/script.php?script_id=95
-depend on bufexplorer.vim. (vimscript #42). 
-
-#~/.vimrc
-let g:winManagerWindowLayout='FileExplorer|TagList'
-nmap wm :WMToggle<cr>
-#wm will togle layout show/hide
-
-#cscope
-sudo apt-get install cscope
-#~/.vimrc
-set cscopequickfix=s-,c-,d-,i-,t-,e-
-# src
-cscope -Rbq
-
-#quickfix, already installed
+#quickfix
 :make
 :cw
+:cn        // 切换到下一个结果
+:cp        // 切换到上一个结果
+如果你经常使用这两个命令, 你还可以给他们设定快捷键, 比如在~/.vimrc中增加:
+nmap <F6> :cn<cr>
+nmap <F7> :cp<cr>
 
 #fold
 #~/.vimrc
@@ -160,10 +153,22 @@ zR
 :set mouse=     # copy enabled
 :set mouse=a    #mouse active, could not copy
 
----------------------------
-#vimgdb install
+#marks
+ma	 set mark a at current cursor location
+'a	 jump to line of mark a (first non-blank character in line)
+`a	 jump to position (line and column) of mark a
+d'a	 delete from current line to line of mark a
+d`a	 delete from current cursor position to position of mark a
+c'a	 change text from current line to line of mark a
+y`a	 yank text to unnamed buffer from cursor to position of mark a
+:marks	 list all the current marks
+:marks aB	 list marks a, B
 
+#grep
+[F3], then set txt
 
+-------------------------
+#vimgdb
 
 [F7]
 [SPACE]     # jump to gdb
@@ -203,19 +208,6 @@ info locals
  (gdb) delete – Removes breakpoint by number (see example following). If no number, all deleted.
  (gdb) kill – Terminates the program.
 
-#marks
-ma	 set mark a at current cursor location
-'a	 jump to line of mark a (first non-blank character in line)
-`a	 jump to position (line and column) of mark a
-d'a	 delete from current line to line of mark a
-d`a	 delete from current cursor position to position of mark a
-c'a	 change text from current line to line of mark a
-y`a	 yank text to unnamed buffer from cursor to position of mark a
-:marks	 list all the current marks
-:marks aB	 list marks a, B
-
-#grep
-[F3], then set txt
 
 
 
