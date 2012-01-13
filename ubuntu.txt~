@@ -119,10 +119,4 @@ sudo do-release-upgrade -d
 mount -t iso9660 -o loop ~/Ubuntu-11.04-alternate-i386.iso /cdrom 
 sudo /cdrom/cdromupgrade 
 
-# su root
-sudo passwd root
-******（输入原先的root口令）
-******（输入新的root口令，可以保持原样。我就保持的原样）
-******（再次输入新的root口令）
-su root
 
