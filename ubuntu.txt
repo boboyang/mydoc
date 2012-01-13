@@ -26,7 +26,7 @@ quit
 
 
 #gedit
-sudo apt-get install  gedit-plugins
+sudo apt-get install gedit-plugins
 您可以遵循以下步骤，使您的 gedit 正确显示中文编码文件。
 
 按下 Alt-F2，打开“运行应用程序”对话框。
