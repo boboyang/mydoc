@@ -41,7 +41,7 @@ sudo apt-get install osdlyrics
 sudo apt-get -f install
 sudo apt-get install osdlyrics
 
-sudo apt-get install -y stardict freemind skype qterm
+sudo apt-get install -y stardict freemind skype
 wget http://down4.zw91.com/down/stardict_ciku.zip
 tar xvf stardict_ciku.zip ~/.stardic/dic/
 

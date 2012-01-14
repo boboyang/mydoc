@@ -12,7 +12,8 @@ Shift+Ctrl+V: paste
 uname -r
 
 #history
-!grep		#show all history cmd start with grep
+!grep		#show all related grep comd
+
 
 #tar cmd
 tar cvf test.tar test.f  Ñ¹Ëõtest.f µ½test.tar
@@ -89,4 +90,4 @@ cmp
 # batch rename linux.* \1
 for i in `ls linux.*`; do mv $i `echo $i|sed 's/linux.//'`;done
 
-rsync -avz -e ssh ~/workspace/fake-sigd/  root@172.18.195.112:fake-sigd
+
