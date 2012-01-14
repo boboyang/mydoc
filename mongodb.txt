@@ -1,0 +1,12 @@
+cd /home/mongodb-linux-x86_64-2.0.2/bin
+./mongo
+
+show dbs
+use signalingd      # db name
+show collections    # similar to SQL tables
+db.messages.find()
+
+#auto create collection: sdatas
+db.sdatas.insert({name : 'Min', age : 20})
+db.sdatas.drop()    # remove table
+
