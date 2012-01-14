@@ -10,19 +10,17 @@ sudo grub
 #这样一来，就可以进入linux系统了。
 
 #产生grub引导目录
+grub-install /dev/sda
 sudo update-grub
+
 如果不行的话，在重新进入linux后，可能需要执行grub-install。
-另外，如果手动清理了内核，可能需要执行一下sudo grub-mkconfig -o /boot/grub/grub.cfg。
+另外，如果手动清理了内核，可能需要执行一下
+sudo grub-mkconfig -o /boot/grub/grub.cfg。
 
-
-#mdio-gpio driver already register problem
-Create the initramfs image
-#sudo update-initramfs -c -k 2.6.3
-Update your grub.cfg
-#sudo update-grub
 
 #windows菜单
 grub
+
 >rootnoverify (hd0,0)
 >chainloader +1
 >boot
@@ -33,3 +31,28 @@ title		Windows XP
 root		(hd0,0)
 makeactive
 chainloader	+1
+
+-----------------------------------------
+#grub rescue: no grub
+#refer:http://www.dedoimedo.com/computers/grub-2.html
+#Hard way: Manual fix from live CD
+
+mount /dev/sda1 /mnt/
+grub-install --root-directory=/mnt /dev/sda
+sudo mount /dev/sda2 /mnt       # sda2 is / of mine
+sudo mount --bind /dev /mnt/dev
+sudo chroot /mnt
+dpkg-reconfigure grub-pc        # empty, but ok
+sudo umount /mnt/dev
+sudo umount /mnt
+reboot
+# no need cd
+# ls (hd0,1)/
+set root=(hd0,1)
+set prefix=(hd0,1)/grub         # since sda1 is /boot of mine
+#set
+insmod normal
+normal
+#then grub rescued!
+
+
