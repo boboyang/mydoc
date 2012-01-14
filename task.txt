@@ -104,3 +104,39 @@ Jan 11 15:38:35 whille-Vostro-3350 fakesignalingd[5083]: This is a syslog test m
 
 netstat -ntulp
 
+%d34            = " 
+NILVALUE        = "-"
+STRUCTURED-DATA = NILVALUE / 1*SD-ELEMENT
+SD-ELEMENT      = "[" SD-ID *(SP SD-PARAM) "]"
+SD-PARAM        = PARAM-NAME "=" %d34 PARAM-VALUE %d34
+SD-ID           = SD-NAME
+PARAM-NAME      = SD-NAME
+PARAM-VALUE     = UTF-8-STRING ; characters '"', '\' and ; ']' MUST be escaped.
+SD-NAME         = 1*32PRINTUSASCII; except '=', SP, ']', %d34 (")
+
+ { "DATE" : "Jan 13 16:53:25", 
+"FACILITY" : "user", "HOST" : "172.18.195.112", 
+"MESSAGE" : "Event; devMac='F07D68022D93', mdId='30038291', evtType='513'", 
+"PID" : "20108", "PRIORITY" : "info", "PROGRAM" : "signalingd", 
+"SEQNUM" : "2", "SOURCE" : "s_network", "SOURCEIP" : "172.18.195.112", 
+"TAGS" : ".source.s_network", "_id" : ObjectId("4f0ff105b809ab3408000002") }
+
+The following example selects every available information about the log message, 
+except for the date-related macros (R_* and S_*), selects the .SDATA.meta.sequenceId 
+macro, and defines a new value-pair called MSGHDR that contains the program name 
+and PID of the application that sent the log message.
+value-pairs(
+    scope(nv_pairs core syslog all_macros selected_macros everything)
+    exclude("R_*")
+    exclude("S_*")
+    key(".SDATA.meta.sequenceId")
+    pair("MSGHDR" "$PROGRAM[$PID]: ")
+)
+
+For example, the following example removes the SDATA macros from the selection.
+
+value-pairs(
+        scope(rfc5424 selected_macros)
+        exclude(".SDATA*")
+    )
+
