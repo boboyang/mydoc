@@ -11,6 +11,7 @@ client的key每次都随机生成
 #server:
 /etc/ssh/ssh_host*
 /etc/ssh/sshd_config
+sudo /etc/init.d/ssh restart
 
 #client:
 ~/.ssh/known_hosts
@@ -33,6 +34,10 @@ cat id_rsa.pub >>.ssh/authorized_keys   #追加，不影响现有的帐户
 chmod 644 .ssh/authorized_keys
 ls -l .ssh
 
+#151
+scp ~/.ssh/id_rsa.pub root@172.18.195.151:
+cat id_rsa.pub >>.ssh/authorized_keys  
+chmod 644 .ssh/authorized_keys
 
 ＃提交密匙 到github
 https://github.com/accYount/ssh

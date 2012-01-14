@@ -1,8 +1,0 @@
-cd /home/mongodb-linux-x86_64-2.0.2/bin
-./mongo
-
-show dbs
-use signalingd
-show collections
-db.messages.find()
-

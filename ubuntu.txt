@@ -1,3 +1,11 @@
+#partition
+/dev/sda1 ext4 /boot 100Mb       primary
+/dev/sda2 ext4 /      15Gb	 primary
+/dev/sda3 swap         1Gb   	 primary
+/dev/sda5 ext4 /home [remaining] logic 
+
+device for boot loader: /dev/sda1
+
 remember Ctrl+C to stop
 
 #wi-fi:
