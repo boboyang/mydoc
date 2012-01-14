@@ -2,8 +2,8 @@ cd ~/Downloads/
 sudo apt-get install ctags cscope
 sudo apt-get install -y lua5.1-dev
 
-wget http://fossies.org/unix/misc/vim-7.3.tar.bz2
-wget https://github.com/larrupingpig/vimgdb-for-vim7.3/tarball/master -O vimgdb-for-vim7.3.tar.gz
+#wget http://fossies.org/unix/misc/vim-7.3.tar.bz2
+#wget https://github.com/larrupingpig/vimgdb-for-vim7.3/tarball/master -O vimgdb-for-vim7.3.tar.gz
 tar xjvf  vim-7.3.tar.bz2  -C /tmp
 tar xzvf  vimgdb-for-vim7.3.tar.gz  -C /tmp
 cd /tmp

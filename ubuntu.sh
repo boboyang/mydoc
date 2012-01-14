@@ -46,4 +46,6 @@ sudo apt-get install -y stardict freemind skype qterm
 wget http://down4.zw91.com/down/stardict_ciku.zip
 tar xvf stardict_ciku.zip ~/.stardic/dic/
 
+#wine
+
 sudo apt-get autoremove
