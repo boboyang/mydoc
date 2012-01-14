@@ -1,3 +1,4 @@
+cd ~/Downloads
 sudo apt-get install -y gedit-plugins
 sudo apt-get install -y git
 

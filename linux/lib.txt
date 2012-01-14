@@ -1,0 +1,10 @@
+#add lib connection
+
+# vi /etc/ld.so.conf，新增
+/usr/local/lib
+/usr/local/lib64
+/usr/local/pgsql/lib
+
+ldconfig
+
+#then ldd [somapp], correct sahred lib can be shown
