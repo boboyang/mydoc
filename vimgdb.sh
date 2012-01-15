@@ -11,6 +11,7 @@ patch  -p0 < larrupingpig-vimgdb-for-vim7.3-bd07a6c/vim73.patch
 cd vim73/src
 
 #make distclean
+
 ./configure --enable-pythoninterp --enable-cscope --enable-gdb --enable-multibyte  --enable-fontset
 make && sudo make install
 mkdir ~/.vim
