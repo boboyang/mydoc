@@ -134,3 +134,33 @@ sudo passwd root
 ******（再次输入新的root口令）
 su root
 
+# OWA email setting
+thunderbird + davmail
+cd ~/Downloads
+sudo dpkg -i davmail_3.9.7-1870-1_all.deb
+#ubuntu 11,all tray icons are hidden by default,
+gsettings set com.canonical.Unity.Panel systray-whitelist "['all']"
+
+sudo apt-get install thunderbird
+
+#get cer file
+http://60.248.210.43/certsrv/
+username: DCN\Whille_Wang
+passwd:     ******
+select install CA, actually downloading a cernew.cer to ~/Downloads/
+
+#setup davmail
+OWA:    https://mbs.dlink.com.tw
+port:   all check, plus 1000(default setting is ok)
+Encryption/Client Certificate(DavMail to Exchange):
+Client key store type: PKCS12
+Client kye store:      /home/whille/Downloads/certnew.cer 
+Advanced/Exchange Protocol: EWS
+
+#thunderbird setting in UI
+email:  Whille_Wang@cn.dlink.com
+IMAP:
+server name:    localhost   port: 1143
+SMTP:
+server name:    localhost   port: 1025
+
