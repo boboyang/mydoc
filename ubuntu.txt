@@ -164,3 +164,5 @@ server name:    localhost   port: 1143
 SMTP:
 server name:    localhost   port: 1025
 
+account setting:
+Copies$Folders: choose Local Folders for efficiency
