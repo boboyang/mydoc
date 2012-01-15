@@ -6,8 +6,18 @@ route
 ip  #parent of ifdown/ifup
 ip route
 
-iwlist/iwconfig     #wireless
-dhclient    
+#wifi
+sudo apt-get install wicd
+use wicd UI, search and choose a rooter:
+[TPLINK]
+Key:    passwd
+check Auto connect
+use static DNS
+DNS domain: domain
+Search domain: domain
+DNS1:   192.168.1.1
+DNS2:   219.141.136.10      # router ip, for foreign WWW
+
 
 # test
 ping    #use ICMP 64bytes
