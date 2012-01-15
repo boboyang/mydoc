@@ -65,14 +65,98 @@ netstat -ntulp
 #modify .conf
 kill -1 syslog-ng   #restart
 
-doc 3.3.3
+syslog-ng V 3.3.3 doc:
+
 11.1.2. Templates and macros
+
+template(): a format to record logfile, like "$ISODATE $HOST $MSG\n"
+
+
 using the "${MSG}" format is recommended for clarity.
+
 the following macro can specify a default hostname:
 ${HOST:-default_hostname}
+
 By default, syslog-ng sends messages using the following template: $ISODATE $HOST $MSGHDR$MSG\n.
+
 S_DATE  : when the message was sent by the original application. 
 R_DATE  : the date when syslog has received the message.
 
+
+$(grep condition value-to-select)
+ex:
+$(grep ("${username}" == "root") ${auth_method})
+
+
+Example 11.2. Using SDATA macros
+For example, if a log message contains the following structured data: [exampleSDID@0 iut="3" eventSource="Application" eventID="1011"][examplePriority@0 class="high"] you can use macros like: ${.SDATA.exampleSDID@0.eventSource} — this would return the Application string in this case.
+
+11.3.2. Optimizing regular expressions
+kind of condition
+ex:
+filter f_demo_optimized_regexp {
+    program("demo_program") and
+    match("time error") and 
+    match("is too large") and 
+    match("set clock manually"); };
+
+
+Chapter 12. Parsing and segmenting structured messages
+
 12.1. Parsing messages
+Declaration:
+    parser parser_name {
+    csv-parser(column1, column2, ...)
+    delimiters()
+    flags()
+    quote-pairs()
+    };
+
+flags() Synopsis:	
+drop-invalid, escape-none, escape-backslash, escape-double-char, greedy, strip-whitespace
+
+
+2nd phase parse:
+
+ex: apache log 
+"%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %T %v"
+
+parser p_apache {
+    csv-parser(columns("APACHE.CLIENT_IP", "APACHE.IDENT_NAME", "APACHE.USER_NAME",
+        "APACHE.TIMESTAMP", "APACHE.REQUEST_URL", "APACHE.REQUEST_STATUS",
+        "APACHE.CONTENT_LENGTH", "APACHE.REFERER", "APACHE.USER_AGENT",
+        "APACHE.PROCESS_TIME", "APACHE.SERVER_NAME")
+         flags(escape-double-char,strip-whitespace)
+         delimiters(" ")
+         quote-pairs('""[]')
+         );
+};
+
+parser p_apache_timestamp {
+    csv-parser(columns("APACHE.TIMESTAMP.DAY", "APACHE.TIMESTAMP.MONTH", "APACHE.TIMESTAMP.YEAR", "APACHE.TIMESTAMP.HOUR", "APACHE.TIMESTAMP.MIN", "APACHE.TIMESTAMP.MIN", "APACHE.TIMESTAMP.ZONE")
+    delimiters("/: ")
+    flags(escape-none)
+    template("${APACHE.TIMESTAMP}"));
+    };
+log { source(s_local);
+    log { 
+        parser(p_apache); parser(p_apache_timestamp); destination(d_file);
+    };
+};
+
+---------------------
+quote-pairs()
+Delimiter characters enclosed between quote characters are ignored.
+
+value-pairs ->$(format-json parameters), or directly used by mongodb
+
+mongodb();
+value-pairs {
+    ...
+    pair("<NAME>" "<VALUE>")
+}
+
+<VALUE> can include macros, templates, and template functions
+macros: built-in or user-defined macro.
+
 
