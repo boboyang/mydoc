@@ -25,19 +25,25 @@ ssh-keygen -C 'whille@163.com' -t rsa
 
 #制作不用密码可立即登入的ssh 用户:
 ＃scp --help
-scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:~/
 
-#登录ssh, ex: scdc
-ssh whillewang@scdc.mydlink.com -p 2226
-mkdir .ssh;chmod 700 .ssh
+#client
+scp ~/.ssh/id_rsa.pub root@172.18.195.151:
+
+#151 server
+ssh root@172.18.195.151
+# then input password
+#who     #in server, show how many users now
+
+ls ~/.ssh || touch ~/.ssh chmod 700 ~/.ssh
+
 cat id_rsa.pub >>.ssh/authorized_keys   #追加，不影响现有的帐户
 chmod 644 .ssh/authorized_keys
-ls -l .ssh
+#ls -l .ssh
 
-#151
-scp ~/.ssh/id_rsa.pub root@172.18.195.151:
-cat id_rsa.pub >>.ssh/authorized_keys  
-chmod 644 .ssh/authorized_keys
+#scdc server 
+ssh whillewang@scdc.mydlink.com -p 2226
+#client
+scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:~/
 
 ＃提交密匙 到github
 https://github.com/accYount/ssh
@@ -46,4 +52,13 @@ https://github.com/accYount/ssh
 
 ＃查看网络服务
 cat /etc/services
+
+# update projects to server
+cd env
+scp -r mydlink_v3 root@172.18.195.214:env/mydlink_v3
+scp -r servicesmock root@172.18.195.214:env/servicesmock
+
+#SCDC
+ssh -L 8901:localhost:8901 -p 2226 whillewang@scdc.mydlink.com
+#scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:temp_key
 
