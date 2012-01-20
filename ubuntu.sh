@@ -1,10 +1,11 @@
 cd ~/Downloads
-sudo apt-get install -y gedit-plugins
+sudo apt-get install -y tree gedit-plugins
 sudo apt-get install -y git
 
 #memcached
 sudo apt-get install -y build-essential libmemcached-dev
 sudo apt-get install -y memcached libmemcached-tools
+gsettings set org.gnome.gedit.preferences.encodings auto-detected "['UTF-8','GB18030','GB2312','GBK','BIG5','CURRENT','UTF-16']"
 
 #python
 sudo apt-get install -y python2.7-dev python-setuptools python-virtualenv

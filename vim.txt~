@@ -111,6 +111,7 @@ mx	设置书签,x只能是a-z的26个字母
 #src
 ctags -R        #create index
 ctags -R --fields=+lS  # create tags and echofunc, need +balloon_eval when compiling vim
+
 cscope -Rbq
 
 
@@ -166,6 +167,10 @@ y`a	 yank text to unnamed buffer from cursor to position of mark a
 
 #grep
 [F3], then set txt
+
+#show line number
+:se number
+:se nonumber
 
 -------------------------
 #vimgdb

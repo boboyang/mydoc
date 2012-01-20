@@ -77,8 +77,13 @@ $ sudo gedit /etc/network/interfaces
 auto lo                                       # 开机自动激lo接口
 iface lo inet loopback                        # 配置lo接口为环回口
 # The primary network interface （配置主网络接口）
-auto eth0                                     #开机自动激活eth0接口
-iface eth0 inet dhcp                          #配置eth0接口为DHCP自动获取
+# if use eth0
+#auto eth0                                     #开机自动激活eth0接口
+#iface eth0 inet dhcp                          #配置eth0接口为DHCP自动获取
+
+# if use wlan
+auto wlan0
+iface wlan0 inet dhcp
 
 $ sudo /etc/init.d/networking restart           # 重启网络
 

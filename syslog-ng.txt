@@ -46,9 +46,9 @@ When signalingd receives the event report from the device, all the fields in the
 # ./configure --with-memcached && make && make install
 # cd ..
 4、安裝 eventlog
-# tar xvzf eventlog_0.2.9.tar.gz
-# cd eventlog-0.2.9
-# ./configure && make && make install
+tar xvzf eventlog_0.2.12.tar.gz
+cd eventlog-0.2.12cd
+./configure && make && make install
 # cd ..
 5、安裝 syslog-ng
 # tar xvzf syslog-ng_3.0.5.tar.gz
@@ -87,6 +87,8 @@ $(grep condition value-to-select)
 ex:
 $(grep ("${username}" == "root") ${auth_method})
 
+11.1.5. Using template functions
+$(echo $(echo $HOST))
 
 Example 11.2. Using SDATA macros
 For example, if a log message contains the following structured data: [exampleSDID@0 iut="3" eventSource="Application" eventID="1011"][examplePriority@0 class="high"] you can use macros like: ${.SDATA.exampleSDID@0.eventSource} — this would return the Application string in this case.
@@ -115,6 +117,44 @@ Declaration:
 flags() Synopsis:	
 drop-invalid, escape-none, escape-backslash, escape-double-char, greedy, strip-whitespace
 
+parser DLINK_seg {
+    csv-parser(columns("DLINK_LOGTYPE", "TLVs")
+    delimiters(";")
+    flags(strip-whitespace)
+    );
+};
+
+parser TLV_seg {
+    csv-parser(columns("TLVs.MAC", "TLVs.DLINK_ID")
+    delimiters(",")
+    flags(escape-double-char, strip-whitespace)
+    template("${TLVs}")
+    );
+};
+
+destination d_signalingd_mongodb3 {
+    mongodb(
+       host("172.18.195.151")
+           port(27017)
+           database("signalingd")
+           collection("pardata")
+           value-pairs(
+               pair("DLINK_LOG_TYPE", "${DLINK_LOGTYPE}")
+               pair("MAC", "${TLVs.MAC}")
+               pair("DLINK_ID", "${TLVs.DLINK_ID}")
+           )
+    );
+};
+
+
+log {
+        #source(s_sys); 
+        source(s_network);
+        filter(f_signalingd);
+        parser(DLINK_seg); parser(TLV_seg); destination(d_signalingd_mongodb3);
+
+};
+
 
 2nd phase parse:
 
@@ -138,6 +178,7 @@ parser p_apache_timestamp {
     flags(escape-none)
     template("${APACHE.TIMESTAMP}"));
     };
+    
 log { source(s_local);
     log { 
         parser(p_apache); parser(p_apache_timestamp); destination(d_file);

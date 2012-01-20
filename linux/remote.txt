@@ -9,9 +9,14 @@ private key:    用来解密
 client的key每次都随机生成
 
 #server:
-/etc/ssh/ssh_host*
-/etc/ssh/sshd_config
+sudo apt-get install openssh-server
+ps -e |grep ssh  	#check if started
 sudo /etc/init.d/ssh restart
+
+#default conf
+/etc/ssh/sshd_config
+
+/etc/ssh/ssh_host*
 
 #client:
 ~/.ssh/known_hosts
@@ -54,6 +59,7 @@ https://github.com/accYount/ssh
 cat /etc/services
 
 # update projects to server
+
 cd env
 scp -r mydlink_v3 root@172.18.195.214:env/mydlink_v3
 scp -r servicesmock root@172.18.195.214:env/servicesmock
@@ -62,3 +68,6 @@ scp -r servicesmock root@172.18.195.214:env/servicesmock
 ssh -L 8901:localhost:8901 -p 2226 whillewang@scdc.mydlink.com
 #scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:temp_key
 
+
+#rsync 112
+rsync -avz -e ssh ./ root@172.18.195.112:/root/fake-sigd

@@ -1,4 +1,4 @@
-sudo apt-get install python-virtualenv
+sudo apt-get install python-virtualenv &&
 virtualenv --no-site-packages env
 cd env
 sudo bin/easy_install pyramid

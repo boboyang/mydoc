@@ -168,6 +168,10 @@ y`a	 yank text to unnamed buffer from cursor to position of mark a
 #grep
 [F3], then set txt
 
+#show line number
+:se number
+:se nonumber
+
 -------------------------
 #vimgdb
 
