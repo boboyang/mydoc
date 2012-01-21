@@ -1,31 +1,21 @@
 cd ~/Downloads
-#sudo apt-get update
-#sudo apt-get upgrade -y
+sudo apt-get update
+
+sudo apt-get remove -y rhythmbox totem evolution ubuntuone*
+
+sudo apt-get upgrade -y
 
 sudo apt-get install -y tree gedit-plugins
 
 #memcached
 sudo apt-get install -y build-essential git-core libmemcached-dev libmemcached-tools
-#gsettings set org.gnome.gedit.preferences.encodings auto-detected "['UTF-8','GB18030','GB2312','GBK','BIG5','CURRENT','UTF-16']"
 
 #python
-sudo apt-get install -y python2.7-dev python-setuptools python-virtualenv
+sudo apt-get install -y python-dev python-setuptools python-virtualenv
 
-#mysql
-sudo apt-get install -y mysql-server 
-
-#redis
-sudo apt-get install -y tcl8.5
-
-#wget http://redis.googlecode.com/files/redis-2.4.4.tar.gz
-#tar xzf redis-2.4.4.tar.gz
-#cd redis-2.4.4
-# readme
-#make && sudo make install
-
-#chrome
-#download .deb first
-DEBS="google-chrome-stable_current_i386.deb bcompare-3.3.3.14128_i386.deb" # wine-thunder_0.6-2_all.deb"
+#debs, download .deb first
+DEBS="google-chrome-stable_current_i386.deb davmail_3.9.7-1870-1_all.deb skype-ubuntu_2.2.0.25-1_i386.deb
+ bcompare-3.3.3.14128_i386.deb" # wine-thunder_0.6-2_all.deb"
 sudo dpkg -i $DEBS
 #install depend
 sudo apt-get -f -y install 
@@ -37,17 +27,19 @@ sudo dpkg -i $DEBS
 #sudo apt-get install -y sun-java6-jdk
 #sudo update-alternatives --config java
 
+sudo apt-get install -y stardict freemind qterm audacious  thunderbird rar
+
+#wget http://down4.zw91.com/down/stardict_ciku.zip
+#tar xvf stardict_ciku.zip ~/.stardic/dic/
+
+#mysql
+sudo apt-get install -y openssh-server mysql-server 
+
 #osdlyrics
 sudo add-apt-repository ppa:osd-lyrics/ppa
 sudo apt-get update
 sudo apt-get install -y osdlyrics 
 sudo apt-get -f install
 sudo apt-get install -y osdlyrics
-
-sudo apt-get install -y stardict freemind skype qterm
-wget http://down4.zw91.com/down/stardict_ciku.zip
-tar xvf stardict_ciku.zip ~/.stardic/dic/
-
-#wine
 
 sudo apt-get autoremove

@@ -1,0 +1,12 @@
+#mic 
+/home/whille/Downloads/dell/scripts/chroot-scripts/fish/95-amixer.sh
+
+#wifi:
+
+uname -r
+2.6.35-32-generic-pae
+# so i choose
+sudo apt-get install linux-backports-modules-compat-wireless-2.6.38-2.6.35-32-generic-pae
+sudo apt-get install linux-backports-modules-compat-wireless-2.6.38-2.6.35-32-generic
+
+# reboot then wifi device up

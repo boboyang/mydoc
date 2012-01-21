@@ -1,4 +1,28 @@
+# require
+sudo apt-get install tcl8.5
+
+cd ~/Downloads
+#wget http://redis.googlecode.com/files/redis-2.4.4.tar.gz
+tar xzf redis-2.4.4.tar.gz
+cd redis-2.4.4
+# readme
+sudo make;make test;
+sudo make install
+
+cd  utils
+sudo ./install_server.sh 
+# deamon server start
+sudo /etc/init.d/redis_6379 start
+# or sudo redis-server /etc/redis/6379.conf 
+# sudo /etc/init.d/redis_6379 stop
+#redis-benchmark
+whereis redis-cli
+redis-cli
+
+----------------------
+
 #redis commands
+
 $redis-cli
 redis 127.0.0.1:6379>
 >quit
