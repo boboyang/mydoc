@@ -112,8 +112,9 @@ mx	设置书签,x只能是a-z的26个字母
 ctags -R        #create index
 ctags -R --fields=+lS  # create tags and echofunc, need +balloon_eval when compiling vim
 
-cscope -Rbq
-
+#use absolute path, or vim will not find tags in sub dir
+find /home/whille/Downloads/nginx-1.0.10/src  -name "*.h" -o -name "*.c" -o -name "*.cc" > cscope.files
+cscope -bkq -i cscope.files && ctags -R
 
 vim -t foo_bar  #open file and goto def of foo_bar
 :ta foo_bar     #goto def of foo_bar
@@ -126,10 +127,6 @@ Ctrl-o		#go forward
 ctags -I __THROW --file-scope=yes --langmap=c:+.h --languages=c,c++ --links=yes --c-kinds=+p -R -f ~/.vim/systags /usr/include /usr/local/include
 
 其关键是-I __THROW部分和--c-kinds=+p部分。设置-I后，ctags会在处理文件时，就会忽略-I后面写出来的符号。而--c-kinds=+p则告诉ctags需要为函数原型的声明也生成tag。--langmap=c:+.h表示.h视为c文件而不是c++文件。
-
-最后，设置你的~/.vimrc，加入一行：
-set tags+=~/.vim/systags
-就可以享受系统库函数名补全、原型预览等功能了。
 
 #click and [ENTER]
 #click and [SPACE]
