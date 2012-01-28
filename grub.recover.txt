@@ -21,14 +21,8 @@ sudo grub
 
 进入ubuntu后在终端执行
 sudo grub-install /dev/sda
-不放心还可以执行
 sudo grub-update
 看看更新的启动项都对不对。
-以后在启动就可以正常了。
-
-#产生grub引导目录
-grub-install /dev/sda
-sudo update-grub
 
 如果不行的话，在重新进入linux后，可能需要执行grub-install。
 
