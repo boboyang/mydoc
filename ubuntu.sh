@@ -14,7 +14,7 @@ sudo apt-get install -y build-essential git-core libmemcached-dev libmemcached-t
 sudo apt-get install -y python-dev python-setuptools python-virtualenv
 
 #debs, download .deb first
-DEBS="google-chrome-stable_current_i386.deb davmail_3.9.7-1870-1_all.deb skype-ubuntu_2.2.0.25-1_i386.deb
+DEBS="google-chrome-stable_16.0.912.77-r118311_i386.deb davmail_3.9.7-1870-1_all.deb skype-ubuntu_2.2.0.25-1_i386.deb
  bcompare-3.3.3.14128_i386.deb" # wine-thunder_0.6-2_all.deb"
 sudo dpkg -i $DEBS
 #install depend
