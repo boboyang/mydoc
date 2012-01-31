@@ -1,0 +1,5 @@
+sudo apt-get install gcc-4.4
+sudo rm /usr/bin/gcc
+sudo ln -s /usr/bin/gcc-4.4 /usr/bin/gcc
+gcc --version
+

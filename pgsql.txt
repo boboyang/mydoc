@@ -12,3 +12,9 @@ su - postgres
 /usr/local/pgsql/bin/postgres -D /usr/local/pgsql/data >logfile 2>&1 &
 /usr/local/pgsql/bin/createdb test
 /usr/local/pgsql/bin/psql test
+
+
+/usr/local/pgsql/bin/psql -U mydlink mydlink
+\dt
+select * from device where dlife_no ='xxxxxxxx';
+
