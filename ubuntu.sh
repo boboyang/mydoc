@@ -11,7 +11,7 @@ sudo apt-get install -y tree gedit-plugins
 sudo apt-get install -y build-essential git-core libmemcached-dev libmemcached-tools
 
 #python
-sudo apt-get install -y python-dev python-setuptools python-virtualenv
+sudo apt-get install -y python-dev python-setuptools python-virtualenv fabric
 virtualenv --no-site-packages ~/env 
 ~/env/bin/easy_install pyramid
 cd ~/env/mydlink_v3/
