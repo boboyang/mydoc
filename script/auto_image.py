@@ -3,7 +3,6 @@ import zipfile, re, glob, os
 # proto: helen, vasco,...
 # type: subcon, rnd
 def findfiles(path, proto, type):
-
     ziptargets = ['*' + proto + '_' + type + '*.zip',
                '*' + proto + '_uda*.zip']
     results = []
