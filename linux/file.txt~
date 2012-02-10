@@ -52,6 +52,9 @@ file temp.txt
 which   #find exe
 whereis #find file, faster than find, because of db usage
 locate passwd
+#ex:
 find ~/mydoc -name ubuntu*
 http://vbird.dic.ksu.edu.tw/linux_basic/0220filemanager.php#find
 
+# find files in pwd, size >1500k
+find -size +1500
