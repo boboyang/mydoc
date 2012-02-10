@@ -63,21 +63,15 @@ def findfiles(path, target):
     results += glob.glob(os.path.join(root, target))
   return results
 
-def detectencoding(filename):
-  fp = open(filename, 'r')
-  test = fp.readline()
-  coding = chardet.detect(test)['encoding']
-  fp.close()
-  return coding
-
 def modify(files, pattern, repl):
+  import encoding.detectf
   for filename in files:
-    coding = detectencoding(filename)
-#    print filename
+    coding = detectf(f)
+#    print f
 #    print coding
 
-    os.chmod(filename, stat.S_IWRITE)
-    content = open(filename, 'rb').read()
+    os.chmod(f, stat.S_IWRITE)
+    content = open(f, 'rb').read()
 
     if None == coding:
       content = re.sub(pattern, repl, content)
@@ -86,7 +80,7 @@ def modify(files, pattern, repl):
       content = re.sub(pattern, repl, content)
       content = content.encode(coding)
 
-    open(filename, 'wb').write(content)
+    open(f, 'wb').write(content)
 
 if __name__ == '__main__':
   if len(sys.argv) < 4:

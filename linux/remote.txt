@@ -39,10 +39,9 @@ ssh root@172.18.195.151
 # then input password
 #who     #in server, show how many users now
 
-ls ~/.ssh || touch ~/.ssh chmod 700 ~/.ssh
+ls ~/.ssh || mkdir ~/.ssh chmod 700 ~/.ssh
 
-cat id_rsa.pub >>.ssh/authorized_keys   #追加，不影响现有的帐户
-chmod 644 .ssh/authorized_keys
+cat id_rsa.pub >>.ssh/authorized_keys && chmod 644 .ssh/authorized_keys
 #ls -l .ssh
 
 #scdc server 

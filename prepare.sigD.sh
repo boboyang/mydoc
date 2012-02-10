@@ -16,6 +16,7 @@ tar zxvf libffi-3.0.9.tar.gz
 cd libffi-3.0.9
 ./configure &&make&&sudo make install
 
+<<<<<<< HEAD
 tar zxvf glib-2.30.2.tar.gz 
 cd glib-2.30.2
 ./configure &&make&&sudo make install
@@ -38,3 +39,13 @@ patch -p1 <../2.0.10-stable-changes.patch
 ./configure && make && sudo make install
 cd ..
 
+=======
+connection detected:
+conn->refcnt = 1;
+
+connection closed:
+if (conn->refcnt == 0)
+
+user update firmware:
+upgrade_cmd_type = TRUE;
+>>>>>>> 42d6bcefd1941c93f82ecd1dc2ce243e1a682403
