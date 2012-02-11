@@ -15,7 +15,8 @@ batch : CPU load <0.8
 
 #crontab
 crontab -e
-0 13,18 * * * sh ~/mydoc/autogit.sh
+0 13,18 * * * cd ~/mydoc/ && sh ./autogit.sh || echo $? >> /tmp/log/crontab.log
+
 crontab -l
 
 cat /etc/crontab
