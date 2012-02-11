@@ -11,10 +11,17 @@ client的key每次都随机生成
 #server:
 sudo apt-get install openssh-server
 ps -e |grep ssh  	#check if started
+
+StrictModes no
+PubkeyAuthentication yes
+AuthorizedKeysFile      .ssh/authorized_keys
+
 sudo /etc/init.d/ssh restart
 
 #default conf
 /etc/ssh/sshd_config
+#set this to local config, to improve connection speed
+GSSAPIAuthentication no
 
 /etc/ssh/ssh_host*
 
