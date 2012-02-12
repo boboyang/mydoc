@@ -1,0 +1,19 @@
+ab -n 1000 -c 1000 https://172.18.195.213:443/
+
+#monitor
+iptraf -d eth0
+
+#sample sigD:
+iptraf -d eth0
+
+Total rates: 14.1M bits/sec
+              5.5M packets/sec
+
+
+110 bytes ~= 1k bits
+
+max CPU: 30%, MEM:30%
+
+#sigD
+./signalingd -h 0.0.0.0 -H 80 -S 443 -m 172.18.195.210:11211 -q 172.18.195.210 -t 10 -n 400 -r MP -s MP -i 1 -x -c
+ethtool eth0

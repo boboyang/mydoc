@@ -32,7 +32,7 @@ sudo dpkg -i $DEBS
 #sudo apt-get install -y sun-java6-jdk
 #sudo update-alternatives --config java
 
-sudo apt-get install -y stardict freemind qterm audacious  thunderbird rar indicator-weather
+sudo apt-get install -y stardict freemind qterm audacious  thunderbird rar indicator-weather ethtool
 
 #wget http://down4.zw91.com/down/stardict_ciku.zip
 #tar xvf stardict_ciku.zip ~/.stardic/dic/
