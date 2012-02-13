@@ -53,7 +53,7 @@ cat >catfile
 ^D  #to exit edit
 
 # || &&
-ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
+[ ! -d "/tmp/abc" ] && mkdir -p "/tmp/abc" && touch /tmp/abc/hehe
 ls /tmp/abc && echo "exit" || echo "not exit"
 
 cut

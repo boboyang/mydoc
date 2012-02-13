@@ -12,7 +12,7 @@ cd vim73/src
 make distclean
 ./configure --enable-pythoninterp --enable-cscope --enable-gdb --enable-multibyte  --enable-fontset
 make && sudo make install
-ll ~/.vim || mkdir ~/.vim
+[ ! -d "~/.vim" ] && mkdir -p "~/.vim"
 #cp -rf /tmp/larrupingpig-vimgdb-for-vim7.3-bd07a6c/vimgdb_runtime/*  ~/.vim
 
 

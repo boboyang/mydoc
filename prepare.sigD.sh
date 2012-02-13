@@ -39,13 +39,3 @@ patch -p1 <../2.0.10-stable-changes.patch
 ./configure && make && sudo make install
 cd ..
 
-=======
-connection detected:
-conn->refcnt = 1;
-
-connection closed:
-if (conn->refcnt == 0)
-
-user update firmware:
-upgrade_cmd_type = TRUE;
->>>>>>> 42d6bcefd1941c93f82ecd1dc2ce243e1a682403
