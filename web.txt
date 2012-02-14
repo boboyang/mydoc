@@ -8,3 +8,28 @@ IDC网管 通过对交换机限速，来控制链路层的流量，从而控制s
 
  交换机是利用MAC地址来确定转发数据的目的地址。而路由器则是IP地址来确定数据转发的地址。
  路由器提供了防火墙的服务
+
+cat /proc/loadavg
+top, w 都是利用这个文件。 1,5,15 min 的cpu负载
+
+Nmon 分析系统，生成曲线
+
+IOWait: io time/ cpu time
+查看： top命令， cpu: XX%wa 
+
+进程的两种运行状态：用户态(cpu, memory)，内核态(IO, net)。
+
+系统调用涉及用户态到内核态的切换（context，memory切换），所以开销比较昂贵。
+
+1987年， Patterson、Gibson和Katz这三位工程师在加州大学伯克利分校发表了题为《A Case of Redundant Array of Inexpensive Disks(廉价磁盘冗余阵列方案)》的论文，其基本思想就是将多只容量较小的、相对廉价的硬盘驱动器进行有机组合，使其性能超过一只昂贵的大硬盘。
+
+SATA的全称是Serial Advanced Technology Attachment（串行高级技术附件，一种基于行业标准的串行硬件驱动器接口）
+
+memory mapping: 把内存的某块地址空间与磁盘文件相关联，从而更快地访问文件。
+
+strace: trace system calls and signals.
+Linux2.6之后，用户态和磁盘文件之间设置了内核缓冲区，使用了批量延迟写的策略。如果想直接读写磁盘，可以设置O_DIRECT参数。
+
+Linux2.4之后，加入sendfile(), 可以将静态文件直接送到socket fd，从而提高了速度，减少cpu/内存开销。该方法不适合太小的文件。
+
+epoll的优势在于：有大量非活跃的连接时。
