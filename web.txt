@@ -33,3 +33,14 @@ Linux2.6之后，用户态和磁盘文件之间设置了内核缓冲区，使用
 Linux2.4之后，加入sendfile(), 可以将静态文件直接送到socket fd，从而提高了速度，减少cpu/内存开销。该方法不适合太小的文件。
 
 epoll的优势在于：有大量非活跃的连接时。
+
+第5章 动态脚本加速
+
+opcode
+
+
+脚本性能的跟踪与分析
+
+让 PyPy 去生成 JIT 编译器
+
+A profiler is a program that describes the run time performance of a program, providing a variety of statistics. 
