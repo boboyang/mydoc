@@ -44,3 +44,73 @@ opcode
 让 PyPy 去生成 JIT 编译器
 
 A profiler is a program that describes the run time performance of a program, providing a variety of statistics. 
+
+第6章 浏览器缓存
+ex：
+chrome://view-http-cache/http://static.adzerk.net/Advertisers/879d9e1805a6495a9e3cbeeffe6da2ad.png
+
+缓存协商
+Last-Modified
+Etag:  ---  If-None_Match:
+md5(content) or more sophisticated
+
+Expires:
+完全放权给browser
+
+F5 Ctrl+F5 return
+
+Cache-Control: max-age=<second>
+优先于Expires， 因为它使用相对时间，避免client时间与server不一致。
+
+第7章 Web服务器缓存
+
+缓存响应内容： disk/memory
+
+缓存fd，针对大量小文件（静态内容），减少open()的%
+
+第8章 Reverse Proxy Server
+主要目的：基于缓存的加速。
+副作用：还能有firewall功能，不过iptables也可以做到
+
+nginx： 优势，使用了epoll， 在大并发下仍能有较高的吞吐率。
+打开mode-proxy模块
+ex:
+location ~ \.*$ {
+    proxy_pass  localhost:80;
+    proxy_set_header X-Real-IP $remote_addr;   
+}
+通过["HTTP_X_REAL_IP"]访问。
+
+
+Varnish：专一
+要有缓存清除功能。
+
+命中率
+LRU： least recently used
+
+问题：缓存空间，有效期，没被缓存的内容。
+
+ESI： edge side include
+    
+首次加载： 别让一批用户来做，他们会抱怨的。自己写工具来预热。
+
+第9章 Web组件分离
+
+组件：
+    动态内容/图片/CSS/js
+因素：
+    文件大小/数量/更新频率
+    并发数/是否需要脚本解释器/RPC
+    CPU密集/IO密集/DB访问瓶颈/
+    read/write
+    
+组件分离提高了browser下载组件时的并发数。
+http://site-perf.com
+
+静态内容是IO密集型数据。
+
+
+
+
+
+
