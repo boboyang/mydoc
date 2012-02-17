@@ -1,5 +1,8 @@
-/home/mongodb-linux-x86_64-2.0.2/bin/mongo
+#start server
+/usr/local/syslog-ng/sbin/syslog-ng -F -v -d -t
 
+# start client
+/home/mongodb-linux-x86_64-2.0.2/bin/mongo
 #show dbs
 use signalingd      # db name
 #show collections    # similar to SQL tables
