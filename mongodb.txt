@@ -12,3 +12,5 @@ use signalingd      # db name
 db.pardata.find()
 db.pardata.drop()    # remove table
 
+db.dropDatabase()   # remove db
+

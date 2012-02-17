@@ -114,3 +114,4 @@ http://site-perf.com
 
 
 
+iptables -nL -t nat
