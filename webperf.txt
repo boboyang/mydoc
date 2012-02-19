@@ -120,8 +120,67 @@ upstream backend{
 }   
 权重与server性能相关，有最优解。
 
-
-
-
-
 iptables -nL -t nat
+
+私有IP地址范围（RFC1918）：
+　　A: 10.0.0.0~10.255.255.255 /8
+　　B:172.16.0.0~172.31.255.255 /12
+　　C:192.168.0.0~192.168.255.255 /16
+　　这些地址是不会被Internet分配的，它们在Internet上也不会被路由，虽然它们不能直接和Internet网连接，但通过技术手段仍旧可以和 Internet通讯。
+
+12.6 直接路由 LVS-DR
+dispatcher工作在数据链路层，通过修改client到server的ip包的mac地址（仅第一次），使client与server的直接通讯。
+servers设置：必须连入WAN（购买一系列公网IP），不把dispatcher作为默认网关。
+　　
+数据流向
+client  =====> dispatcher =====> servers
+   <================================
+　　
+IP别名：一个MAC可以最多有256个IP别名
+
+ip_alias=125.12.12.77
+ifconfig eth0:0 $ip_alias
+
+#为dispatcher和实际server设置相同的IP别名
+sudo ifconfig lo:0 $ip_alias broadcast $ip_alias netmask 255.255.255.255 up
+
+#让实际server不去寻找其他拥有这个ip别名的机器
+route add -host $ip_alias dev lo:0
+
+#防止实际server响应针对ip别名的arp广播
+echo "1" > /proc/sys/net/ipv4/conf/lo/arp_ignore
+echo "2" > /proc/sys/net/ipv4/conf/lo/arp_announce
+echo "1" > /proc/sys/net/ipv4/conf/all/arp_ignore
+echo "2" > /proc/sys/net/ipv4/conf/all/arp_nnounce 
+
+#dispatcher设置
+sudo ipvsadm -A -t $ip_alias:80 -s rr
+sudo ipvsadm -A -t $ip_alias:80 -r 192.168.1.100:80 -g
+sudo ipvsadm -A -t $ip_alias:80 -r 192.168.1.100:81 -g
+#...
+# -g 意味着dispatcher使用直接路由的方式转发ip包
+
+一旦dispatcher失效，可以将LVS-DR切换到LVS-RR,只要增加几条DNS记录，将域名解析到servers的真实IP。一旦dispatcher恢复，可以再次修改DNS记录，将域名仅指向dispatcher。
+
+
+12.7 LVS-TUN
+原理： dispatcher将client的ip包重新封装，发给目标server
+    
+12.8 可用性
+避免单点故障
+
+heartbeat，
+dispatcher备用， 
+多线独立线路连接，这样不依赖与电源。
+
+Bonding技术，将多条线路绑定到server的多个网卡，对流量负载均衡，从而成倍扩充了带宽
+
+13章 共享文件系统
+
+NFS Samba
+NFC 使用RPC，工作在应用层
+
+
+
+    
+
