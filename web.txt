@@ -110,6 +110,16 @@ http://site-perf.com
 静态内容是IO密集型数据。
 
 
+反向代理
+
+nginx：
+upstream backend{
+    ip_hash;
+    server 10.0.1.200:80 weight=2;
+    server 10.0.1.201:80 weight=1; 
+}   
+权重与server性能相关，有最优解。
+
 
 
 
