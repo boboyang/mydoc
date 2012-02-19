@@ -62,6 +62,9 @@ wget    #download
 tcpdump
 sudo tcpdump -i eth0 -nn port 21
 
+tcpdump -i eth0 "tcp port 27017"
+tcpdump -x -i eth0 "host 172.18.195.111"
+
 # snap to cap and open by wireshark
 sudo tcpdump -i eth0 port 80 -w tmp.cap
 wireshark -r tmp.cap -R http

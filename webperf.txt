@@ -124,3 +124,4 @@ upstream backend{
 
 
 
+iptables -nL -t nat
