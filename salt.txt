@@ -1,0 +1,11 @@
+def gen(passwd)
+    salt=random()
+    return md5(passwd+salt),salt
+
+def varify(passwd,salt,hashv)
+    assert(hashv == md5(passwd+salt)) 
+
+user: passwd
+server store: salt, hashv
+ 
+安全性提高： passwd, salt 分开存放; key长度变长; shalt随机行强。 
