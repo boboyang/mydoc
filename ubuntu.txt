@@ -13,6 +13,9 @@ SSID: mydlink01
 
 sudo apt-get update
 
+#set su root password
+sudo passwd root
+
 #memcached test 
 memcached -d m 64 -l 127.0.0.1 -p 11211
 netstat -ant|grep 11211
