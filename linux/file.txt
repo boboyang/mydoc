@@ -1,3 +1,15 @@
+#disk
+
+#usage statistics
+df -m  # 单位M
+
+#显示前10个占用空间最大的文件或目录
+du -s * | sort -nr | head
+
+#find file size>1G
+find / -type f -size +1000000k 
+
+
 #folder:
 cd,pwd,mkdir,rmdir
 #create link

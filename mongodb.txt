@@ -1,5 +1,5 @@
 #start server
-/usr/local/syslog-ng/sbin/syslog-ng -F -v -d -t
+./mongod --logpath=/data/mongodb/log/log --fork
 
 # start client
 /home/mongodb-linux-x86_64-2.0.2/bin/mongo
@@ -13,4 +13,10 @@ db.pardata.find()
 db.pardata.drop()    # remove table
 
 db.dropDatabase()   # remove db
+
+
+# clean data if disk full
+cd /data/db/ && ll
+#rm max size database
+
 
