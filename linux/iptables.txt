@@ -1,8 +1,21 @@
+#refer:
+http://linux.vbird.org/linux_server/0250simple_firewall.php#netfilter_syntax_icmp
+
+#主要tables/chain：
+filter（default）：INPUT/OUTPUT/FORWARD
+NAT： PREROUTING/OUTPUT/POSTROUTING
+
 #dump rules
 iptables-save
 
 # list rules
 iptables -L -n -v
+
+#rules 顺序：
+if rule1:
+elif rule2:
+...
+
 
 # drop ssh to localhost 
 iptables -A INPUT -i wlan0 -p tcp --dport 22 -j DROP
@@ -28,3 +41,35 @@ done
 /etc/sysconfig/iptables
 #check
 chkconfig --list iptables
+
+9.3.4 超阳春用户端防火墙设计
+
+9.3.5 IPv4 的核心管理功能
+#temp
+echo "1" > /proc/sys/net/ipv4/tcp_syncookies
+echo "1" > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts 
+
+#once-for-all
+vim /etc/sysctl.conf
+# 
+net.ipv4.tcp_syncookies = 1
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.conf.eth0.rp_filter = 1
+net.ipv4.conf.lo.rp_filter = 1 
+....(以下省略)....
+#
+sysctl -p
+
+#NAT server, ip sharing
+这个IP分享器一定会有一个Public IP与一个Private IP
+而router通常两边都是Public IP或同时为Private IP。
+
+如果Internet 回传封包呢？又会怎么作？
+ NAT server会分析该封包的序号，并比对刚刚记录到记忆体当中的资料
+ 
+
+#端口映射： 
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
+ 
