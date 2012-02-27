@@ -1,8 +1,5 @@
-#setting
-
 ifconfig
 ifdown/ifup
-route
 ip  #parent of ifdown/ifup
 ip route
 
@@ -90,9 +87,6 @@ iface wlan0 inet dhcp
 
 $ sudo /etc/init.d/networking restart           # 重启网络
 
-#DNS ip
-/etc/resolv.conf
-nameserver 219.141.136.10
 
 那么，为了避免DNS在DHCP自动获取地址后被覆盖，您还需要这么做：
 /etc/dhcp3/dhclient.conf 

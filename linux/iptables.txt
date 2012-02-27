@@ -1,0 +1,30 @@
+#dump rules
+iptables-save
+
+# list rules
+iptables -L -n -v
+
+# drop ssh to localhost 
+iptables -A INPUT -i wlan0 -p tcp --dport 22 -j DROP
+
+# delete above rule
+ 1753  sudo iptables -D INPUT -i wlan0 -p tcp --dport 22 -j DROP
+iptables -D INPUT [NUM]
+
+# state filter，允许回应
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -m state --state INVALID -j DROP
+
+#icmp，通常我们会把ICMP type 8 (echo request)拿掉而已，让远端主机不知道我们是否存在，也不会接受ping的回应就是了。
+
+#!/bin/bash
+icmp_type="0 3 4 11 12 14 16 18"
+for typeicmp in $icmp_type
+do
+   iptables -A INPUT -i eth0 -p icmp --icmp-type $typeicmp -j ACCEPT
+done
+
+#final file:
+/etc/sysconfig/iptables
+#check
+chkconfig --list iptables

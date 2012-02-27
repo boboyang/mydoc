@@ -1,0 +1,11 @@
+#sync src
+rsync -avz -e ssh syslog-ng-3.3.4 root@172.18.195.112:src/
+
+# server
+make && make install
+#start
+syslog-ng -d > ~/mysyslog.log
+#monitor
+tcpdump -i eth0 "dst 172.18.195.151"
+1095  vim ~/mysyslog.log 
+ 

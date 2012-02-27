@@ -182,6 +182,25 @@ NFC 使用RPC，工作在应用层, 不适合I/O密集型文件共享。
 
 
 
+16章 数据库扩展
+1. 主从复制，读写分离。 
+主： 写，1.
+从： 读, 多。
+2.垂直分区： 按table分离数据库。
+3.水平分区（sharding）： usr_id %n
+方法：
+hash：均衡，扩展数据库个数时麻烦。
+固定范围：老数据访问的压力较大，扩展行好。
+映射关系：
+
+mysql proxy：帮助app实现读写分离
+spock proxy：帮助app实现水平分区的访问
+
+17章 分布式计算
+gearman： 跨语言
+memcachedQ： 消息队列服务
+
+Map/Reduce： google，hadoop
 
     
 

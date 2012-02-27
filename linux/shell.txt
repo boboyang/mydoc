@@ -82,8 +82,8 @@ tee
 
 awk
 
-diff f1 f2>f.patch
-patch -p0 f1 f.patch
+diff -u originalfile newfile > f.patch
+patch -p0 originalfile f.patch
 cmp
 
 # batch rename linux.* \1
