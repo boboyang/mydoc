@@ -1,0 +1,70 @@
+route -n 
+路由表是由小网域到大网域排列
+
+#手动添加路由
+sudo route add -net 192.168.5.0 netmask 255.255.255.0 dev eth0 
+
+#ip alias
+ifconfig eth0:0 192.168.1.200 netmask 255.255.255.0 up
+
+ifconfig eth0 down
+#what about eth0:0?
+
+ifconfig eth0 up
+/etc/init.d/networking restart
+#what about eth0:0?
+
+#所有的IP Alias ​​都是由实体网卡模拟来的，所以当要启动eth0:0时，eth0必须要先被启动才行。而当eth0被关闭后，所以eth0:n的模拟网卡将同时也被关闭。
+
+#解决：
+#centOS：
+cd /etc/sysconfig/network-scripts
+cp ifcfg-eth0 ifcfg-eth0:0
+#
+DEVICE=eth0:0   #这个要改
+IPADDR=192.168.1.200 #设置成另外一个ip
+#
+/etc/init.d/network restart
+
+
+#ubuntu：
+sudo vim /etc/network/interfaces
+#
+auto eth0:0
+iface eth0:0 inet static
+address 192.168.1.200
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+
+#路由器架设
+
+#static router
+
+#refer: http://linux.vbird.org/linux_server/0230router.php#route_static
+1. sub router setting
+# generally 2 net cards, ip alias alright for testing
+#eth0, set gateway = parent router's ip
+#eth1
+#ip forwarding
+vim /etc/sysctl.conf 
+#
+net.ipv4.ip_forward = 1
+#activate
+sysctl -p 
+# view
+#cat /proc/sys/net/ipv4/ip_forward
+
+2. client
+#set gateway = sub router eth1's ip
+#ping -c 2 192.168.1.254 
+
+3. parent router
+vim /etc/sysconfig/network-scripts/route-eth0 
+#ex:
+192.168.100.0/24 via 192.168.1.100 dev eth0
+[sub router eth1's ip]/icmr via [sub router eth0's ip] dev eth0
+
+动态路由器架设：quagga (zebra + ripd)
+
+
