@@ -2,10 +2,11 @@ route -n
 路由表是由小网域到大网域排列
 
 #手动添加路由
-sudo route add -net 192.168.5.0 netmask 255.255.255.0 dev eth0 
+sudo route add -net 192.168.5.0 netmask 255.255.255.0 dev eth0
 
 #ip alias
 ifconfig eth0:0 192.168.1.200 netmask 255.255.255.0 up
+eth0:0~255, max 256 alias 
 
 ifconfig eth0 down
 #what about eth0:0?
@@ -63,7 +64,74 @@ sysctl -p
 vim /etc/sysconfig/network-scripts/route-eth0 
 #ex:
 192.168.100.0/24 via 192.168.1.100 dev eth0
-[sub router eth1's ip]/icmr via [sub router eth0's ip] dev eth0
+[sub router eth1's ip]/24 via [sub router eth0's ip] dev eth0
+
+#my exmaple:
+#summary
+            client(CentOS) ->  router(ubuntu)  ->  router(wireless)  <- client(other)
+wlan0                          172.18.195.23      
+eth0        192.168.0.101      192.168.0.254       172.18.195.254       172.18.195.111
+gateway     192.168.0.254      172.18.195.254                           172.18.195.254
+                                                                        172.18.195.23
+#details:
+#client(CentOS):
+vim /etc/sysconfig/network-scripts/ifcfg-eth0
+#
+DEVICE=eth0
+HWADDR=84:2B:2B:93:A7:A9
+ONBOOT=yes
+BOOTPROTO=static
+IPADDR=192.168.0.101
+NETMASK=255.255.255.0
+NETWORK=192.168.0.0
+BROADCAST=192.168.0.255
+GATEWAY=192.168.0.254
+#
+/etc/init.d/network restart
+
+#route add -net 172.18.195.0/24 gw 192.168.0.254
+
+
+#router(ubuntu):
+sudo iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o wlan0 -j MASQUERADE
+vim /etc/sysctl.conf 
+#
+net.ipv4.ip_forward = 1
+#
+sysctl -p 
+
+sudo vim /etc/network/interfaces
+#
+auto lo
+iface lo inet loopback
+
+auto wlan0
+iface wlan0 inet dhcp
+
+auto eth0
+iface eth0 inet static
+address 192.168.0.254
+netmask 255.255.255.0
+#
+sudo /etc/init.d/networking restart
+
+#client(other):
+vim /etc/sysconfig/network-scripts/ifcfg-eth0
+#
+DEVICE=eth0
+BOOTPROTO=none
+BROADCAST=172.18.195.255
+HWADDR=72:47:c1:46:8a:00
+IPADDR=172.18.195.111
+NETMASK=255.255.255.0
+NETWORK=172.18.195.0
+ONBOOT=yes
+HOTPLU=no
+GATEWAY=172.18.195.254
+GATEWAY=172.18.195.23
+TYPE=Ethernet
+#
+/etc/init.d/network restart
 
 动态路由器架设：quagga (zebra + ripd)
 
