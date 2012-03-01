@@ -15,7 +15,16 @@ eth0, wlan, ...
 #设备：RJ-45
 传输协定：CSMA/CD
 MTU：1500
-  
+
+以太网封包(RFC894):
+                
+length(byte)     6        6        2                             
+format:       dst MAC, src MAC,  type,       data        
+IP                               0X0800   IP package(46~1500) CRC(4)    
+ARP                              0X0806   请求/应答(28)        PAD(18)
+RARP                             0X8035   请求/应答(28)        PAD(18)
+    
+                                       
 二：
 #ip分级
 Class A : 0 xxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx   ==> NetI_D的开头是0
@@ -45,7 +54,7 @@ ppp
 DHCP
 
 #netmask
-作用：子网划分，减少broadcast范围
+作用：子网划分，减少路由表的规模
 Network = IP/Netmask
 Broadcast = IP/Netmask & ~Netmask
 
