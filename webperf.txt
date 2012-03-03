@@ -148,46 +148,41 @@ ipvsadm -L -n
 缺点：共用NAT，造成IO bottleneck
 
 #直接路由 LVS-DR
-dispatcher工作在数据链路层，通过修改client到server的ip包的mac地址（仅第一次），使client与server的直接通讯。
-servers设置：必须连入WAN（购买一系列公网IP），不把dispatcher作为默认网关。
+Director工作在数据链路层，通过修改client到server的ip包的mac地址（仅第一次），使client与server的直接通讯。
 　　
 数据流向
-client  =====> dispatcher =====> servers
+client  =====> Director =====> RealServer
    <================================
 　　
-ip_alias=125.12.12.77
-ifconfig eth0:0 $ip_alias
-
-#为dispatcher和实际server设置相同的IP别名
-sudo ifconfig lo:0 $ip_alias broadcast $ip_alias netmask 255.255.255.255 up
-
-#让实际server不去寻找其他拥有这个ip别名的机器
-route add -host $ip_alias dev lo:0
+#RealServer：
+VIP=125.12.12.77    #Virtual IP
+ifconfig lo:0 $VIP broadcast $VIP netmask 255.255.255.255 up
+route add -host $VIP dev lo:0
 
 #防止实际server响应针对ip别名的arp广播
 echo "1" > /proc/sys/net/ipv4/conf/lo/arp_ignore
 echo "2" > /proc/sys/net/ipv4/conf/lo/arp_announce
 echo "1" > /proc/sys/net/ipv4/conf/all/arp_ignore
-echo "2" > /proc/sys/net/ipv4/conf/all/arp_nnounce 
+echo "2" > /proc/sys/net/ipv4/conf/all/arp_announce 
 
-#dispatcher设置
-sudo ipvsadm -A -t $ip_alias:80 -s rr
-sudo ipvsadm -A -t $ip_alias:80 -r 192.168.1.100:80 -g
-sudo ipvsadm -A -t $ip_alias:80 -r 192.168.1.100:81 -g
+#Director：
+sudo ipvsadm -A -t $VIP:80 -s rr
+sudo ipvsadm -A -t $VIP:80 -r 192.168.1.100:80 -g
+sudo ipvsadm -A -t $VIP:80 -r 192.168.1.100:81 -g
 #...
-# -g 意味着dispatcher使用直接路由的方式转发ip包
+# -g , gateway 使用直接路由的方式转发ip包
 
-一旦dispatcher失效，可以将LVS-DR切换到LVS-RR,只要增加几条DNS记录，将域名解析到servers的真实IP。一旦dispatcher恢复，可以再次修改DNS记录，将域名仅指向dispatcher。
+一旦Director失效，可以将LVS-DR切换到LVS-RR,只要增加几条DNS记录，将域名解析到servers的真实IP。一旦Director恢复，可以再次修改DNS记录，将域名仅指向Director。
 
 
 12.7 LVS-TUN
-原理： dispatcher将client的ip包重新封装，发给目标server
+原理： Director将client的ip包重新封装，发给目标server
     
 12.8 可用性
 避免单点故障
 
 heartbeat，
-dispatcher备用， 
+Director备用， 
 多线独立线路连接，这样不依赖与电源。
 
 Bonding技术，将多条线路绑定到server的多个网卡，对流量负载均衡，从而成倍扩充了带宽
