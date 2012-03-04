@@ -3,8 +3,8 @@ ipvsadm 1.2.4
 keepalived 1.1.17  
 
 #config
-LVS_Master_IP=172.18.195.18
-LVS_Backup_IP=172.18.195.114 
-RealServer IP=172.18.195.112, $LVS_Master_IP, $LVS_Backup_IP
-Getway_IP=172.18.195.254
+LVS_Master=172.18.195.18
+LVS_Backup=172.18.195.117
+RealServer IP=172.18.195.112, $LVS_Master, $LVS_Backup
+Getway=172.18.195.254
 VIP=172.18.195.99   
