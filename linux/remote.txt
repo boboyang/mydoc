@@ -33,23 +33,6 @@ scp     #ssh copy
 
 ＃创建SSH密匙
 ssh-keygen -C 'whille@163.com' -t rsa
-＃注意 id_rsa.pub
-
-#制作不用密码可立即登入的ssh 用户:
-＃scp --help
-
-#client
-scp ~/.ssh/id_rsa.pub root@172.18.195.151:
-
-#151 server
-ssh root@172.18.195.151
-# then input password
-#who     #in server, show how many users now
-
-[ ! -d "/root/.ssh" ] && mkdir -p "/root/.ssh" && chmod 700 /root/.ssh
- 
-cat id_rsa.pub >>.ssh/authorized_keys && chmod 644 .ssh/authorized_keys
-#ls -l .ssh
 
 #scdc server 
 ssh whillewang@scdc.mydlink.com -p 2226
