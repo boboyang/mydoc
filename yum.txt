@@ -1,9 +1,6 @@
-yum install gcc gcc-c++
+yum install gcc gcc-c++ autoconf automake gdb
 yum install mysql(用自己的安装包来安装)
-yum install autoconf
-yum install automake
 安装rpm -ivh libtool-1.5.22-6.1.i386.rpm
-yum install gdb
 
 libpython2.7.2.so.1.0: can't open shared object file
 /sbin/ldconfig -v | less
@@ -11,6 +8,6 @@ libpython2.7.2.so.1.0: can't open shared object file
 # simple install python2.6
 su -c 'rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/x86_64/epel-release-5-4.noarch.rpm'
 yum install python26
-mm /usr/bin/python /usr/bin/python.bak
+mv /usr/bin/python /usr/bin/python.bak
 ln -s /usr/bin/python26 /usr/bin/python
 
