@@ -11,6 +11,9 @@ iptables-save
 # list rules
 iptables -L -n -v
 
+# service:
+/etc/init.d/iptables {start|stop|restart|condrestart|status|panic|save}
+
 #rules 顺序：
 if rule1:
 elif rule2:

@@ -18,7 +18,7 @@ expect {
         send "$password\r" 
     }
 }
-
+interact
 spawn ssh $user@$host
 expect {
     "*password:" {

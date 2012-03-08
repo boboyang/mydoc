@@ -60,3 +60,16 @@ ssh -L 8901:localhost:8901 -p 2226 whillewang@scdc.mydlink.com
 
 #rsync 112
 rsync -avz -e ssh ./ root@172.18.195.112:/root/fake-sigd
+
+#tw
+ssh bsdc@60.251.172.83 -p 33220
+pw:bsdc@2012
+
+ssh root@10.32.100.193
+ssh root@10.32.100.195
+
+
+#bj
+ssh root@124.205.163.89 -p 1210
+pw: mydlink01
+

@@ -73,3 +73,7 @@ find -size +1500
 
 # txt format
 for f in $(ls *.txt); do iconv -f gb2312 -t utf8 -c $f>./tmp/$f; done;
+
+# make iso, ex:
+mkisofs -r -o ~/centOS.iso /media/CDROM/
+
