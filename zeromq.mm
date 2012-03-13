@@ -1,6 +1,10 @@
 <map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
+<<<<<<< HEAD
 <node COLOR="#000000" CREATED="1331507846606" ID="ID_275746845" MODIFIED="1331521890008" TEXT="zeromq">
+=======
+<node COLOR="#000000" CREATED="1331507846606" ID="ID_275746845" MODIFIED="1331562297957" TEXT="zeromq">
+>>>>>>> d551c5b23df8b17aa802b11e75480ba6e57e217f
 <font NAME="SansSerif" SIZE="20"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties"/>
 <node COLOR="#0033ff" CREATED="1331508239343" ID="ID_1191829356" MODIFIED="1331508242356" POSITION="left" TEXT="types">
@@ -120,6 +124,7 @@
 </node>
 </node>
 </node>
+<<<<<<< HEAD
 <node COLOR="#0033ff" CREATED="1331521895688" ID="ID_1700112901" MODIFIED="1331521901833" POSITION="left" TEXT="zero copy">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="SansSerif" SIZE="18"/>
@@ -131,6 +136,73 @@
 <font NAME="SansSerif" SIZE="14"/>
 </node>
 </node>
+=======
+<node COLOR="#0033ff" CREATED="1331554703247" ID="ID_496082515" MODIFIED="1331554708414" POSITION="left" TEXT="id">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="Ubuntu" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1331554752389" ID="ID_523487883" MODIFIED="1331554760774" TEXT="receiver set">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="16"/>
+<node COLOR="#990000" CREATED="1331554709949" ID="ID_296215726" MODIFIED="1331554762947" TEXT="zmq_setsockopt (socket, ZMQ_IDENTITY, &quot;Lucy&quot;, 4);">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="14"/>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1331554733032" ID="ID_1066246162" MODIFIED="1331554743054" TEXT="zmq_getsockopt()">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="16"/>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1331555219329" ID="ID_1672712101" MODIFIED="1331555224707" POSITION="right" TEXT="envelop">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="Ubuntu" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1331555289956" ID="ID_429246916" MODIFIED="1331555293275" TEXT="send">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="16"/>
+<node COLOR="#990000" CREATED="1331555241357" ID="ID_837864512" MODIFIED="1331555296920" TEXT="key">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="14"/>
+<node COLOR="#111111" CREATED="1331555257482" ID="ID_444414336" MODIFIED="1331555296924" TEXT="s_sendmore">
+<font NAME="Ubuntu" SIZE="12"/>
+</node>
+</node>
+<node COLOR="#990000" CREATED="1331555237102" ID="ID_614704671" MODIFIED="1331555298352" TEXT="data">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="14"/>
+<node COLOR="#111111" CREATED="1331555260217" ID="ID_1944475701" MODIFIED="1331555298354" TEXT="s_send">
+<font NAME="Ubuntu" SIZE="12"/>
+</node>
+</node>
+</node>
+<node COLOR="#00b439" CREATED="1331555279590" ID="ID_921998030" MODIFIED="1331555282730" TEXT="receive">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="16"/>
+<node COLOR="#990000" CREATED="1331555283669" ID="ID_1110032030" MODIFIED="1331555284455" TEXT=" zmq_setsockopt (subscriber, ZMQ_SUBSCRIBE, &quot;B&quot;, 1);">
+<font NAME="Ubuntu" SIZE="14"/>
+</node>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1331556557584" ID="ID_297743371" MODIFIED="1331556576447" POSITION="left" TEXT="durable">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="Ubuntu" SIZE="18"/>
+<node COLOR="#00b439" CREATED="1331556577403" ID="ID_1395697962" MODIFIED="1331556578831" TEXT="zmq_setsockopt">
+<edge STYLE="bezier" WIDTH="thin"/>
+<font NAME="Ubuntu" SIZE="16"/>
+<node COLOR="#990000" CREATED="1331556579755" ID="ID_570970046" MODIFIED="1331556586891" TEXT="ZMQ_HWM">
+<font NAME="Ubuntu" SIZE="14"/>
+<node COLOR="#111111" CREATED="1331556608790" ID="ID_136555994" MODIFIED="1331556614743" TEXT="max messages hold"/>
+</node>
+<node COLOR="#990000" CREATED="1331556588153" ID="ID_1370659665" MODIFIED="1331556595194" TEXT="ZMQ_SWAP">
+<font NAME="Ubuntu" SIZE="14"/>
+<node COLOR="#111111" CREATED="1331556606678" ID="ID_246597164" MODIFIED="1331556607306" TEXT="swap space in bytes"/>
+<node COLOR="#111111" CREATED="1331556765385" ID="ID_1643248884" MODIFIED="1331556766301" TEXT="SWAP file is not recoverable"/>
+</node>
+</node>
+</node>
+<node COLOR="#0033ff" CREATED="1331562299075" ID="ID_923811063" MODIFIED="1331562307334" POSITION="right" TEXT="Advanced req/rep">
+<edge STYLE="sharp_bezier" WIDTH="8"/>
+<font NAME="Ubuntu" SIZE="18"/>
+>>>>>>> d551c5b23df8b17aa802b11e75480ba6e57e217f
 </node>
 </node>
 </map>
