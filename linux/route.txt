@@ -89,7 +89,7 @@ GATEWAY=192.168.0.254
 #
 /etc/init.d/network restart
 
-#route add -net 172.18.195.0/24 gw 192.168.0.254
+#route add -net 172.18.195.0/24 gw 172.18.195.254
 
 
 #router(ubuntu):

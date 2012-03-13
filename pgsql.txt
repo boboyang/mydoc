@@ -18,3 +18,5 @@ su - postgres
 \dt
 select * from device where dlife_no ='xxxxxxxx';
 
+
+
