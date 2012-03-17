@@ -80,7 +80,7 @@ pacman -Syy
 
 
 #network & desktop
-pacman -S vim wicd wicd-gtk xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs multilib
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh multilib 
 
 #multimedia
 pacman -S pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious
@@ -148,9 +148,8 @@ tar zxvf osdlyrics.tar && cd osdlyrics
 makepkg -s
 sudo pacman -U osdlyrics-0.4.2-2-i686.pkg.tar.xz
 
-#comix
-#wget -c http://aur.archlinux.org/packages/co/comix/comix.tar.gz
-
+#ssh setting
+ssh-keygen -C 'whille@163.com' -t rsa
 
 #python
 ln -s /usr/bin/python2 /usr/bin/python

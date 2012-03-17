@@ -59,7 +59,6 @@ mysqladmin -u用户名 -p password 新密码
 
 创建SSH密匙
 ssh-keygen -C 'whille@163.com' -t rsa
-notice id_rsa.pub
 提交密匙
 https://github.com/accYount/ssh
 选择Add another public key。Title随便取，Key是一段东西。
