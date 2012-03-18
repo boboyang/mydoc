@@ -1,9 +1,18 @@
-#git db
-cd /opt/shibboleth/userportal/mydlink_v3/
+#创建SSH密匙
+ssh-keygen -C 'whille@163.com' -t rsa
+#提交密匙
+https://github.com/accYount/ssh
+选择Add another public key。Title随便取，Key是一段东西。
+cat ~/.ssh/id_rsa.pub
+把它打开可以看到一堆文字，拷贝下来黏贴到github页面key的空白处。然后Apply，就好了。
+
 #inital
 git config --global user.name "whille"
 git config --global user.email "Whille_Wang@cn.dlink.com"
+
 git remote add 151 root@172.18.195.151:/root/whille_git/mydlink
+
+git clone git@github.com:mydlink/shibboleth.git 
 
 git status
 git add -A

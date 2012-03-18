@@ -38,7 +38,7 @@ history | awk '{$1="";print}'>tmp.txt
 #zh_CN GB2312
 
 #/etc/resolv.conf
-# nameserver 219.136.141.10
+# nameserver 219.141.136.10
 
 #/etc/pacman.d/mirrolist
 #uncomment 163 server
@@ -78,9 +78,8 @@ pacman -Syy
 #man aria2c
 #ex: -s 5 -o -c
 
-
 #network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh multilib 
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore multilib 
 
 #multimedia
 pacman -S pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious
@@ -93,7 +92,7 @@ pacman -S base-devel wireshark-gtk setuptools python2-virtualenv ethtool sysstat
 gpasswd -a "whille" wireshark
 
 #vi /etc/rc.conf
-#MODULES=(acpi-cpufreq cpufreq_ondemand cpufreq_powersave vboxdrv)
+#MODULES=(acpi-cpufreq cpufreq_ondemand cpufreq_powersave )
 #
 #DAEMONS=(hwclock syslog-ng acpid dbus @cpufreq slim wicd crond @openntpd)
 
@@ -169,7 +168,7 @@ xscreensaver
 #xflock4
 
 #Alt + F2: run
-#Ctrl+Alt+Del, or xflock4: lock screen
+#xflock4: lock screen
 
 
 
