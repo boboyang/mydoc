@@ -81,6 +81,12 @@ cut -d ':' -f1 /etc/passwd|head -n 3| xargs finger
 tee 
 
 awk
+# printf columns > 3
+awk '{$1=$2=$3="";print}' file
+
+#show history without number
+history | awk '{$1="";print}'
+
 
 diff -u originalfile newfile > f.patch
 patch -p0 originalfile f.patch

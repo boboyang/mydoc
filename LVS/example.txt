@@ -3,8 +3,48 @@ ipvsadm 1.2.4
 keepalived 1.1.17  
 
 #config
-LVS_Master=172.18.195.18
-LVS_Backup=172.18.195.117
-RealServer IP=172.18.195.112, $LVS_Master, $LVS_Backup
+LVS_Master=172.18.195.112
+LVS_Backup=172.18.195.115
+RealServer IP=172.18.195.100,  $LVS_Backup
 Getway=172.18.195.254
-VIP=172.18.195.99   
+VIP=172.18.195.99   7788
+
+#prepare_ipvs.sh
+yum install -y ipvsadm
+wget http://www.keepalived.org/software/keepalived-1.1.17.tar.gz
+tar zxvf keepalived-1.1.17.tar.gz 
+cd keepalived-1.1.17
+./configure && make && make install
+
+
+vim /usr/local/etc/keepalived/keepalived.conf
+
+#for RealServer
+sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/sysctl.conf
+
+vim /etc/sysctl.conf 
+#add below:
+#net.ipv4.conf.lo.arp_ignore = 1  
+#net.ipv4.conf.lo.arp_announce = 2  
+#net.ipv4.conf.all.arp_ignore = 1  
+#net.ipv4.conf.all.arp_announce = 2 
+
+#deploy
+#ipvs master
+chmod 777 /etc/rc.d/init.d/lvs_server.sh
+/etc/init.d/lvs_server.sh start  
+
+keepalived start
+
+#realserver
+sysctl -p
+chmod 777 /etc/rc.d/init.d/lvs_real_server.sh 
+/etc/init.d/lvs_real_server.sh start
+
+#长连接：
+ipvsadm -l --timeout
+ipvsadm --set XXX 120 300 
+#in keepalived.conf:
+#persistence_timeout XXX 
+
+
