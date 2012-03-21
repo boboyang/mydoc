@@ -81,7 +81,7 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious gvfs-afc xarchiver thunar-archive-plugin thunar-volman chromium curl freemind git skype stardict feh base-devel wireshark-gtk setuptools python2-virtualenv ethtool sysstat
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious gvfs-afc xarchiver thunar-archive-plugin thunar-volman chromium curl freemind git skype thunderbird stardict feh base-devel wireshark-gtk setuptools python2-virtualenv ethtool sysstat
 
 abs
 
@@ -168,7 +168,11 @@ deactivate
 #Ctrl + Page up/Page down
 #Ctrl + L: clear term text
 
-# sshd
+# sshd,  root
 #rc.d {start|stop|restart} sshd
 # ssh client
 #$ ssh -p port user@server-address
+
+#xunlei
+yaourt -S bin32-wine-suse wine_gecko
+yaourt -S wine-thunder

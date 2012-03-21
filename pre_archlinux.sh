@@ -168,7 +168,11 @@ deactivate
 #Ctrl + Page up/Page down
 #Ctrl + L: clear term text
 
-# sshd
+# sshd,  root
 #rc.d {start|stop|restart} sshd
 # ssh client
 #$ ssh -p port user@server-address
+
+#xunlei
+pS bin32-wine 
+yaourt -S wine-thunder
