@@ -1,10 +1,6 @@
 <map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<<<<<<< HEAD
-<node COLOR="#000000" CREATED="1331507846606" ID="ID_275746845" MODIFIED="1331521890008" TEXT="zeromq">
-=======
 <node COLOR="#000000" CREATED="1331507846606" ID="ID_275746845" MODIFIED="1331562297957" TEXT="zeromq">
->>>>>>> d551c5b23df8b17aa802b11e75480ba6e57e217f
 <font NAME="SansSerif" SIZE="20"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties"/>
 <node COLOR="#0033ff" CREATED="1331508239343" ID="ID_1191829356" MODIFIED="1331508242356" POSITION="left" TEXT="types">
@@ -124,19 +120,6 @@
 </node>
 </node>
 </node>
-<<<<<<< HEAD
-<node COLOR="#0033ff" CREATED="1331521895688" ID="ID_1700112901" MODIFIED="1331521901833" POSITION="left" TEXT="zero copy">
-<edge STYLE="sharp_bezier" WIDTH="8"/>
-<font NAME="SansSerif" SIZE="18"/>
-<node COLOR="#00b439" CREATED="1331521957986" ID="ID_1575299426" MODIFIED="1331521960767" TEXT="send">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="16"/>
-<node COLOR="#990000" CREATED="1331521906396" ID="ID_1467305697" MODIFIED="1331521962844" TEXT="zmq_msg_init_data()">
-<edge STYLE="bezier" WIDTH="thin"/>
-<font NAME="SansSerif" SIZE="14"/>
-</node>
-</node>
-=======
 <node COLOR="#0033ff" CREATED="1331554703247" ID="ID_496082515" MODIFIED="1331554708414" POSITION="left" TEXT="id">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="Ubuntu" SIZE="18"/>
@@ -202,7 +185,6 @@
 <node COLOR="#0033ff" CREATED="1331562299075" ID="ID_923811063" MODIFIED="1331562307334" POSITION="right" TEXT="Advanced req/rep">
 <edge STYLE="sharp_bezier" WIDTH="8"/>
 <font NAME="Ubuntu" SIZE="18"/>
->>>>>>> d551c5b23df8b17aa802b11e75480ba6e57e217f
 </node>
 </node>
 </map>
