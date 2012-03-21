@@ -81,7 +81,7 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious gvfs-afc xarchiver thunar-archive-plugin thunar-volman chromium curl freemind git skype thunderbird stardict feh base-devel wireshark-gtk setuptools python2-virtualenv ethtool sysstat
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious gvfs-afc xarchiver thunar-archive-plugin thunar-volman gedit chromium curl freemind git skype thunderbird stardict feh base-devel wireshark-gtk setuptools python2-virtualenv ethtool sysstat
 
 abs
 
@@ -126,6 +126,9 @@ alias pS='sudo pacman -S'
 alias pU='sudo pacman -U'
 
 # set input method in ibus
+
+git config --global user.email "whille@163.com"
+git config --global user.name "whille"
 
 #qterm
 cd ~/abs/
