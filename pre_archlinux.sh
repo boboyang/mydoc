@@ -48,7 +48,7 @@ history | awk '{$1="";print}'>tmp.txt
 #reboot
 
 # prepare wlan0
-wpa_passphrase TP-LINK 506201953 > /etc/wpa_supplicant.conf
+wpa_passphrase mydlink01 dlink930 > /etc/wpa_supplicant.conf
 wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
 dhcpcd wlan0
 #ping www.baidu.com
@@ -81,13 +81,26 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious gvfs-afc xarchiver thunar-archive-plugin thunar-volman gedit chromium curl freemind git skype thunderbird stardict feh base-devel wireshark-gtk setuptools python2-virtualenv ethtool sysstat
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious gvfs-afc xarchiver thunar-archive-plugin thunar-volman gedit skype chromium curl freemind git thunderbird stardict feh base-devel wireshark-gtk setuptools python2-virtualenv ethtool sysstat expect
 
 abs
 
 sed -i 's/^MODULES=()/^MODULES=(acpi-cpufreq cpufreq_ondemand cpufreq_powersave)/g' /etc/rc.conf
 #
-#DAEMONS=(hwclock syslog-ng acpid dbus @cpufreq slim wicd crond @openntpd)
+#DAEMONS=(hwclock syslog-ng acpid dbus @cpufreq slim wicd crond)
+
+#power management
+vi /boot/syslinux/syslinux.cfg
+# add resume=/path/to/swap/drive 
+
+pacman -Rs vi
+ln -s /usr/bin/vim /usr/bin/vi
+
+mkdir -p $HOME/abs
+
+export MANWIDTH=80
+export EDITOR="/usr/bin/vim -p -X"
+sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 adduser
 #Login name for new user []: whille
@@ -101,20 +114,6 @@ su whille
 cp /etc/skel/.xinitrc ~/
 chown whille ~/.xinitrc
 echo "exec ck-launch-session dbus-launch --exit-with-session startxfce4" >> ~/.xinitrc
-
-#power management
-#su
-vi /boot/syslinux/syslinux.cfg
-# add resume=/path/to/swap/drive 
-
-pacman -Rs vi
-ln -s /usr/bin/vim /usr/bin/vi
-
-mkdir -p $HOME/abs
-
-export MANWIDTH=80
-export EDITOR="/usr/bin/vim -p -X"
-sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 #alias
 # ~/.bashrc
@@ -145,6 +144,9 @@ pU osdlyrics-0.4.2-2-i686.pkg.tar.xz
 
 #ssh setting
 ssh-keygen -C 'whille@163.com' -t rsa
+
+# develop
+echo /usr/local/lib > /etc/ld.so.conf.d/local.conf 
 
 #python
 ln -s /usr/bin/python2 /usr/bin/python

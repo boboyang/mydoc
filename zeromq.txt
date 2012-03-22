@@ -1,0 +1,7 @@
+If a receiver (SUB, PULL, REQ) side of a socket sets an identity, then the sending (PUB, PUSH, PULL) side will buffer messages when they aren't connected up to the HWM. 
+
+To turn a transient socket into a durable one you give it an explicit identity. 
+All ØMQ sockets have identities but by default they are generated 'unique universal identifiers' (UUIDs) that the peer uses to recall who it's talking to.
+
+usage:
+zmq_setsockopt (socket, ZMQ_IDENTITY, "Lucy", 4);
