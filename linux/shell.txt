@@ -14,11 +14,13 @@ uname -r
 #history
 !grep		#show all history cmd start with grep
 
-#tar cmd
-tar cvf test.tar test.f  压缩test.f 到test.tar
-tar xvf test.tar  解压test.tar到本地文件夹
-tar czvf test.tar.gz test.f   压缩test.f 到test.tar.gz
-tar xzvf test.tar.gz      解压l.tar.gz 到本地文件夹
+#man shutdown
+shutdown 鈥揾 now # shutdown now
+shutdown -r +10 # restart 10 minutes later
+
+#tar 
+tar czvf test.tar.gz test.f  #compress
+tar xzvf test.tar.gz    #decompress
 
 #show all shells
 cat /etc/shells

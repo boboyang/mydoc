@@ -1,0 +1,6 @@
+useradd
+userdel -r test
+
+#create passward
+passwd
+

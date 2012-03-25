@@ -1,0 +1,18 @@
+#remeber, use --help or man, with grep, to learn by use, not by memorize
+#ex, i remember grep can show lines ahead or after, so i use:
+grep --help|grep line
+#then i can use:
+man script |grep arg -A3 -B3 -n
+
+#terminal
+Shift+Ctrl+C: copy  
+Shift+Ctrl+V: paste
+
+#linux version
+uname -r
+
+#history
+!grep		#show all history cmd start with grep
+
+#man shutdown
+shutdown 

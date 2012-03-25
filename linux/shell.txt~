@@ -12,14 +12,15 @@ Shift+Ctrl+V: paste
 uname -r
 
 #history
-!grep		#show all related grep comd
+!grep		#show all history cmd start with grep
 
+#man shutdown
+shutdown 鈥揾 now # shutdown now
+shutdown -r +10 # restart 10 minutes later
 
-#tar cmd
-tar cvf test.tar test.f  压缩test.f 到test.tar
-tar xvf test.tar  解压test.tar到本地文件夹
-tar czvf test.tar.gz test.f   压缩test.f 到test.tar.gz
-tar xzvf test.tar.gz      解压l.tar.gz 到本地文件夹
+#tar 
+tar czvf test.tar.gz test.f  #compress
+tar xzvf test.tar.gz    #decompress
 
 #show all shells
 cat /etc/shells
@@ -54,7 +55,7 @@ cat >catfile
 ^D  #to exit edit
 
 # || &&
-ls /tmp/abc || mkdir /tmp/abc && touch /tmp/abc/hehe
+[ ! -d "/tmp/abc" ] && mkdir -p "/tmp/abc" && touch /tmp/abc/hehe
 ls /tmp/abc && echo "exit" || echo "not exit"
 
 cut
@@ -82,12 +83,18 @@ cut -d ':' -f1 /etc/passwd|head -n 3| xargs finger
 tee 
 
 awk
+# printf columns > 3
+awk '{$1=$2=$3="";print}' file
 
-diff f1 f2>f.patch
-patch -p0 f1 f.patch
+#show history without number
+history | awk '{$1="";print}'
+
+
+diff -u originalfile newfile > f.patch
+patch -p0 originalfile f.patch
 cmp
 
 # batch rename linux.* \1
 for i in `ls linux.*`; do mv $i `echo $i|sed 's/linux.//'`;done
 
-
+rsync -avz -e ssh ~/workspace/fake-sigd/  root@172.18.195.112:fake-sigd
