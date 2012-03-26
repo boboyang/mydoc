@@ -1,8 +1,44 @@
 grep "DEV_DEVENT\]" signalingd_1.log |awk 'BEGIN{total=0}{total+=$9}END{print total}'
-grep ":772," syslog_cli_2.log |wc -l
-grep ":772," syslog_server_2.log |wc -l
+grep ":132," /var/log/syslog_cli.log |wc -l
+grep ":132," /var/log/syslog_server.log |wc -l
 
+ulimt -SHn 65536
 
 #QA, tw
 lancelot/mydlink  10.32.29.26
 root/mydlink sigD(207.232.83.183) V1(207.232.83.185) V2(207.232.83.186) 
+
+#fakeAgent
+First, you should use genfakedevice.sh to generate fakedevice_us.sql. (./genfakedevice.sh 70000001 100000)
+
+        Second, /usr/local/pgsql/bin/psql -U mydlink -d mydlink < fakedevice_us.sql
+
+        Third, use fakeagent to send the event (./fakeAgent 70000001 1000 1 207.232.83.183 443 8 1 > /dev/null )
+
+http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-3.3-guides/syslog-ng-ose-v3.3-guide-admin-en.html/index.html-single.html#concepts_losing_messages
+
+16.1. Possible causes of losing log messages
+When syslog-ng is sending messages: If syslog-ng cannot send messages to the destination and the output buffer gets full, syslog-ng will drop messages. The number of dropped messages is displayed per destination in the log message statistics of syslog-ng
+
+The log_fifo_size() parameter sets the size of the output buffer. The output buffer must be larger than the log_fetch_limit() of the sources,
+
+在吗？我想请你再测一遍，开始之前需要改一个syslog-client conf的参数
+在这一行加了log_fifo_size(1000000)
+
+然后重启一下syslog-client
+只是送往server的，
+
+应该不用，这是output buffer
+
+明白，不加不会有问题。主要是TCP网络的影响
+destination d_signalingd_tcp  { syslog("207.232.83.185" transport("tcp") port(1230)  log_fifo_size(1000000)); file("/var/log/syslogng_client.log");  }
+
+这样的话，和我这边的估计和验证是一致的
+
+那么我想把这个作为主要的solution，其次是保持网通通畅。方便的花，后续可以继续验证
+
+不错，知道到是谁写的？
+
+另外我加到4000, 一会儿会segment fault。 signalingd的log看，我这边虚拟机signalingd平均超不过3000/sec的处理
+
+

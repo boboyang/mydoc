@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# description:  l2tp/ipsec vpn, put in /etc/init.d/ 
 if [ $# != 1 ] ; then
 	echo "Usage: (sudo) sh $0 {init|start|stop}" 
 	exit 1;
@@ -10,7 +8,7 @@ VPN_ADDR=61.221.35.248
 IFACE=wlan0
 
 function getIP(){
-	/sbin/ifconfig $1 |grep inet|awk '{print $2}'
+	/sbin/ifconfig $1 |grep "inet "|awk '{print $2}'
 }
 
 function getGateWay(){
@@ -25,15 +23,16 @@ GW_ADDR=$(getGateWay)
 function init(){
 	cp ./options.l2tpd.client /etc/ppp/
 	cp ./ipsec.conf /etc/
+    cp ./ipsec.secrets /etc/
 	cp ./xl2tpd.conf /etc/xl2tpd/
 }
 
 function start(){
-	sed -ie "s/^lns =.*/lns = $VPN_ADDR/g" /etc/xl2tpd/xl2tpd.conf
-	sed -ie "s/plutoopts=.*/plutoopts=\"--interface=$IFACE\"/g" /etc/ipsec.conf
+	sed -i "s/^lns =.*/lns = $VPN_ADDR/g" /etc/xl2tpd/xl2tpd.conf
+	sed -i "s/plutoopts=.*/plutoopts=\"--interface=$IFACE\"/g" /etc/ipsec.conf
 	sed -i "s/left=.*$/left=$(getIP $IFACE)/g" /etc/ipsec.conf
 	sed -i "s/right=.*$/right=$VPN_ADDR/g" /etc/ipsec.conf
-
+	sed -i "s/^.*: PSK/$(getIP $IFACE) $VPN_ADDR : PSK/g" /etc/ipsec.secrets
 	/etc/rc.d/openswan start
 	sleep 2    #delay to ensure that IPsec is started before overlaying L2TP
 
