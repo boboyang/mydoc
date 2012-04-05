@@ -13,7 +13,7 @@ First, you should use genfakedevice.sh to generate fakedevice_us.sql. (./genfake
 
         Second, /usr/local/pgsql/bin/psql -U mydlink -d mydlink < fakedevice_us.sql
 
-        Third, use fakeagent to send the event (./fakeAgent 70000001 1000 1 207.232.83.183 443 8 1 > /dev/null )
+        Third, use fakeAgent to send the event (./fakeAgent 70000001 1000 1 207.232.83.183 443 8 1 > /dev/null )
 
 http://www.balabit.com/sites/default/files/documents/syslog-ng-ose-3.3-guides/syslog-ng-ose-v3.3-guide-admin-en.html/index.html-single.html#concepts_losing_messages
 
@@ -22,23 +22,54 @@ When syslog-ng is sending messages: If syslog-ng cannot send messages to the des
 
 The log_fifo_size() parameter sets the size of the output buffer. The output buffer must be larger than the log_fetch_limit() of the sources,
 
-在吗？我想请你再测一遍，开始之前需要改一个syslog-client conf的参数
-在这一行加了log_fifo_size(1000000)
 
-然后重启一下syslog-client
-只是送往server的，
+throttle()
+Sets the maximum number of messages sent to the destination per second. Use this output-rate-limiting functionality only when using disk-buffer as well to avoid the risk of losing messages. Specifying 0 or a lower value sets the output limit to unlimited.
 
-应该不用，这是output buffer
+Figure 8.5. Handling outgoing messages in syslog-ng OSE
+Disk buffer: If the output queue is full and disk-buffering is enabled, syslog-ng Premium Edition puts the outgoing messages into the disk buffer of the destination.
 
-明白，不加不会有问题。主要是TCP网络的影响
-destination d_signalingd_tcp  { syslog("207.232.83.185" transport("tcp") port(1230)  log_fifo_size(1000000)); file("/var/log/syslogng_client.log");  }
+Overflow queue:  The log_fifo_size() parameter specifies the number of messages stored in the overflow queue. 
 
-这样的话，和我这边的估计和验证是一致的
+log_msg_size()
+Type:	number
+Default:	Use the global log_msg_size() option, which defaults to 8192.
 
-那么我想把这个作为主要的solution，其次是保持网通通畅。方便的花，后续可以继续验证
+sigD:
+list.c
+void *list_pop 
+    if (difftime(time_now, entry->timestamp) > LIST_TIMESTAMP_LIMIT_HIGH) {
+      list->overflow = TRUE;
 
-不错，知道到是谁写的？
+https.c
+push:  
+  /*
+   * Wake up corresponding thread.
+   */
+  err = list_push(list_type, base_index, entry_index, info,
+                  (ssize_t)(sizeof(*info)));
+  if (err == ERR_OVERFLOW) {
+    DEBUG_NL(LOG_WARNING, "The request can't be processed from [%s].", info->mac);
+    return(ERR_OVERFLOW);
+  }
 
-另外我加到4000, 一会儿会segment fault。 signalingd的log看，我这边虚拟机signalingd平均超不过3000/sec的处理
 
+list.c
+
+int list_push ()
+{
+  list->counter_push++;
+
+
+void *list_pop ()
+{...
+    list->counter_pop++;
+
+./signalingd 1000000
+1000000 msgs, seconds: 808
+
+grep ":132," /var/log/syslog_server.log |wc -l
+978090
+[root@ip-10-131-15-15 bsdc]# wc -l /var/log/syslog_server.log 
+978090 /var/log/syslog_server.log
 

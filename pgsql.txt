@@ -13,11 +13,20 @@ su - postgres
 /usr/local/pgsql/bin/createdb test
 /usr/local/pgsql/bin/psql test
 
+#start db
+/usr/local/pgsql/bin/pg_ctl start -D /usr/local/pgsql/data
+
 
 /usr/local/pgsql/bin/psql -U mydlink mydlink
 #display tables
 \dt
 select * from device where dlife_no ='xxxxxxxx';
 
+#help
+\h   
+drop table XXX;
 
+SELECT * from device fetch first 100 rows only;
+
+delete from device where mac > '00EF70000000';
 

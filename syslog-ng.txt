@@ -200,4 +200,32 @@ value-pairs {
 <VALUE> can include macros, templates, and template functions
 macros: built-in or user-defined macro.
 
+#AWS:
+ec2-175-41-169-207.ap-southeast-1.compute.amazonaws.com         SignalC
+10.131.30.47 
+
+ec2-175-41-175-55.ap-southeast-1.compute.amazonaws.com          signalD
+10.142.43.255
+
+-d 5 -h 0.0.0.0 -H 80 -S 443 -m 10.142.41.102:11211 -q 10.142.41.102 -t 10 -n 400 -r MP -s MP -i 1 -x
+
+ec2-46-137-226-123.ap-southeast-1.compute.amazonaws.com         DB
+10.142.41.102
+
+
+ec2-122-248-203-88.ap-southeast-1.compute.amazonaws.com         syslogd+syslog-ng+postgresql+cassandra
+10.131.15.15 
+
+ec2-122-248-193-73.ap-southeast-1.compute.amazonaws.com         nexus+memcached+cassandra+ipdb
+
+#
+performance
+Tasks:  65 total,   3 running,  62 sleeping,   0 stopped,   0 zombie
+Cpu(s): 37.3%us, 31.3%sy,  0.0%ni, 23.2%id,  0.0%wa,  0.0%hi,  8.0%si,  0.3%st
+Mem:   7652592k total,  1538892k used,  6113700k free,    59588k buffers
+Swap:        0k total,        0k used,        0k free,   997196k cached
+
+PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND                                      
+27016 root      20   0 1416m 275m 2936 R 105.7  3.7  10:10.64 signalingd                                  
+16707 root      20   0 48888 2672 1612 R 85.1  0.0  17:02.83 syslog-ng       
 

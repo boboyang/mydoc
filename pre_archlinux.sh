@@ -86,7 +86,8 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei  openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-base-plugins gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman gedit skype chromium curl freemind git thunderbird stardict feh scrot base-devel cmake ccache wireshark-gtk setuptools python2-virtualenv ethtool sysstat expect
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman gedit skype chromium flashplugin 
+pacman -S curl freemind git thunderbird stardict feh scrot base-devel cmake ccache wireshark-gtk ethtool sysstat expect gdb setuptools python2-virtualenv
 
 abs
 

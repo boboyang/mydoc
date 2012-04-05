@@ -33,7 +33,7 @@ traceroute -n tw.yahoo.com
 #列出目前的所有网路连线状态
 netstat -an
 #秀出目前已经启动的网路服务 
-sudo netstat -tulnp
+sudo netstat -plunt
 
 #name ->ip
 host www.google.com
