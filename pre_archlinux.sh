@@ -187,3 +187,5 @@ deactivate
 #xunlei
 pS bin32-wine 
 yaourt -S wine-thunder
+yaourt -S briss
+
