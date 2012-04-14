@@ -1,4 +1,4 @@
-grep "DEV_DEVENT\]" signalingd_1.log |awk 'BEGIN{total=0}{total+=$9}END{print total}'
+grep "DEV_DEVENT\]" /var/log/signalingd.log |awk 'BEGIN{total=0}{total+=$9}END{print total}'
 grep ":132," /var/log/syslog_cli.log |wc -l
 grep ":132," /var/log/syslog_server.log |wc -l
 
@@ -72,4 +72,34 @@ grep ":132," /var/log/syslog_server.log |wc -l
 978090
 [root@ip-10-131-15-15 bsdc]# wc -l /var/log/syslog_server.log 
 978090 /var/log/syslog_server.log
+
+
+static int https_dispatch_app_data (HTTP_APP_DATA_T *info)
+...
+  err = list_push(list_type, base_index, entry_index, info,
+                  (ssize_t)(sizeof(*info)));
+  if (err == ERR_OVERFLOW) {
+    DEBUG_NL(LOG_WARNING, "The request can't be processed from [%s].", info->mac);
+    return(ERR_OVERFLOW);
+  }
+  
+void *list_monitor_thread(void *param)
+...
+      DEBUG_RAW(LOG_NOTICE, "LIST[%12s]\tPUSH[%5d]\tPOP[%5d]\tLEN[%5d]", 
+
+grep ":132," /var/log/syslog_cli_8k.log |wc -l
+1718405
+[root@sgqa bin]# cat count.txt | awk 'BEGIN{total=0}{total+=$2}END{print total}'
+1734405
+
+[1706381, 1708500, 258441]
+
+
+1600 connect/disconnect
+
+grep "overflow" /var/log/signalingd.log |wc -l
+26292
+grep " processed from" /var/log/signalingd.log |wc -l
+2192
+
 

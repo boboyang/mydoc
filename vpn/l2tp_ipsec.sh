@@ -36,7 +36,7 @@ function start(){
 	/etc/rc.d/openswan start
 	sleep 2    #delay to ensure that IPsec is started before overlaying L2TP
 
-	/etc/rc.d/xl2tpd start
+	/etc/rc.d/xl2tpd restart
 	/usr/sbin/ipsec auto --up L2TP-PSK                        
 	/bin/echo "c vpn-connection" > /var/run/xl2tpd/l2tp-control     
 	sleep 2    #delay again to make that the PPP connection is up.
