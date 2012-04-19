@@ -1,0 +1,13 @@
+/opt/datastax-cqlsh/cqlsh localhost 9160
+
+cqlsh> 
+
+use MydlinkEvent;
+select * from MdDeviceEvent where event_id='130';
+
+#reset to factory event
+select * from MdDeviceEvent where event_id='2';
+
+                            event_key |                                  app |      create_time | device_ext_ip | device_model | event_id |       event_time |          mac | mydlink_id | pri | register_status | severity |                                   to |
+ c0618719-89d2-11e1-a408-cbe63e30f2b6 | 34071609-2412-8890-6954-585099540460 | 1334807406158000 | 172.18.195.27 |     DCS-930L |        2 | 1334807458548111 | F07D68077FFA |   30466658 | 113 |           FALSE |        1 | 407edfb0-cbd5-4b5b-be63-2b3b632b0cc1 |
+
