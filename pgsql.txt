@@ -30,3 +30,9 @@ SELECT * from device fetch first 100 rows only;
 
 delete from device where mac > '00EF70000000';
 
+Find the device id
+SELECT id FROM device WHERE dlife_no = '30466658';
+> 302562
+
+# Binding the device with the account
+INSERT INTO device_list(user_id, device_id) VALUES('1', '302562');
