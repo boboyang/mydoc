@@ -17,3 +17,10 @@ yum install python-devel python-setuptools
 easy_install thrift pycassa
 
 sudo mkdir -p -m 777 /var/log/cassandra /var/lib/cassandra
+
+
+./cassandra-cli --host localhost
+get MdDeviceAlertTimeline['F07D68077FFA:30466658'][1334816725291018];
+
+select * from MdDeviceEvent where event_id='1025' and event_time='1334884621294893';
+
