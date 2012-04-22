@@ -5,3 +5,21 @@ All ØMQ sockets have identities but by default they are generated 'unique unive
 
 usage:
 zmq_setsockopt (socket, ZMQ_IDENTITY, "Lucy", 4);
+
+
+Idempotent Services
+
+Titannic pattern (Disconnected Reliability)
+write messages to disk to ensure they never get lost
+
+key: 
+1. client id + unique msg number (difficult to manage many clients)
+2. UUID
+before reply, server check key if sending twice
+
+TSP  "Titanic Service Protocol"
+titanic.request - store a request message, return a UUID for the request.
+titanic.reply - fetch a reply, if available, for a given request UUID.
+titanic.close - confirm that a reply has been stored and processed.
+
+
