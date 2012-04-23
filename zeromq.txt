@@ -22,4 +22,32 @@ titanic.request - store a request message, return a UUID for the request.
 titanic.reply - fetch a reply, if available, for a given request UUID.
 titanic.close - confirm that a reply has been stored and processed.
 
+To test this, start mdbroker and titanic, then run ticlient. Now start mdworker arbitrarily, and you should see the client getting a response and exiting happily.
+
+ using the '-v' option to do verbose tracing of activity.
+ 
+performance:
+Use a single disk file for all data.
+Organize that disk file as a circular buffer so that new requests can be written contiguously (with very occasional wraparound). One thread, writing full speed to a disk file can work rapidly.
+Keep the index in memory and rebuild the index at startup time, from the disk buffer. This saves the extra disk head flutter needed to keep the index fully safe on disk. You would want an fsync after every message, or every N milliseconds if you were prepared to lose the last M messages in case of a system failure.
+Use a solid-state drive rather than spinning iron oxide platters.
+Preallocate the entire file, or allocate in large chunks allowing the circular buffer to grow and shrink as needed. This avoids fragmentation and ensures most reads and writes are contiguous.
+
+
+
+High-availability Pair (Binary Star Pattern)
+automatic recovery is bad.
+no load balance implemented for cluster.
+
+main limitations of the Binary Star pattern:
+A server process cannot be part of more than one Binary Star pair.
+A primary server can have a single backup server, no more.
+The backup server cannot do useful work while in slave mode.
+The backup server must be capable of handling full application loads.
+Failover configuration cannot be modified at runtime.
+Client applications must do some work to benefit from failover.
+
+
+bstarsrv2: Binary Star server, using core class in C
+#include "bstar.c"
 

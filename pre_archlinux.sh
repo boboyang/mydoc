@@ -161,7 +161,7 @@ mkdir ~/my_env
 virtualenv --no-site-packages ~/my_env
 
 source ~/my_env/bin/activate
-pip install pyramid
+pip install pyramid python-memcached
 #...
 deactivate
 
