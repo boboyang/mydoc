@@ -18,9 +18,10 @@ easy_install thrift pycassa
 
 sudo mkdir -p -m 777 /var/log/cassandra /var/lib/cassandra
 
+/opt/dse-1.0-3/resources/cassandra/bin/cassandra-cli --host localhost
 
-./cassandra-cli --host localhost
+use MydlinkEvent;
 get MdDeviceAlertTimeline['F07D68077FFA:30466658'][1334816725291018];
-
+get MdDeviceEventTimeline['00EF70000010:70000001'][1334730910010013];
 select * from MdDeviceEvent where event_id='1025' and event_time='1334884621294893';
 

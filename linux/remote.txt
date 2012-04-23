@@ -73,6 +73,14 @@ ssh bsdc@60.251.172.83 -p 33220 (gateway and syslog-ng client)
 ssh root@10.32.100.193
 ssh root@10.32.100.195  (syslog-ng server)
 
+#QA
+ssh lancelot@10.32.29.26
+cd  /home/nate/somecode/new-agent-dev/sigc_test/
+sudo -i
+pwd:lancelot
+
+ssh root@207.232.83.183
+
 #aws
 bsdc@ec2-122-248-206-15.ap-southeast-1.compute.amazonaws.com
 ssh root@122.248.206.15
