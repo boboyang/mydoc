@@ -25,3 +25,24 @@ get MdDeviceAlertTimeline['F07D68077FFA:30466658'][1334816725291018];
 get MdDeviceEventTimeline['00EF70000010:70000001'][1334730910010013];
 select * from MdDeviceEvent where event_id='1025' and event_time='1334884621294893';
 
+# clear data
+cd /opt/dse-1.0-3/resources/cassandra/conf/
+#vim log4j-server.properties
+rm -f /var/log/cassandra/system.log
+#vim cassandra.yaml
+rm -rf /var/lib/cassandra/saved_caches
+rm -rf /var/lib/cassandra/commitlog
+rm -rf /var/lib/cassandra/data
+
+#run cassandra
+cd /opt/dse-1.0-3/bin/
+# ./dse cassandra -t
+在cassandra其他节点端，运行#./dse cassandra
+
+# import schema
+/opt/datastax-cqlsh/cqlsh localhost 9160 <   /opt/dse-1.0-3/resources/cassandra/bin/createSITE_cassandra.cql 
+
+
+# monitor nodetool
+# cd ../resources/cassandra/bin
+# ./nodetool -h localhost ring
