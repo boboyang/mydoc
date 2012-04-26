@@ -129,6 +129,7 @@ alias ls='ls --color=auto'
 alias pQs='sudo pacman -Qs'
 alias pS='sudo pacman -S'
 alias pU='sudo pacman -U'
+alias txC='iconv -f gb2312 -c -t utf-8'
 
 # set input method in ibus
 
