@@ -1,0 +1,6 @@
+ulimit -c unlimited
+gcc -g -c FILE.c -o test
+./test
+gdb test core
+
+(gdb) bt
