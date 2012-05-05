@@ -86,10 +86,10 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman gedit skype chromium flashplugin 
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman mupdf gedit skype chromium flashplugin icedtea-web
 pacman -S curl freemind git thunderbird stardict feh scrot base-devel cmake ccache wireshark-gtk ethtool sysstat expect gdb setuptools python2-virtualenv
 
-abs
+yaourt -S briss
 
 sed -i 's/^MODULES=()/^MODULES=(acpi-cpufreq cpufreq_ondemand cpufreq_powersave)/g' /etc/rc.conf
 #
@@ -188,5 +188,5 @@ deactivate
 #xunlei
 pS bin32-wine 
 yaourt -S wine-thunder
-yaourt -S briss
+
 
