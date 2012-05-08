@@ -57,10 +57,16 @@ wget    #download
 
 #pick package
 tcpdump
-sudo tcpdump -i eth0 -nn port 21
+-i interface
+-w file
+-c count
+port
+-s snapsize
 
+sudo tcpdump -i eth0 -nn port 21
 tcpdump -i eth0 "tcp port 27017"
 tcpdump -x -i eth0 "host 172.18.195.111"
+tcpdump -i lo  port 11231 -s0 -c 10 -w event.cap
 
 # snap to cap and open by wireshark
 sudo tcpdump -i eth0 port 80 -w tmp.cap
@@ -92,4 +98,3 @@ $ sudo /etc/init.d/networking restart           # 重启网络
 /etc/dhcp3/dhclient.conf 
 prepend domain-name-servers 202.96.128.86 192.168.10.11;//先将该行注释去掉，然后填上自己想用到的DNS服务器IP 
 
-tcpdump -i lo  port 11231 -An -s0 -c 10 -w event.cap
