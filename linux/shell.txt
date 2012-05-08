@@ -4,6 +4,8 @@ grep --help|grep line
 #then i can use:
 man script |grep arg -A3 -B3 -n
 
+man -k XXX
+
 #terminal
 Shift+Ctrl+C: copy  
 Shift+Ctrl+V: paste
