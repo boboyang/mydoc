@@ -10,14 +10,14 @@ set timeout 30
 #log_user 0
 
 spawn scp $home/.ssh/id_rsa.pub $user@$host:
-#expect {
-#    "yes/no" { 
-#        send "yes\r"
-#        exp_continue
-#    } "password:" { 
-#        send "$password\r" 
-#    }
-#}
+expect {
+    "yes/no" { 
+        send "yes\r"
+        exp_continue
+    } "password:" { 
+        send "$password\r" 
+    }
+}
 #interact
 spawn ssh $user@$host
 expect {
