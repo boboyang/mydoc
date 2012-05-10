@@ -87,7 +87,7 @@ pacman -Syy
 
 #network & desktop
 pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman mupdf gedit skype chromium flashplugin icedtea-web
-pacman -S curl freemind git thunderbird stardict feh scrot base-devel cmake ccache wireshark-gtk ethtool sysstat expect gdb setuptools python2-virtualenv pychecker
+pacman -S curl freemind git thunderbird stardict feh scrot base-devel cmake ccache wireshark-gtk ethtool sysstat expect gdb 
 
 yaourt -S briss
 
@@ -154,17 +154,6 @@ ssh-keygen -C 'whille@163.com' -t rsa
 
 # develop
 echo /usr/local/lib > /etc/ld.so.conf.d/local.conf 
-
-#python
-ln -s /usr/bin/python2 /usr/bin/python
-easy_install virtualenv
-mkdir ~/my_env
-virtualenv --no-site-packages ~/my_env
-
-source ~/my_env/bin/activate
-pip install pyramid python-memcached
-#...
-deactivate
 
 #hot key
 #Alt + F2: run

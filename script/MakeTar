@@ -1,0 +1,15 @@
+SHELL = /bin/sh
+
+#make -f MakeTar
+
+PROG=testC
+VERS = 1.0
+SRC = $(pwd)
+
+$(PROG)-$(VERS).tar.gz:
+	@ls $(SRC) | sed s:^:$(PROG)-$(VERS)/: >MANIFEST
+	@(cd ..; ln -s $(PROG) $(PROG)-$(VERS))
+	(cd ..; tar -czvf $(PROG)/$(PROG)-$(VERS).tar.gz `cat $(PROG)/MANIFEST`)
+	@(cd ..; rm $(PROG)-$(VERS))
+	
+
