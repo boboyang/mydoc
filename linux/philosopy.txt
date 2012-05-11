@@ -1,0 +1,11 @@
+#linux philosophy
+
+K.I.S.S.    :keep it simple stupid
+SPOT        :do one thing and best
+start from small
+do better makes happy
+data oriented programming
+seperate stratege from mechanism
+    GUI from backend
+-v makes programe transparent
+
