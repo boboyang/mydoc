@@ -1,6 +1,6 @@
 pS  setuptools python2-virtualenv pychecker
 easy_install-2.7 -U distribute
-easy_install-2.7 pycassa python-memcached pyramid
+easy_install-2.7 pycassa python-memcached pyramid pexpect
 
 mkdir ~/my_env
 
