@@ -1,0 +1,13 @@
+robots.txt
+    ref:    http://zh.wikipedia.org/wiki/Robots.txt
+    ex:     http://www.baidu.com/robots.txt
+#help
+scrapy -h
+scrapy genspider -h
+
+scrapy startproject myproject
+cd myproject
+
+#go to the project’s top level directory and run
+scrapy crawl dmoz -o items.json -t json
+
