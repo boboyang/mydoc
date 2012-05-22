@@ -1,0 +1,16 @@
+HTML:
+    HyperText Mark-up Language
+    
+element:
+    start tag
+    content
+    end tag
+    ex: <h1>XXX</h1>
+    empty element: <br />
+tag:
+    start 
+link:
+    <a href="XXX" />
+    #a: archor
+    relative path: ../ 
+    id and #
