@@ -4,6 +4,7 @@ grep --help|grep line
 #then i can use:
 man script |grep arg -A3 -B3 -n
 
+# use keyword
 man -k XXX
 
 #terminal
@@ -14,6 +15,8 @@ Shift+Ctrl+V: paste
 uname -r
 
 #history
+!!			# last cmd
+!ssh			# last cmd start with ssh
 !grep		#show all history cmd start with grep
 
 #man shutdown
@@ -43,7 +46,7 @@ stty -a
 ^M  #ENTER
 ^S
 ^Q
-^U
+^U	#clear line
 
 #redirection
 stdin  0, < or <<
@@ -89,8 +92,7 @@ awk
 awk '{$1=$2=$3="";print}' file
 
 #show history without number
-history | awk '{$1="";print}'
-
+history |awk {'print $2'}
 
 diff -u originalfile newfile > f.patch
 patch -p0 originalfile f.patch

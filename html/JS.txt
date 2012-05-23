@@ -1,7 +1,6 @@
-JavaScript:
-    def:        客户端脚本语言；内嵌于HTML文件，会用到HTML的元件；基于对象和事件驱动。
+basic:
+    def:  HTML embeded, client script;基于对象和事件驱动。
     character:  
-        - case sensitive
         - OO
         - loosely typed   
     application:
@@ -9,5 +8,73 @@ JavaScript:
         - Ajax r/w
         - event driven
         - detect device
+    component:
+        - ECMAScript
+        - BOM:browser obj
+        - DOM:doc obj     
+ 
+use js in html:
+    - tag <script type="text/javascript">... </script>
+    - inner:
+        ex: document.write("whi!");
+    - outer: script attr: src="xxx.js"
+        - in <head>
+        - in <body>  
+        - benefit: 可以压缩，加密单个JavaScript文件;  浏览器可以缓存JavaScript文件
+    - inline:
+            
+js grammer:
+    basic:
+        case sensitive
+        变量不区分类型
+        每条语句结尾可以省略分号
+        注释与C,C++,java,php相同
+        代码段要封闭
+    variable:
+        var i,str="abc"
+        推荐使用匈牙利命名法
+        number:
+            ex:1e3
+        string:
+            str[i]
+            str.length   
+    js programming:
+        sequence
+        condition
+        circulation
+oo programming:
+    JSON: 是一种轻量级数据交换格式。JSON非常易于人阅读与编写，同时利于机器解析与生成
+    JSON obj:
+        var jsonobject={
+            propertyname:value,
+            functionname:function(){...;}
+        };        
         
-     
+js core obj:
+    inner obj:
+        bool
+        Date():
+            ctor:   (),(datestring),(y,m,d),(y,m,d,h,m,s)
+            .getDate(), .getYear(), .UTC(),
+        Math:
+            .abs(), .sin(), .cos(), .tan(), .exp(), .log(), .pow(), .sqrt(),
+            .PI, .E, 
+            .min(), .max(), 
+            .random(),
+        String:
+            .charAt(), .bold(), blink(), .toLowerCase(),
+        arguments:
+            .length, [i]
+    global:
+        decodeURI:
+        eval(): str --> obj
+            var json=eval(jsonstr); 
+                
+BOM: 
+    window
+    document
+    frames
+    history
+    location
+    navigator
+                    
