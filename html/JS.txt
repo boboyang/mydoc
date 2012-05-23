@@ -1,0 +1,13 @@
+JavaScript:
+    def:        客户端脚本语言；内嵌于HTML文件，会用到HTML的元件；基于对象和事件驱动。
+    character:  
+        - case sensitive
+        - OO
+        - loosely typed   
+    application:
+        - form varify
+        - Ajax r/w
+        - event driven
+        - detect device
+        
+     

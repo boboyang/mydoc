@@ -1,0 +1,124 @@
+/*format:
+    selector {(property:value;)+}
+*/
+
+/*usage:
+1.  in html:
+	<style type="text/css">
+	  body {background-color: #FF0000;}
+	</style>
+2. outside:
+	<link rel="stylesheet" type="text/css" href="style.css" />	
+*/
+
+/*color and background*/
+body {
+	background-color: #FFCC66;
+	background-image:url("butterfly.gif");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: right bottom;
+}
+
+/*font*/
+h2 {font-family: "Times New Roman", serif;}
+/*short form*/
+p {
+    font: italic bold 20px arial, sans-serif;
+}
+/*text*/
+p{
+    text-indent: 20px;
+    text-align: left;
+}
+h2{    
+    text-decoration: underline;
+}
+/* link */	
+a:link{color:blue;}
+a:visited{color:purple;}
+a:active {background-color: #FFFF00;}
+a:hover {
+    color: orange;
+    font-style: italic;
+    letter-spacing: 10px;
+    font-weight:bold;
+}
+
+/* class:can be asign to any element  */
+a           {color: blue;}
+a.whitewine {color: #FFBB00;}
+a.redwine   {color: #800000;}
+p.gray{color:gray;}
+
+/* id:start with#, unique  */
+#ch1-2{color:green;}
+
+/*span: decorate single element*/
+span.benefit {
+    color:red;
+}
+/*div: for more elements*/
+#democrats  {color:blue;}
+#republicans{color:red;}
+
+/*盒状模型*/
+/*border,margin,padding*/
+/*border short:width,style,color*/
+/*margin/padding short: top,right,bottom,left*/
+p.mybox {
+    border-width: medium;
+    border-style: dotted;
+    margin: 50px 40px 10px 20px;
+    padding: 20px 20px 20px 80px;
+    height: 50px;
+	width: 200px;
+}
+
+/*position*/
+#box1 {
+	position:absolute;
+	bottom: 20px;
+	left: 10px;
+	background: #FA7C00;
+	width: 50px;
+	height:50px;
+	padding:2px;
+	border: 1px solid black;
+	font-family:arial;
+}
+#box2 {
+	position:absolute;
+	bottom: 20px;
+	right: 20px;
+	background: #FFFF00;
+	width: 50px;
+	height:50px;
+	padding:2px;
+	border: 1px solid black;
+	font-family:arial;
+}
+
+/*z-index*/
+#DQ {
+	position: absolute;
+	left: 130px;
+	top: 130px;
+	z-index: 3;
+}
+#DK {
+	position: absolute;
+	left: 145px;
+	top: 145px;
+	z-index: 4;
+}
+#DA {
+	position: absolute;
+	left: 160px;
+	top: 160px;
+	z-index: 5;
+}
+/*
+CSS validator:  http://jigsaw.w3.org/css-validator/ 
+*/
+
