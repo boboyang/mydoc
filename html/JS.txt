@@ -10,14 +10,14 @@ basic:
         - detect device
     component:
         - ECMAScript
-        - BOM:browser obj
-        - DOM:doc obj     
+        - BOM:browser obj model
+        - DOM:doc obj model    
  
 use js in html:
-    - tag <script type="text/javascript">... </script>
-    - inner:
+    - tag <script >... </script>
+    - inner:    type="text/javascript"
         ex: document.write("whi!");
-    - outer: script attr: src="xxx.js"
+    - outer:    src="xxx.js"
         - in <head>
         - in <body>  
         - benefit: 可以压缩，加密单个JavaScript文件;  浏览器可以缓存JavaScript文件
@@ -71,10 +71,20 @@ js core obj:
             var json=eval(jsonstr); 
                 
 BOM: 
-    window
-    document
-    frames
-    history
-    location
-    navigator
+    window:
+        func: moveBy(), moveTo(), resizeBy(), focus(), setTimeout(),
+        sub obj:
+            frames
+            history:
+                go(), forward(), back(),
+            location:
+                protocol://hostname:port/pathname?search#hash
+                ex: http://www.mysite:8888/main.html?q=abc&l=zh-CH#ch1
+            navigator
+            screen
+            document:
+                attr: cookie, titile, URL,
+                func: write(),writeln(),open(),close()
+                
+            
                     
