@@ -86,5 +86,7 @@ BOM:
                 attr: cookie, titile, URL,
                 func: write(),writeln(),open(),close()
                 
-            
+tech:
+    var: in func, limited as local variable, or it'll be global
+                
                     

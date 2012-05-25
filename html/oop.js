@@ -1,11 +1,11 @@
 // print, auto show arguments
-function _p(){
+var _p = function(){
     len=_p.arguments.length
     for(i=0;i<len;i++){
         document.write(_p.arguments[i], ", ")
     }
     document.write("<br/>")
-}
+};
 
 // obj
 var site={

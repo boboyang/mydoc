@@ -1,4 +1,7 @@
-//closure
+// this:在函数调用模式下，this被绑定到全局对象上。这个是javascript语言设计上的一个错误。 可以采用以下方法避免：   
+// var that = this;
+
+//closure: a func inside func
 
 var fade=function(node){
     var level=1;
@@ -13,6 +16,19 @@ var fade=function(node){
     setTimeout(step,100);
 };
 fade(document.body);
+
+var name = "The Window";
+var object = {
+    name : "My Object",
+    getNameFunc : function(){
+        var that=this;
+        return function(){
+//            return this.name;
+            return that.name;
+        };
+    }()
+};
+alert(object.getNameFunc());
 
 var add_handlers=function(nodes){
     var i;
@@ -50,4 +66,20 @@ String.method('deentityify',function(){
         );
     };
 }());
-document.writeln('&lt;&quto;&gt;'.deentityify());
+document.writeln('&lt;&quto;&gt;'.deentityify);
+
+//memorization
+var fibonacci=function(){
+    var memo=[0,1];
+    var fib=function(n){
+        var res=memo[n];
+        if(typeof res !=='number'){
+            res=fib(n-1)+fib(n-2);
+            memo[n]=res;
+        } 
+        return res;       
+    };
+    return fib;
+}();
+document.writeln(10,':', fibonacci(10));
+
