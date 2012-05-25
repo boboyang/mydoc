@@ -28,7 +28,7 @@ var object = {
         };
     }()
 };
-alert(object.getNameFunc());
+//alert(object.getNameFunc());
 
 var add_handlers=function(nodes){
     var i;
@@ -60,6 +60,7 @@ String.method('deentityify',function(){
     return function(){
         return this.replace(/&([^&;]+);/g,
             function(a,b){
+                document.write(a,b);
                 var r=entity[b];
                 return typeof r ==='string'?r:a;
             }
@@ -81,5 +82,5 @@ var fibonacci=function(){
     };
     return fib;
 }();
-document.writeln(10,':', fibonacci(10));
+document.writeln('fibonacci of ',10,':', fibonacci(10));
 
