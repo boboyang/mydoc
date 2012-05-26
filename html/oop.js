@@ -22,4 +22,15 @@ _p(Math.abs(i), Math.sin(i), Math.log(i), Math.max(), Math.PI)
 var curdate=new Date(2012, 9, 29, 5, 43, 0)
 _p(curdate.getYear(),Date.UTC(curdate))
 
+//array like obj
+var is_array=function(value){
+    return value&&
+        typeof value==='object'&&
+        typeof value.length==='number'&&
+        typeof value.splice==='function'&&
+        !(value.propertyIsEnumerable('length'));
+}
+var misc=['str1',222,true];
+_p(is_array(misc), is_array(123));
+
 

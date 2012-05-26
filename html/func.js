@@ -17,19 +17,6 @@ var fade=function(node){
 };
 fade(document.body);
 
-var name = "The Window";
-var object = {
-    name : "My Object",
-    getNameFunc : function(){
-        var that=this;
-        return function(){
-//            return this.name;
-            return that.name;
-        };
-    }()
-};
-//alert(object.getNameFunc());
-
 var add_handlers=function(nodes){
     var i;
     for (i=0;i<nodes.length;i++){
@@ -44,9 +31,9 @@ add_handlers(frames)
 
 //prototype
 Function.prototype.method=function(name,func){
-    if(!this.prototype.name){
-        this.prototype.name=func;
-        //return this;
+    if(!this.prototype[name]){
+        this.prototype[name]=func;
+        return this;
     }
 };
 
@@ -56,18 +43,17 @@ String.method('deentityify',function(){
         quot:'"',
         lt:'<',
         gt:'>',
-    }
+    };
     return function(){
         return this.replace(/&([^&;]+);/g,
             function(a,b){
-                document.write(a,b);
                 var r=entity[b];
                 return typeof r ==='string'?r:a;
             }
         );
     };
 }());
-document.writeln('&lt;&quto;&gt;'.deentityify);
+document.writeln('&lt;&quot;&gt;'.deentityify());
 
 //memorization
 var fibonacci=function(){
