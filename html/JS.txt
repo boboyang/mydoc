@@ -1,0 +1,92 @@
+basic:
+    def:  HTML embeded, client script;基于对象和事件驱动。
+    character:  
+        - OO
+        - loosely typed   
+    application:
+        - form varify
+        - Ajax r/w
+        - event driven
+        - detect device
+    component:
+        - ECMAScript
+        - BOM:browser obj model
+        - DOM:doc obj model    
+ 
+use js in html:
+    - tag <script >... </script>
+    - inner:    type="text/javascript"
+        ex: document.write("whi!");
+    - outer:    src="xxx.js"
+        - in <head>
+        - in <body>  
+        - benefit: 可以压缩，加密单个JavaScript文件;  浏览器可以缓存JavaScript文件
+    - inline:
+            
+js grammer:
+    basic:
+        case sensitive
+        变量不区分类型
+        每条语句结尾可以省略分号
+        注释与C,C++,java,php相同
+        代码段要封闭
+    variable:
+        var i,str="abc"
+        推荐使用匈牙利命名法
+        number:
+            ex:1e3
+        string:
+            str[i]
+            str.length   
+    js programming:
+        sequence
+        condition
+        circulation
+oo programming:
+    JSON: 是一种轻量级数据交换格式。JSON非常易于人阅读与编写，同时利于机器解析与生成
+    JSON obj:
+        var jsonobject={
+            propertyname:value,
+            functionname:function(){...;}
+        };        
+        
+js core obj:
+    inner obj:
+        bool
+        Date():
+            ctor:   (),(datestring),(y,m,d),(y,m,d,h,m,s)
+            .getDate(), .getYear(), .UTC(),
+        Math:
+            .abs(), .sin(), .cos(), .tan(), .exp(), .log(), .pow(), .sqrt(),
+            .PI, .E, 
+            .min(), .max(), 
+            .random(),
+        String:
+            .charAt(), .bold(), blink(), .toLowerCase(),
+        arguments:
+            .length, [i]
+    global:
+        decodeURI:
+        eval(): str --> obj
+            var json=eval(jsonstr); 
+                
+BOM: 
+    window:
+        func: moveBy(), moveTo(), resizeBy(), focus(), setTimeout(),
+        sub obj:
+            frames
+            history:
+                go(), forward(), back(),
+            location:
+                protocol://hostname:port/pathname?search#hash
+                ex: http://www.mysite:8888/main.html?q=abc&l=zh-CH#ch1
+            navigator
+            screen
+            document:
+                attr: cookie, titile, URL,
+                func: write(),writeln(),open(),close()
+                
+tech:
+    var: in func, limited as local variable, or it'll be global
+                
+                    
