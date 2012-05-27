@@ -1,0 +1,67 @@
+<html>
+<head>
+<script type="text/javascript">
+function getxmlhttp(){
+    var xmlhttp;
+    if (window.XMLHttpRequest){
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+    }else{
+        // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    return xmlhttp;
+}
+function loadXMLDoc(){
+    var xmlhttp=getxmlhttp();
+    var txt,x,i;
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            txt="";
+            var x=xmlhttp.responseXML.getElementsByTagName("title");
+            for (i=0;i<x.length;i++) {
+                txt += x[i].childNodes[0].nodeValue + "\<br/\>";
+            }
+            document.getElementById("myDiv").innerHTML=txt;
+        }
+    }
+    xmlhttp.open("GET","books.xml",true);
+    xmlhttp.send();
+};
+function showCustomer(str){
+    var xmlhttp=getxmlhttp();
+    if (str==""){
+        document.getElementById("txtHint").innerHTML="";
+        return;
+      }
+    xmlhttp.onreadystatechange=function(){
+        if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+        }
+    }
+    xmlhttp.open("GET","http://http://www.w3school.com.cn/getcustomer.asp?q="+str,true);
+    xmlhttp.send();
+}
+</script>
+</head>
+<body>
+<h2>My Book Collection:</h2>
+<div id="myDiv"></div>
+<button type="button" onclick="loadXMLDoc()">获得我的图书收藏列表</button>
+
+<form action="" style="margin-top:15px;"> 
+<label>请选择一位客户：
+<select name="customers" onchange="showCustomer(this.value)" style="font-family:Verdana, Arial, Helvetica, sans-serif;">
+<option value="APPLE">Apple Computer, Inc.</option>
+<option value="BAIDU ">BAIDU, Inc</option>
+<option value="Canon">Canon USA, Inc.</option>
+<option value="Google">Google, Inc.</option>
+<option value="Nokia">Nokia Corporation</option>
+<option value="SONY">Sony Corporation of America</option>
+</select>
+</label>
+</form>
+<br />
+<div id="txtHint">客户信息将在此处列出 ...</div>
+</body>
+</html>

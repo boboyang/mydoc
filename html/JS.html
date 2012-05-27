@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="style.css" />
 <body>
 <!-- in file -->
 <script type="text/javascript">
@@ -11,19 +12,27 @@ document.write(i,str);
 <input type="button" value="click me" onclick="alert('u clicked a button.');"> 
 
 <!-- out file -->
-<script src="oop.js">
+<script src="js/oop.js">
 </script>
-<script src="func.js">
+<script src="js/func.js">
 </script>
-<script src="inherit.js">
+<script src="js/inherit.js">
 </script>
-<script src="regex.js">
+<script src="js/regex.js">
 </script>
-
+<script src="js/vote.js">
+</script>
 <noscript>
 JavaScript is not enabled!
 </noscript>
 
+<br/>
+你认为这篇评论：
+<span class="useful">
+<a class="btn-useful " href="javascript:;" onclick="voteuseful('r-5421850',true)">有用</a>
+<a class="btn-unuseful " href="javascript:;" onclick="voteuseless('r-5421850',true)">没用</a>
+</span>
+<br/>
 <img src="images/BOM.png" alt="BOM"/>
 </body>
 

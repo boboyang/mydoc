@@ -75,7 +75,7 @@ p.mybox {
 	width: 200px;
 }
 
-/*position*/
+/*position: z-index*/
 #box1 {
 	position:absolute;
 	bottom: 20px;
@@ -122,3 +122,39 @@ p.mybox {
 CSS validator:  http://jigsaw.w3.org/css-validator/ 
 */
 
+.btn - useful, 
+.btn - unuseful {
+    display: inline - block; * display: inline; * zoom: 1;
+    line - height: 22px; * line - height: 23px;
+    vertical - align: middle;
+    text - align: center;
+    margin: 0 2px; * margin: 0;
+    width: 42px;
+    height: 22px;
+    overflow: hidden;
+    margin - bottom: 2px
+}
+a.btn - useful: link,
+a.btn - useful: visited,
+a.btn - useful: hover,
+a.btn - useful: active {
+    color: #333;
+    background:transparent url(../images/bg_rev.png) 
+    no-repeat 0 0
+}
+a.btn-useful:hover,
+a.btn-useful:active{
+    background-position:0 -22px
+}
+a.btn-unuseful:link,
+a.btn-unuseful:visited,
+a.btn-unuseful:hover,
+a.btn-unuseful:active{
+    color:# 333;
+    background: transparent url(../images/bg_rev.png)
+    no-repeat -42px 0
+}
+a.btn-unuseful:hover,
+a.btn-unuseful:active{
+    background-position:-42px -22px
+}
