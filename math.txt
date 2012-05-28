@@ -1,0 +1,11 @@
+s.t. : subject to, 使得...满足...
+
+向量范数(norm), ‖x‖
+    ref: http://en.wikipedia.org/wiki/Norm_(mathematics)
+    def: ║x║p=(|x1|^p+|x2|^p+...+|xn|^p)^{1/p}
+    　　当p取1，2，∞的时候分别是以下几种最简单的情形：
+    　　0-范数：非零元素的个数
+    　　1-范数：║x║1=│x1│+│x2│+…+│xn│
+    　　2-范数：║x║2=(│x1│^2+│x2│^2+…+│xn│^2)^1/2
+    　　∞-范数：║x║∞=max(│x1│,│x2│,…,│xn│)
+    　　
