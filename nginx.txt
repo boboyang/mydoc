@@ -21,3 +21,31 @@ nginx http scgi temporary files: "scgi_temp"
 sudo kill -HUP `cat logs/nginx.pid`
 ps -ef|grep nginx
 
+//pyramid & uwsgi
+// in pyramid development.ini/production.ini
+[uwsgi]
+socket = 0.0.0.0:6543
+master = true
+workers = 8
+threads = 5
+max-requests = 65536
+debug = false
+pythonpath = /Users/edwardwang/env4pyramid27/shibboleth/py4mydlink/mydlinkNBS
+pythonpath = /Users/edwardwang/env4pyramid27/shibboleth/py4mydlink/pygabriel
+pythonpath = /Users/edwardwang/env4pyramid27/shibboleth/py4mydlink/
+
+//nginx conf
+http {
+    upstream nbsCluster {
+        server 127.0.0.1:6543;
+    }
+    location / {
+        #root   html;
+        #index  index.html index.htm;
+        uwsgi_pass nbsCluster;
+        include uwsgi_params;
+    }
+}
+// start uwsgi
+./uwsgi --ini-paste xxx/mydlinkNBS/production.ini
+

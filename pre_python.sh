@@ -12,7 +12,7 @@ virtualenv2 --no-site-packages ~/my_env
 
 easy_install distribute
 easy_install -U pycassa python-memcached pyramid w3lib  w3lib Scrapy
-
+pip install http://projects.unbit.it/downloads/uwsgi-lts.tar.gz
 
 cd mydlink_v3/
 ../bin/python setup.py develop
