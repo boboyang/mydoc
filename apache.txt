@@ -1,0 +1,23 @@
+pS apr apr-util
+
+#download latest apache: httpd
+http://httpd.apache.org/download.cgi 
+
+./configure && make 
+make install
+
+#conf
+/usr/local/apache2/conf/httpd.conf
+DocumentRoot
+
+#Linux Apache 开启 mod_rewrite
+mod_rewrite能使网页伪静态,对于搜索引擎友好,下面就是开启这个功能的说明！
+1.启用mod_rewrite模块
+在conf目录的httpd.conf文件中找到
+LoadModule rewrite_module modules/mod_rewrite.so
+将这一行前面的#去掉。
+
+2.在要支持url rewirte的目录启用 Options FollowSymLinks和AllowOverride All
+Options Indexes FollowSymLinks
+AllowOverride All
+Order allow,deny
