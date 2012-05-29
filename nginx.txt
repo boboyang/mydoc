@@ -1,25 +1,12 @@
 configuration summary
-+ using system PCRE library
-+ OpenSSL library is not used
-+ md5: using system crypto library
-+ sha1: using system crypto library
-+ using system zlib library
-
 nginx path prefix: "/usr/local/nginx"
-nginx binary file: "/usr/local/nginx/sbin/nginx"
-nginx configuration prefix: "/usr/local/nginx/conf"
 nginx configuration file: "/usr/local/nginx/conf/nginx.conf"
 nginx pid file: "/usr/local/nginx/logs/nginx.pid"
-nginx error log file: "/usr/local/nginx/logs/error.log"
-nginx http access log file: "/usr/local/nginx/logs/access.log"
-nginx http client request body temporary files: "client_body_temp"
-nginx http proxy temporary files: "proxy_temp"
-nginx http fastcgi temporary files: "fastcgi_temp"
-nginx http uwsgi temporary files: "uwsgi_temp"
-nginx http scgi temporary files: "scgi_temp"
 
+whereis nginx
 sudo kill -HUP `cat logs/nginx.pid`
-ps -ef|grep nginx
+nginx -h -t -V -s stop
+
 
 //pyramid & uwsgi
 // in pyramid development.ini/production.ini
@@ -30,20 +17,14 @@ workers = 8
 threads = 5
 max-requests = 65536
 debug = false
-pythonpath = /Users/edwardwang/env4pyramid27/shibboleth/py4mydlink/mydlinkNBS
-pythonpath = /Users/edwardwang/env4pyramid27/shibboleth/py4mydlink/pygabriel
-pythonpath = /Users/edwardwang/env4pyramid27/shibboleth/py4mydlink/
 
 //nginx conf
 http {
-    upstream nbsCluster {
-        server 127.0.0.1:6543;
-    }
     location / {
         #root   html;
         #index  index.html index.htm;
-        uwsgi_pass nbsCluster;
         include uwsgi_params;
+        uwsgi_pass localhost:9090;
     }
 }
 // start uwsgi

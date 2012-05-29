@@ -1,0 +1,86 @@
+# YAML
+---
+main:
+    if __name__ == "__main__":
+        main()
+    
+__buildin__:
+    help(object)
+    type()      #what's it
+    str()   
+    dir()       #attrs and methods
+    callable()  #return True/False
+    repr() vs. eval()
+    
+import:
+    import X
+    from X import *
+    import sys,os   
+    sys.path:
+        - .append() 
+        - .insert()
+    
+data structure:
+- dict:
+    d = {"k1":"v1", "k2":"v2"}
+    d["k1"]
+    .clear()
+    .keys()
+    .values()
+    .items():
+        ["%s=%s" % (k, v) for k, v in params.items()]
+    dic=dict(zip(ls1,ls2))
+
+- list:
+    li = ["a", "b", "mpilgrim", "z", "example"]
+    li[0]
+    li[1:3]
+    li[-1]  #last item
+    .append()
+    .insert()
+    .extend()
+    .remove()
+    len(list)
+
+#const, safe and faster than list
+- tuple:  
+    t = ("a", "b", "mpilgrim", "z", "example")
+    .append()
+    .remove()
+    .indiex('abc')
+
+- enum:
+    (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7)
+
+- string:
+    "%s=%d" %("name",31)
+    "price is %.2f" % price
+    s=';'.join(words)
+    s.split(';'):    
+        " ".join(s.split())
+
+---
+test:
+    nose
+    
+---
+web server:
+    WSGI
+    nginx+uWsgi
+    
+---
+pydev:
+    Help > Software Updates > Find and Install:
+        http://www.fabioz.com/pydev/updates
+    Window > Preferences > Pydev > Interpreter:
+        New
+        /usr/bin/python2
+---
+#use yaml in python
+import yaml
+
+stream = open("example.yaml", 'r')
+print yaml.load(stream)
+
+...
+
