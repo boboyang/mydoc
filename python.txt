@@ -9,6 +9,7 @@ __buildin__:
     type()      #what's it
     str()   
     dir()       #attrs and methods
+    getattr(obj,name,default) -->value
     callable()  #return True/False
     repr() vs. eval()
     
@@ -60,14 +61,63 @@ data structure:
         " ".join(s.split())
 
 ---
-test:
-    nose
+nose: UT
+    pip install nose
+    它会自动搜索当前目录和名为test的子目录
+    func:   setUp(), tearDown()
+    run: nosetests -h -s
+        
     
 ---
 web server:
+    framework: web.py flask pyramid
     WSGI
     nginx+uWsgi
     
+---
+math:
+    numpy
+
+---
+ipython:
+    start:  ipyhthon -pylab
+    virable:    %env %[TAB]
+    %autoindent #toggle autoindent, for paste
+    ![Shell]
+    %history
+    ex:
+        X=frange(0,10,0.1)
+        Y=[sin(x) for x in X]
+        plot(x,y)
+
+---
+virtualenv: deploy a clean env
+    mkdir ~/my_env && cd ~/my_env/
+    virtualenv2 --no-site-packages ~/my_env
+    . ~/my_env/bin/activate
+    #...
+    deactivate
+    
+---
+pyrex/Cython
+
+---
+serialize:
+    marshal
+    pickle
+    
+---
+config:
+    .py: form xxx import *
+    
+
+---
+decorator:
+    @async
+    obj:    __call__(self,...)
+---
+Zen: import this
+
 ---
 pydev:
     Help > Software Updates > Find and Install:
