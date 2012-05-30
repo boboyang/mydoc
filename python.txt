@@ -15,6 +15,7 @@ __buildin__:
     
 import:
     import X
+    reload(X)
     from X import *
     import sys,os   
     sys.path:
@@ -67,7 +68,18 @@ nose: UT
     func:   setUp(), tearDown()
     run: nosetests -h -s
         
+---
+profile:    performance
+    run:
+        - python -m profile XXX.py
+        - import profile; profile.run('XXX')    
+    result:
+        ncalls: number calls
+        cumulative: 函数运行的总时间
     
+---
+help(sys.setprofile)
+
 ---
 web server:
     framework: web.py flask pyramid
@@ -110,14 +122,18 @@ serialize:
 config:
     .py: form xxx import *
     
+---
+Zen: import this
 
 ---
 decorator:
     @async
     obj:    __call__(self,...)
----
-Zen: import this
 
+---
+mq: 
+    Rabbitmq
+    
 ---
 pydev:
     Help > Software Updates > Find and Install:
