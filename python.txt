@@ -32,6 +32,7 @@ data structure:
     .items():
         ["%s=%s" % (k, v) for k, v in params.items()]
     dic=dict(zip(ls1,ls2))
+    **dic:  k=v,...
 
 - list:
     li = ["a", "b", "mpilgrim", "z", "example"]
@@ -115,8 +116,8 @@ pyrex/Cython
 
 ---
 serialize:
-    marshal
-    pickle
+    marshal: fast, inner type
+    cPickle
     
 ---
 config:

@@ -1,0 +1,65 @@
+feature:
+    UDP based:
+        broadcasting
+        port: 5978
+    aim: discover & configure
+    target: 
+        ip-camera
+        router
+    env: LAN
+    
+base64:
+    基于64个可打印字符来表示二进制数据的表示方法。由于2的6次方等于64，所以每6个比特为一个单元
+    编码后的数据为原来的4/3, 4的整数倍，不足用'='补齐（1~2个）   
+    
+msg format:
+    size: 2byte #64k
+    des mac:6 byte
+    src mac:6 byte
+    content:
+        encoding: by a key table
+        text:
+            length,classNo;[k=v;]+
+            M=my mac;
+            D=device model;
+            ex: 32,2;M=00:03:1b:58:59:78;D=DCS-1130
+        interaction:
+            send:
+                repeat: after 3-6 sec
+            response:
+                device neglect same cmd
+        classNo:
+            1:Discover:
+                all devices: in about 20s, about 3-4 times
+                N=device name(base64);
+                I=device IP;
+                G=portal register:0/1;
+                C=0/1/2(DHCP/PPPoE/Static);
+                W=0/1(wire/wireless);
+                V=DCP version;
+            2:Password/Remote Access:
+                P=passwd(base64);
+                E=email;
+                R=0/1(remote access);
+                C=UPnP check:-1/0/1(checking/not support/support);
+                U=url;
+                O=Upnpc-ddns local(url encode);
+                W=portal url;
+            3:Network setup
+            4:AP search, get device wireless setting
+            5:check if DCP ready
+            6:HDD format
+            8:ask device to ping a ip addr
+            9:restart network/http server
+            D:?
+                
+DCP cmd:
+    DCP -lvz -i interface -N model_name
+        -l: full info
+        -v: version
+        -z: debug
+        
+tdb API:
+    tdb [set/get] category action_type
+                
+                
