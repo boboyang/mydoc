@@ -12,6 +12,7 @@ __buildin__:
     getattr(obj,name,default) -->value
     callable()  #return True/False
     repr() vs. eval()
+    locals()    :dict
     
 import:
     import X
@@ -70,14 +71,16 @@ nose: UT
     run: nosetests -h -s
         
 ---
-profile:    performance
-    run:
-        - python -m profile XXX.py
-        - import profile; profile.run('XXX')    
-    result:
-        ncalls: number calls
-        cumulative: 函数运行的总时间
-    
+performance:
+    profile:
+        run:
+            - python -m profile XXX.py
+            - import profile; profile.run('XXX')    
+        result:
+            ncalls: number calls
+            cumulative: 函数运行的总时间
+    timeit:
+        
 ---
 help(sys.setprofile)
 
@@ -91,6 +94,12 @@ web server:
 math:
     numpy
 
+---
+sql:
+    mysql-python:
+        get src; python setup.py install
+        import MySQLdb
+        
 ---
 ipython:
     start:  ipyhthon -pylab
@@ -118,6 +127,9 @@ pyrex/Cython
 serialize:
     marshal: fast, inner type
     cPickle
+    method:
+        dumps(,protocol=0)
+        loads()
     
 ---
 config:
@@ -131,6 +143,14 @@ decorator:
     @async
     obj:    __call__(self,...)
 
+---
+itertools:
+    count(n) --> n, n+1, n+2 
+    cycle(p) --> p0, p1, ... plast, p0, p1, ... 
+    repeate(elem[,n]) --> elem, elem, elem, ...
+    izip(p,q,...) --> (p[0], q[0]), (p[1], q[1]), ...
+    islice(seq,[start,]stop[,step])--> elements from seq[start:stop:step]
+    
 ---
 mq: 
     Rabbitmq
