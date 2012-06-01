@@ -1,0 +1,53 @@
+pS mysql
+
+#start server
+sudo /usr/bin/mysqld_safe &
+
+#root 
+mysql -h localhost -uroot -p
+#no passwd at first
+
+#set passwd
+sudo mysqladmin -uroot -p password XXX
+
+#mysql cmd
+
+\h
+\h show
+
+select version(),current_date;
+select user();
+
+#db
+show databases;
+use test;   # use test db
+create DATABASE mydb;
+drop database mydb;
+
+#table
+SHOW TABLES;
+create TABLE mytable(
+<name> <type>...,
+...
+);
+describe mytable;
+drop table mytable;
+alter mytable rename mytable2;
+#add field
+alter mytable add xxx int(4) default '0';
+
+#add data
+insert into mytable values('',...);
+#load data
+load data local INFILE 'xxx.txt' into table mytable;
+
+#backup
+mysqldump -h localhost -uroot -p mydb>mydb.sql
+#restore
+mysqladmin -uroot -p create mydb
+mysqldump  -uroot -p mydb<mydb.sql
+
+
+
+
+

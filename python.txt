@@ -13,7 +13,9 @@ __buildin__:
     callable()  #return True/False
     repr() vs. eval()
     locals()    :dict
-    
+    setattr(object, name, value)
+    getattr(object, name[, default]) -> value
+
 import:
     import X
     reload(X)
@@ -122,7 +124,23 @@ virtualenv: deploy a clean env
     
 ---
 pyrex/Cython
-
+    Pyrex is a Python-like language that is used to create C modules for Python.
+    why it:
+        fast
+        wrap a c lib for python
+    .pyx:
+    
+    build:
+        setup.py:
+            from setuptools import setup, Extension
+        python setup.py build_ext --inplace
+        python setup.py build
+        python setup.py test
+        python setup.py install
+        pip uninstall XXX
+    use:
+        import mymodule
+                
 ---
 serialize:
     marshal: fast, inner type
