@@ -15,7 +15,7 @@ __buildin__:
     locals()    :dict
     setattr(object, name, value)
     getattr(object, name[, default]) -> value
-
+    sorted()
 import:
     import X
     reload(X)
@@ -28,6 +28,10 @@ import:
 data structure:
 - dict:
     d = {"k1":"v1", "k2":"v2"}
+    d = dict(mapping):
+        ex: dict(('key%s' %i, 'value%s' %i) for i in xrange(10))
+    d = dict(**kwargs):
+        ex: dict(one=1, two=2)
     d["k1"]
     .clear()
     .keys()
@@ -46,6 +50,7 @@ data structure:
     .insert()
     .extend()
     .remove()
+    .reverse() # [::-1] return a reversed list 
     len(list)
 
 #const, safe and faster than list
@@ -65,7 +70,7 @@ data structure:
     s=';'.join(words)
     s.split(';'):    
         " ".join(s.split())
-
+    ''.join(sorted('cat'))
 ---
 nose: UT
     pip install nose
@@ -145,24 +150,39 @@ pyrex/Cython
                 
 ---
 serialize:
-    marshal: fast, inner type
+    marshal: faster, inner type only
     cPickle
     method:
         dumps(,protocol=0)
         loads()
-    
 ---
-config:
-    .py: form xxx import *
-    
+as config:
+    .py: from xxx import *
 ---
 Zen: import this
-
 ---
 decorator:
-    @async
-    obj:    __call__(self,...)
-
+    class decorator:
+        class mydec(object):
+            def __init__(self,action,msg=None):
+                self.action,self.msg=action,msg
+            def __call__(self,func):
+                def _(ui,req,*args,**kwargs):
+                    ...
+                    return func(ui,*args,**kwargs)
+                return _
+                
+    func decorator: 3 layers:
+        def mydec(pattern, expire=0):   # decrator arg
+            def deco(f):                    # func
+                ...
+                def _(*a, **kw):            # func args
+                        r = f(*a, **kw) 
+                        ...
+                    return r
+                return _
+            return deco
+    
 ---
 itertools:
     count(n) --> n, n+1, n+2 
@@ -170,11 +190,50 @@ itertools:
     repeate(elem[,n]) --> elem, elem, elem, ...
     izip(p,q,...) --> (p[0], q[0]), (p[1], q[1]), ...
     islice(seq,[start,]stop[,step])--> elements from seq[start:stop:step]
-    
+    groupby:
+     words = ['cat','act','wer','erw']
+     [list(v) for k,v in itertools.groupby(words,sorted)]
+
+---
+metaclass
+    def: 
+        defines the behavior of certain classes and their instances
+        as a class factory
+    class as obj:
+        hasattr(object, name) -> bool
+    (): return object of a class
+    type():
+        type(name of the class, 
+           tuple of the parent class), 
+           dictionary containing attributes names and values)
+        ex:
+            FooChild = type('FooChild', (Foo,), {'echo_bar': echo_bar})
+    the __metaclass__ attribute:
+    act:
+        intercept a class creation
+        modify the class
+        return the modified class    
+    ex:
+        class myMetaclass(type):
+            def __new__(cls, name, bases, attrs):
+                ...
+                return type.__new__(cls, name, bases, up_attrs)
+        class myObj:
+            __metaclass__=UpperAttrMetaclass                
 ---
 mq: 
     Rabbitmq
     
+---
+HTML
+    escape:
+        import cgi
+        res = cgi.escape('<')
+    unescape:
+        import HTMLParser
+        hp=HTMLParser.HTMLParser() 
+        hp.unescape(res) 
+        
 ---
 pydev:
     Help > Software Updates > Find and Install:

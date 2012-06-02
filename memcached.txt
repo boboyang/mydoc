@@ -32,6 +32,11 @@ cmd:
     decr
     flush_all
     
+consistent hash:
+    import md5
+    def _hash_digest(key)
+        m.update(key)
+        return map(ord, m.digest())
         
 safety:
     only allow 192.168.0.2:
