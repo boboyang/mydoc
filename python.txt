@@ -54,7 +54,8 @@ data structure:
     .append()
     .remove()
     .indiex('abc')
-
+    touple([1,2,3]) # change list to tuple
+    
 - enum:
     (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7)
 
@@ -70,7 +71,8 @@ nose: UT
     pip install nose
     它会自动搜索当前目录和名为test的子目录
     func:   setUp(), tearDown()
-    run: nosetests -h -s
+    run: nosetests:
+        -h, -s
         
 ---
 performance:
@@ -188,4 +190,7 @@ stream = open("example.yaml", 'r')
 print yaml.load(stream)
 
 ...
+---
+list comprehension, lambda, decorator, descriptor, slots, generator
+Bigtable, Dynamo
 

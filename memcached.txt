@@ -1,0 +1,41 @@
+#http://code.google.com/p/memcached/wiki/NewCommands
+what:   通用的内存存储器
+
+libmemcached: a c lib of memcached, plus a collection of utilities
+
+memcached:
+    -h
+    -p <PORT>
+    -m <MEMSIZE>(Mb)
+    -d # daemon mode
+    -P <file> #save PID in <file>, only used with -d option
+
+telnet IP PORT:
+    stats
+    quit
+    <command name> <key> <flags> <exptime> <bytes>\r\n <data block>\r\n
+        ex: set foo 0 60 5 \r\n abc \r\n
+        
+
+protocol:
+    key: (arbitrary string up to 250 bytes in length. No space or newlines for ASCII mode)
+    
+cmd:
+    get
+    set
+    gets
+    sets
+    add: return error if existed
+    replace
+    delete
+    incr
+    decr
+    flush_all
+    
+        
+safety:
+    only allow 192.168.0.2:
+        # iptables -F
+        # iptables -P INPUT DROP
+        # iptables -A INPUT -p tcp -s 192.168.0.2 –dport 11211 -j ACCEPT
+        # iptables -A INPUT -p udp -s 192.168.0.2 –dport 11211 -j ACCEPT
