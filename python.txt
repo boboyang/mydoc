@@ -1,5 +1,3 @@
-# YAML
----
 main:
     if __name__ == "__main__":
         main()
@@ -13,9 +11,11 @@ __buildin__:
     callable()  #return True/False
     repr() vs. eval()
     locals()    :dict
-    setattr(object, name, value)
+    setattr(object, name, value):
+        setattr(x, 'y', v)  --> x.y = v
     getattr(object, name[, default]) -> value
     sorted()
+
 import:
     import X
     reload(X)
@@ -32,14 +32,16 @@ data structure:
         ex: dict(('key%s' %i, 'value%s' %i) for i in xrange(10))
     d = dict(**kwargs):
         ex: dict(one=1, two=2)
+    dic=dict(zip(ls1,ls2))
+    **dic:  k=v,...
     d["k1"]
     .clear()
     .keys()
     .values()
     .items():
         ["%s=%s" % (k, v) for k, v in params.items()]
-    dic=dict(zip(ls1,ls2))
-    **dic:  k=v,...
+    .pop(k[,d]) ->v #If k is not found, d is returned if given
+    
 
 - list:
     li = ["a", "b", "mpilgrim", "z", "example"]
@@ -71,6 +73,10 @@ data structure:
     s.split(';'):    
         " ".join(s.split())
     ''.join(sorted('cat'))
+    
+---
+class:
+    super(
 ---
 nose: UT
     pip install nose
@@ -114,6 +120,7 @@ ipython:
     start:  ipyhthon -pylab
     virable:    %env %[TAB]
     %autoindent #toggle autoindent, for paste
+    dict?, dict??
     ![Shell]
     %history
     ex:
@@ -242,13 +249,17 @@ pydev:
         New
         /usr/bin/python2
 ---
+limitation:
+    GIL:    Global Interpreter Lock
+        sys.getcheckinterval()
+        
+---
 #use yaml in python
-import yaml
+    import yaml
 
-stream = open("example.yaml", 'r')
-print yaml.load(stream)
+    stream = open("example.yaml", 'r')
+    print yaml.load(stream)
 
-...
 ---
 list comprehension, lambda, decorator, descriptor, slots, generator
 Bigtable, Dynamo
