@@ -65,6 +65,8 @@ data structure:
     
 - enum:
     (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7)
+    [i for i in enumerate(['a','b','c'])]:
+        [(0, 'a'), (1, 'b'), (2, 'c')]
 
 - string:
     "%s=%d" %("name",31)
