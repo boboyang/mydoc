@@ -15,6 +15,10 @@ __buildin__:
         setattr(x, 'y', v)  --> x.y = v
     getattr(object, name[, default]) -> value
     sorted()
+    map(function, sequence[, sequence, ...]) -> list:
+        Return a list of the results of applying the function to the items of
+the argument sequence(s). 
+        map(lambda x: x*2,[1,2,3]):  -> [2, 4, 6]
 
 import:
     import X
@@ -54,7 +58,9 @@ data structure:
     .remove()
     .reverse() # [::-1] return a reversed list 
     len(list)
-
+    list comprehension:
+        [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
+        
 #const, safe and faster than list
 - tuple:  
     t = ("a", "b", "mpilgrim", "z", "example")
@@ -96,12 +102,16 @@ performance:
         result:
             ncalls: number calls
             cumulative: 函数运行的总时间
+        help(sys.setprofile)
     timeit:
         
 ---
-help(sys.setprofile)
-
----
+lambda:   anonymus function
+    ex:  func=lambda x: x*2 
+    not allowed: if, for, print:
+        use and or to simulate if: （test and x） or y
+            
+--- 
 web server:
     framework: web.py flask pyramid
     WSGI
@@ -252,7 +262,7 @@ pydev:
         /usr/bin/python2
 ---
 limitation:
-    GIL:    Global Interpreter Lock
+    GIL: Global Interpreter Lock
         sys.getcheckinterval()
         
 ---
@@ -263,6 +273,7 @@ limitation:
     print yaml.load(stream)
 
 ---
-list comprehension, lambda, decorator, descriptor, slots, generator
+lambda, 
+descriptor, slots, 
 Bigtable, Dynamo
 
