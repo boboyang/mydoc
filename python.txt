@@ -84,7 +84,10 @@ data structure:
     
 ---
 class:
-    super(
+    super(type, obj) -> bound super object; 
+    unbound method: class method
+    bound method: object method
+    
 ---
 nose: UT
     pip install nose
@@ -132,8 +135,10 @@ ipython:
     start:  ipyhthon -pylab
     virable:    %env %[TAB]
     %autoindent #toggle autoindent, for paste
-    dict?, dict??
+    help:
+        dict?, dict??
     ![Shell]
+    %paste
     %history
     ex:
         X=frange(0,10,0.1)
@@ -240,6 +245,11 @@ metaclass
         class myObj:
             __metaclass__=UpperAttrMetaclass                
 ---
+descriptor:
+    property?
+    property(fget=None, fset=None, fdel=None, doc=None) -> property attribute
+
+---
 mq: 
     Rabbitmq
     
@@ -273,7 +283,6 @@ limitation:
     print yaml.load(stream)
 
 ---
-lambda, 
-descriptor, slots, 
+, slots, 
 Bigtable, Dynamo
 
