@@ -4,6 +4,9 @@ nginx configuration file: "/usr/local/nginx/conf/nginx.conf"
 nginx pid file: "/usr/local/nginx/logs/nginx.pid"
 
 whereis nginx
+#start
+/usr/local/nginx/sbin/nginx
+#restart
 sudo kill -HUP `cat logs/nginx.pid`
 nginx -h -t -V -s stop
 
@@ -19,11 +22,37 @@ max-requests = 65536
 debug = false
 
 //nginx conf
+
+worker_processes 4;
+
 http {
     location / {
         include uwsgi_params;
         uwsgi_pass localhost:9090;
     }
+}
+
+# simple ex:
+http {
+    #load balance servers
+    upstream mysvr {
+        server 192.168.8.1:3128 weight=5;
+        server 192.168.8.3:3128 weight=6;
+        }    
+    #virtual server
+    server {
+        listen 80;
+        listen 443 default ssl;
+        server_name xxx;
+        
+        location / {
+            # failover
+            proxy_next_upstream     error timeout invalid_header http_500;
+            proxy_connect_timeout   2;
+        }
+    }
+}
+
 }
 // start uwsgi
 ./uwsgi --ini-paste xxx/mydlinkNBS/production.ini
