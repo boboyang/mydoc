@@ -47,7 +47,25 @@ mysqldump -h localhost -uroot -p mydb>mydb.sql
 mysqladmin -uroot -p create mydb
 mysqldump  -uroot -p mydb<mydb.sql
 
+#conf
+/etc/mysql/my.cnf
+port = 3306
+server-id = 1
+log-bin=mysql-bin
+datadir=/var/lib/mysql
+
+#master-slave
+    aim: scaling read, failover recovery
+    work:
+        binary log
+    setup:
+        mysql> GRANT REPLICATION SLAVE ON *.* TO 'slave'@'172.18.195.213' identified by 'slavepwd',;
 
 
+#centOS:
+yum install  mysql-server
+/etc/init.d/mysqld start
+netstat -antp |grep 3306
 
-
+mysql>
+    show master status;

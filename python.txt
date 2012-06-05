@@ -19,7 +19,10 @@ __buildin__:
         Return a list of the results of applying the function to the items of
 the argument sequence(s). 
         map(lambda x: x*2,[1,2,3]):  -> [2, 4, 6]
-
+    enumerate:    
+        [i for i in enumerate(['a','b','c'])]:
+         #result:  [(0, 'a'), (1, 'b'), (2, 'c')]
+    
 import:
     import X
     reload(X)
@@ -71,8 +74,6 @@ data structure:
     
 - enum:
     (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY) = range(7)
-    [i for i in enumerate(['a','b','c'])]:
-        [(0, 'a'), (1, 'b'), (2, 'c')]
 
 - string:
     "%s=%d" %("name",31)
@@ -183,7 +184,8 @@ serialize:
 as config:
     .py: from xxx import *
 ---
-Zen: import this
+Pythonic:
+    Zen of python: import this
 ---
 decorator:
     class decorator:
@@ -246,8 +248,25 @@ metaclass
             __metaclass__=UpperAttrMetaclass                
 ---
 descriptor:
-    property?
-    property(fget=None, fset=None, fdel=None, doc=None) -> property attribute
+    intro:
+        dotted access(eg, x.y):
+            1. lookup obj.y
+            2. lookup class.y
+            if .y existed: execute it
+    def: any class that implements the __get__, __set__, or __delete__ methods.
+        def __get__(self, obj, type=None) --> value
+        def __set__(self, obj, value) --> None
+        def __delete__(self, obj) --> None       
+
+    application:
+        @property:
+            property(fget=None, fset=None, fdel=None, doc=None) -> property attribute
+        bound method:
+        classmethod(function) -> method
+            Convert a function to be a class method.
+        staticmethod(function) -> method
+            Convert a function to be a static method.
+        __slot__: limit __dict__ attr
 
 ---
 mq: 
@@ -283,6 +302,5 @@ limitation:
     print yaml.load(stream)
 
 ---
-, slots, 
 Bigtable, Dynamo
 
