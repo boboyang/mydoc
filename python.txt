@@ -273,15 +273,25 @@ mq:
     Rabbitmq
     
 ---
-HTML
-    escape:
-        import cgi
-        res = cgi.escape('<')
-    unescape:
-        import HTMLParser
-        hp=HTMLParser.HTMLParser() 
-        hp.unescape(res) 
-        
+encode/decode:
+    HTML
+        escape:
+            import cgi
+            res = cgi.escape('<')
+        unescape:
+            import HTMLParser
+            hp=HTMLParser.HTMLParser() 
+            hp.unescape(res) 
+    base64:
+        3*8bit ->4*6bit( 00 before 6 bit), add '=' at end,
+        length=4/3 of orginal
+        import base64
+        base64.encodestring(str)
+        base64.decodestring(str)
+    urlescape:
+        import urllib(2)
+        urllib.quote(str)
+        urllib.unquote(str)
 ---
 pydev:
     Help > Software Updates > Find and Install:

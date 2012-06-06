@@ -147,20 +147,13 @@ ipvsadm -L -n
 
 缺点：共用NAT，造成IO bottleneck
 
-<<<<<<< HEAD
-#LVS-DR 直接路由 
-dispatcher工作在数据链路层，通过修改client到server的ip包的mac地址（仅第一次），使client与server的直接通讯。
-servers设置：必须连入WAN（购买一系列公网IP），不把dispatcher作为默认网关。
-=======
 #直接路由 LVS-DR
 Director工作在数据链路层，通过修改client到server的ip包的mac地址（仅第一次），使client与server的直接通讯。
->>>>>>> 8ed943d756e62a3c792837203f48ecb695600776
+servers设置：必须连入WAN（购买一系列公网IP），不把dispatcher作为默认网关。
 　　
 数据流向
 client  =====> Director =====> RealServer
-   <================================
 　　
-<<<<<<< HEAD
 #dispatcher
 ip_alias=125.12.12.77
 ifconfig eth0:0 $ip_alias
@@ -168,15 +161,10 @@ ifconfig eth0:0 $ip_alias
 #为dispatcher和实际server设置相同的IP别名
 sudo ifconfig lo:0 $ip_alias broadcast $ip_alias netmask 255.255.255.255 up
 
-#实际server
-#让实际server不去寻找其他拥有这个ip别名的机器
-route add -host $ip_alias dev lo:0
-=======
 #RealServer：
 VIP=125.12.12.77    #Virtual IP
 ifconfig lo:0 $VIP broadcast $VIP netmask 255.255.255.255 up
 route add -host $VIP dev lo:0
->>>>>>> 8ed943d756e62a3c792837203f48ecb695600776
 
 #防止实际server响应针对ip别名的arp广播
 echo "1" > /proc/sys/net/ipv4/conf/lo/arp_ignore
