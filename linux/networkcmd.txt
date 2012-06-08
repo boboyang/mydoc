@@ -3,6 +3,11 @@ ifdown/ifup
 ip  #parent of ifdown/ifup
 ip route
 
+#ssh stop_if.sh
+ifconfig eth0 down
+sleep 3
+ifconfig eth0 up
+
 #wifi
 sudo apt-get install wicd
 use wicd UI, search and choose a rooter:

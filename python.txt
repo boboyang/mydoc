@@ -48,7 +48,7 @@ data structure:
     .items():
         ["%s=%s" % (k, v) for k, v in params.items()]
     .pop(k[,d]) ->v #If k is not found, d is returned if given
-    
+    .iteritems(): an iterator over the (key, value) items of D
 
 - list:
     li = ["a", "b", "mpilgrim", "z", "example"]
@@ -88,7 +88,16 @@ class:
     super(type, obj) -> bound super object; 
     unbound method: class method
     bound method: object method
-    
+
+---
+multiprocessing
+    .Pool
+    .Process    
+    .Queue: exchange obj, thread/process safe
+        .put(obj),.get(obj)
+    .Pipe: two way exchange data
+        .send(obj), recv(), close()
+        
 ---
 nose: UT
     pip install nose
