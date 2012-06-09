@@ -49,7 +49,7 @@ data structure:
         ["%s=%s" % (k, v) for k, v in params.items()]
     .pop(k[,d]) ->v #If k is not found, d is returned if given
     .iteritems(): an iterator over the (key, value) items of D
-
+    k/v swap: r_dic=dict((v, k) for k,v in dic.iteritems())
 - list:
     li = ["a", "b", "mpilgrim", "z", "example"]
     li[0]
