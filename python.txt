@@ -153,7 +153,7 @@ ipython:
     ex:
         X=frange(0,10,0.1)
         Y=[sin(x) for x in X]
-        plot(x,y)
+        plot(X,Y)
 
 ---
 virtualenv: deploy a clean env
