@@ -2,7 +2,7 @@
 
 import sys, os, pexpect
 (host,user,password) = sys.argv[1:]
-
+print host
 foo=pexpect.spawn('ssh %s@%s' %(user,host))  
 index=foo.expect(['yes/no', '.*password', 'Last login' ])  
 if index == 0:
