@@ -303,6 +303,12 @@ encode/decode:
         import urllib(2)
         urllib.quote(str)
         urllib.unquote(str)
+
+---
+pip:
+    pip install XXX
+    pip install  --no-index -f file:/root/pyPkg4NBS/ uwsgi
+    
 ---
 pydev:
     Help > Software Updates > Find and Install:
