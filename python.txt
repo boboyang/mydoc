@@ -117,6 +117,8 @@ performance:
             cumulative: 函数运行的总时间
         help(sys.setprofile)
     timeit:
+        python -m timeit -n -r "XXX"
+        import timeit
         
 ---
 lambda:   anonymus function
