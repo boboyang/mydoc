@@ -8,6 +8,10 @@ ifconfig eth0 down
 sleep 3
 ifconfig eth0 up
 
+sudo sysctl -w net.ipv4.ip_forward=1
+cat /proc/sys/net/ipv4/ip_forward
+sudo ifconfig eth0 10.0.0.1 netmask 255.255.255.0  up
+
 #wifi
 sudo apt-get install wicd
 use wicd UI, search and choose a rooter:

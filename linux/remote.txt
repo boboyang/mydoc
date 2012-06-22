@@ -16,7 +16,7 @@ StrictModes no
 PubkeyAuthentication yes
 AuthorizedKeysFile      .ssh/authorized_keys
 
-sudo /etc/init.d/ssh restart
+sudo /etc/rc.d/sshd start 
 
 #default conf
 /etc/ssh/sshd_config
