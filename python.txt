@@ -114,7 +114,9 @@ performance:
             - import profile; profile.run('XXX')    
         result:
             ncalls: number calls
-            cumulative: 函数运行的总时间
+            tottime: 函数总计运行时间，除去函数中调用的函数运行时间
+            cumtime: 函数运行的总时间
+            percall: tottime/ncalls
         help(sys.setprofile)
     timeit:
         python -m timeit -n -r "XXX"
