@@ -92,6 +92,8 @@ awk
 awk '{$1=$2=$3="";print}' file
 
 #show history without number
+history -w tmp.txt
+#or 
 history |awk {'print $2'}
 
 diff -u originalfile newfile > f.patch
