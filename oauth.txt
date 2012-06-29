@@ -1,0 +1,21 @@
+作用：
+    服务资源授权给第三方，如各大网站的open API
+
+角色：
+    user， consumer， server
+    
+流程：oauth_flow.png
+    user     consumer
+    
+    
+        server
+    
+参数：
+    oauth_consumer_key：Consumer Key
+    oauth_signature_method：签名加密方法
+    oauth_signature：加密的签名 
+    oauth_timestamp：UNIX时间戳
+    oauth_nonce：一个随机的混淆字符串，随机生成一个。
+    oauth_version：OAuth版本，可选，如果设置的话，一定设置为 1.0
+    oauth_callback：返回网址链接。
+    及其它服务提供商定义的参数

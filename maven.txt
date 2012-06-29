@@ -3,17 +3,16 @@ pS maven
 mvn --version
 
 #download jar, to ~/.m2/repository/
-mvn
 
-Maven2 的运行命令为 ： mvn ， 
-常用命令为 ：
+#cd PROJECT PATH
+
 mvn archetype:create ：创建 Maven 项目
 mvn compile ：编译源代码
 mvn test-compile ：编译测试代码
 mvn test ： 运行应用程序中的单元测试
 mvn site ： 生成项目相关信息的网站
 mvn clean ：清除目标目录中的生成结果
-mvn package ： 依据项目生成 jar 文件
+mvn package ： 生成 jar 文件, 默认在 target/
 mvn install ：在本地 Repository 中安装 jar
 mvn eclipse:eclipse ：生成 Eclipse 项目文件
 

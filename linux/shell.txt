@@ -8,45 +8,46 @@ man script |grep arg -A3 -B3 -n
 man -k XXX
 
 #terminal
-Shift+Ctrl+C: copy  
-Shift+Ctrl+V: paste
+    Shift+Ctrl+C: copy  
+    Shift+Ctrl+V: paste
+    ^C
+    ^Z
+    ^D  #EOF
+    ^L  #clear screen
+    ^M  #ENTER
+    ^S
+    ^Q
+    ^U	#clear line
 
-#linux version
-uname -r
+uname -r        #linux version
 
-#history
-!!			# last cmd
-!ssh			# last cmd start with ssh
-!grep		#show all history cmd start with grep
+history:
+    !!			# execute last cmd
+    !ssh        # last cmd start with ssh
+    !grep		# show all history cmd start with grep
+    #show history without number
+        history -w tmp.txt
+        #or 
+        history |awk {'print $2'}
 
-#man shutdown
-shutdown –h now # shutdown now
-shutdown -r +10 # restart 10 minutes later
+shutdown:
+    shutdown –h now # shutdown now
+    shutdown -r +10 # restart 10 minutes later
 
 #tar 
-tar czvf test.tar.gz test.f  #compress
-tar xzvf test.tar.gz    #decompress
+    tar czvf test.tar.gz test.f  #compress
+    tar xzvf test.tar.gz    #decompress
 
-#show all shells
-cat /etc/shells
+alias:
+    alias lm='ls -l |more'
+    unalias lm
 
-type sh
-type ll
-
-
-alias lm='ls -l |more'
-#type lm
-unalias lm
+type:
+    type sh
+    type ll
+    type lm
 
 stty -a
-
-^C
-^Z
-^D  #EOF
-^M  #ENTER
-^S
-^Q
-^U	#clear line
 
 #redirection
 stdin  0, < or <<
@@ -54,48 +55,39 @@ stdout 1, > or >>
 stderr 2, 2> or 2>>
 2>/dev/null     #ignore error
 2>&1            #error to normal
-
-cat >catfile
-...
-^D  #to exit edit
+>tmp.txt        #empty file
+tee             #to both screen and file
 
 # || &&
 [ ! -d "/tmp/abc" ] && mkdir -p "/tmp/abc" && touch /tmp/abc/hehe
 ls /tmp/abc && echo "exit" || echo "not exit"
 
-cut
-echo $PATH | cut -d ':' -f 2  #-f 2,5 #or 2-5
-cut -c 12-  #from 12th char
 
 #find pattern in files, with filter
 grep "netstat" ./**/*.txt -irn
 
-
-sort
+sort:
 	sort -nr -k4  #sort by 4th column num-value,reverse
 uniq
 wc  #word count
 col
 join
+cut:
+    cut -d ':' -f1 /etc/passwd|head -n 3| xargs finger
+    echo $PATH | cut -d ':' -f 2  #-f 2,5 #or 2-5
+    cut -c 12-  #from 12th char
 paste
-
-split -b 1024k help.zip help_ 
-ll -s help_*
-cat help_* >>help2.zip
+split:
+    split -b 1024k help.zip help_ 
+cat:
+    cat help_* >>help2.zip
+    cat /etc/shells      #show all shells
+    
 rm help_*
 
-cut -d ':' -f1 /etc/passwd|head -n 3| xargs finger
-
-tee 
-
 awk
-# printf columns > 3
-awk '{$1=$2=$3="";print}' file
-
-#show history without number
-history -w tmp.txt
-#or 
-history |awk {'print $2'}
+    # printf columns > 3
+    awk '{$1=$2=$3="";print}' file
 
 diff -u originalfile newfile > f.patch
 patch -p0 originalfile f.patch
