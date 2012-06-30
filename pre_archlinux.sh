@@ -86,7 +86,7 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman mupdf gedit skype chromium flashplugin icedtea-web
+pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman mupdf gedit skype chromium flashplugin icedtea-web ntfs-3g
 pacman -S curl freemind git thunderbird stardict feh scrot base-devel cmake ccache wireshark-gtk ethtool sysstat gdb 
 
 yaourt -S briss

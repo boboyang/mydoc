@@ -103,6 +103,11 @@ def check_mydlinkNBS(cf):
         raise Exception("%d:%s, %s" %(e.code,e.read(), instruct))   
            
           
+def check_log(host,logfile,msg):    
+    res=os.system('fab -f check_remote.py -H root@%s check_log:"%s","%s"' %(host,logfile,msg))
+    if(0 != res): 
+        raise Exception("log not found in ip: %s" %host)
+            
 import socket,time
 
 def check_morpheus(cf, modname):
@@ -114,15 +119,10 @@ def check_morpheus(cf, modname):
         s.close() 
         return msg
         
-    def check_log(logfile,msg):    
-        res=os.system('fab -f check_remote.py -H root@%s check_morpheus:"%s","%s"' %(host,logfile,msg))
-        if(0 != res): 
-            raise Exception("log not found in ip: %s" %host)
-            
     host,port,pri,logfile=[ cf.get(modname,i) for i in  ('host','port','pri','logpfile')]
     msg=send_event(host,port)
     time.sleep(float(cf.get(modname,'sleeptime')))    #wait for Morpheus log written
-    check_log(logfile,msg)
+    check_log(host,logfile,msg)
 
 @check_ip_comp
 def check_morpheusalert(cf):
@@ -134,47 +134,53 @@ def check_morpheusevent(cf):
    
 from BeautifulSoup import BeautifulSoup
 
-@check_ip_comp    
-def check_activemq(cf):
-    """pattern:
-    <td><a href="browse.jsp?JMSDestination=GSENDER.HIGHWAY">\n\n\nGSENDER.HIGHWAY</a></td>\n<td>0</td>\n<td>2<td>\n<td>32</td>\n<td>32</td>
-    """
-    params=[cf.get('activemq',i) for i in ('host','port','queuename')]
-    url_str = "http://%s:%s/admin/queues.jsp" %tuple(params[:2]) 
-    res=urllib2.urlopen(url_str).read()
-    soup = BeautifulSoup(res)
-    table = soup.find('table', id="queues")
-    tbody=table.find('tbody')
-    tds=tbody.find('tr').findAll('td')
-    assert tds[0].a.string.find(params[2])>0
-    for i in tds[1:5]:
-        assert int(i.string)>=0
-                
-from tools import now_str
+              
 from pyactivemq import ActiveMQConnectionFactory
 
-def check_activemq2(cf):
-    params=[cf.get('activemq',i) for i in ('host','port','queuename')]
-    url = 'tcp://%s:%s' %tuple(params[:2]) 
+def send_amqmsg(host,port,queuename,msg, varify=False):
+    url = 'tcp://%s:%s' %(host,port)
     f = ActiveMQConnectionFactory(url)
     conn=f.createConnection()
     session = conn.createSession()
-
-    msg =now_str()
-    queuename =params[2]
-    textMessage = session.createTextMessage(msg)
     queue = session.createQueue(queuename)
-
-    consumer = session.createConsumer(queue)
+    txtmsg = session.createTextMessage(msg)
     producer = session.createProducer(queue)
+    if varify:
+        consumer = session.createConsumer(queue)
     del session
-
     conn.start()
     del conn
-    producer.send(textMessage)
-    rev = consumer.receive(500)
-    assert rev.text==msg
+    producer.send(txtmsg)
+    if varify:
+        rev = consumer.receive(len(msg)+1)
+        assert rev.text==msg
     
+from tools import now_str
+
+@check_ip_comp    
+def check_activemq(cf):
+    (host,port,queuename)=[cf.get('activemq',i) for i in ('host','port','queuename')]
+    msg =now_str()
+    send_amqmsg(host,port,queuename,msg,True)
+
+@check_ip_comp 
+def check_gsender(cf):
+    (host,port,queuename)=[cf.get('gsender',i) for i in ('host','port','queuename')]
+
+    msg ='monitor::%f' %(time.time())
+    send_amqmsg(host,port,queuename,msg)
+        
+    logfiles=[cf.get('gsender',i) for i in ('logfile1','logfile2')]
+    err = True
+    for logfile in logfiles:
+        try:
+            check_log(host,logfile,msg)
+            err = False
+        except Exception, e:
+            pass
+    if err:
+        raise Exception("log not found in ip: %s" %host)                
+                    
 import ConfigParser     
 def init_conf():
     cf = ConfigParser.ConfigParser()               
@@ -207,14 +213,15 @@ def main():
     
     cf=None
     checks=[
-#        check_morpheusalert,
-#        check_morpheusevent,
-#        check_memcached,
-#        check_signalingd,
-#        check_nexus,
-#        check_mydlinkNBS,
-        check_activemq2,
-#        check_cassandra,
+        check_morpheusalert,
+        check_morpheusevent,
+        check_memcached,
+        check_signalingd,
+        check_nexus,
+        check_mydlinkNBS,
+        check_activemq,
+        check_gsender,
+        check_cassandra,
     ]
     cf=init_conf()
     err=False
