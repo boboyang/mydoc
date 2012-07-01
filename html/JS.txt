@@ -31,7 +31,8 @@ js grammer:
         注释与C,C++,java,php相同
         代码段要封闭
     variable:
-        var i,str="abc"
+        var i,str="abc":
+            in func, limited as local variable, or it'll be global
         推荐使用匈牙利命名法
         number:
             ex:1e3
@@ -86,7 +87,5 @@ BOM:
                 attr: cookie, titile, URL,
                 func: write(),writeln(),open(),close()
                 
-tech:
-    var: in func, limited as local variable, or it'll be global
                 
                     

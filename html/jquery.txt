@@ -1,0 +1,6 @@
+jquery:
+    a js framework
+    
+this v.s. $(this):
+    this is html element
+    $(this) is jquery object
