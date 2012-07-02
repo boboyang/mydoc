@@ -71,6 +71,8 @@ http://vbird.dic.ksu.edu.tw/linux_basic/0220filemanager.php#find
 # find files in pwd, size >1500k
 find -size +1500
 
+find ./ -name "*.txt" |sort|while read line; do echo "$line">>tmp.TXT;cat "$line">>tmp.TXT;done
+
 # txt format
 for f in $(ls *.txt); do iconv -f gb2312 -t utf8 -c $f>./tmp/$f; done;
 
