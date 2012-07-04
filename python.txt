@@ -65,7 +65,7 @@ data structure:
         [(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
         
 #const, safe and faster than list
-- tuple:  
+- tuple:  readonly list
     t = ("a", "b", "mpilgrim", "z", "example")
     .append()
     .remove()
