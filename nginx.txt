@@ -23,7 +23,7 @@ worker_processes 4;
 http {
     location / {
         include uwsgi_params;
-        uwsgi_pass localhost:9090;
+        uwsgi_pass unix:///tmp/uwsgi.sock;
     }
 }
 
@@ -47,18 +47,22 @@ http {
         }
     }
 }
-
 }
 
 # pyramid production.ini
 [uwsgi]
-socket = 0.0.0.0:6543
+socket = /tmp/uwsgi.sock
 master = true
 workers = 8
 threads = 5
 max-requests = 65536
 debug = false
 
-# start uwsgi
-./uwsgi --ini-paste xxx/mydlinkNBS/production.ini
+uwsgi:
+    # start uwsgi
+    ./uwsgi --ini-paste xxx/mydlinkNBS/production.ini
+    # stop
+    uwsgi --stop log/uwsgi.pid
+    #reload
+    uwsgi --reload log/uwsgi.pid
 
