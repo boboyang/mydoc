@@ -4,25 +4,20 @@ nginx configuration file: "/usr/local/nginx/conf/nginx.conf"
 nginx pid file: "/usr/local/nginx/logs/nginx.pid"
 
 whereis nginx
+
+#default conf
+./conf/nginx.conf
+
 #start
 /usr/local/nginx/sbin/nginx
+/usr/local/nginx/sbin/nginx -c XXX.conf #specify other conf
+
+
 #restart
 sudo kill -HUP `cat logs/nginx.pid`
 nginx -h -t -V -s stop
 
-
-//pyramid & uwsgi
-// in pyramid development.ini/production.ini
-[uwsgi]
-socket = 0.0.0.0:6543
-master = true
-workers = 8
-threads = 5
-max-requests = 65536
-debug = false
-
-//nginx conf
-
+# conf
 worker_processes 4;
 
 http {
@@ -54,6 +49,16 @@ http {
 }
 
 }
-// start uwsgi
+
+# pyramid production.ini
+[uwsgi]
+socket = 0.0.0.0:6543
+master = true
+workers = 8
+threads = 5
+max-requests = 65536
+debug = false
+
+# start uwsgi
 ./uwsgi --ini-paste xxx/mydlinkNBS/production.ini
 

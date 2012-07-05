@@ -4,7 +4,13 @@
 jobs
 fg 
 bg
-kill    #man kill see 1: HUP and 15: TERM
+kill:
+    kill -0 PID     # test if a process exist
+    kill -l
+         1) SIGHUP
+         2) SIGINT:  like ^+C
+        15) SIGTERM
+    man 7 signal
 
 #PID and PPID  # parent PID
 ps -l          #view all
@@ -15,8 +21,8 @@ nohup   # run even log-off
 top
 echo $$
 
-#显示目前系统的内存容量
-free -m
+w           #cpu load
+free -m     #memory usage
 
 uname -a
 

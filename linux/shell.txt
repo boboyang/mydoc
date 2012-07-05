@@ -4,8 +4,9 @@ grep --help|grep line
 #then i can use:
 man script |grep arg -A3 -B3 -n
 
-# use keyword
-man -k XXX
+man:
+    man 7 signal    # signal(7)
+    man -k XXX      # use keyword
 
 #terminal
     Shift+Ctrl+C: copy  
