@@ -1,0 +1,8 @@
+
+#resume for hibernate
+
+in /boot/syslinux/syslinux.cfg
+APPEND root=/dev/sda6 ro resume=/dev/sda8
+
+add 'resume' to the HOOK in the /etc/mkinitcpio.conf , then 'sudo mkinitcpio -p linux'
+
