@@ -8,11 +8,11 @@ import mailer
 #decarator
 def check_ip_comp(f):           # func
     def _(cf,*a, **kw):         # func args
-#        comp=f.func_name.split('check_')[1]
-#        ips=cf.get(comp,'host').split(',')
-#        for ip in ips:
-#            if ip and comp:
-#                check_machine(ip,comp)
+        comp=f.func_name.split('check_')[1]
+        ips=cf.get(comp,'host').split(',')
+        for ip in ips:
+            if ip and comp:
+                check_machine(ip,comp)
         r = f(cf,*a, **kw) 
         return r
     _.func_name = f.func_name
@@ -28,13 +28,17 @@ import memcache
 
 @check_ip_comp
 def check_memcached(cf):
-    (ip,port)=[cf.get('memcached',i) for i in ('host','port')]
-    mc = memcache.Client(["%s:%s" %(ip,port)], debug=0)
+    modname='memcached'
+    (host,port,path)=[cf.get(modname,i) for i in ('host','port','path')]
+    mc = memcache.Client(["%s:%s" %(host,port)], debug=0)
     stat=mc.get_stats()
     if(len(stat)==0):
 		raise Exception("server not available")
     version = stat[0][1]['version']
 
+    restart(host,modname,path)
+    
+    
 import pycassa
 from pycassa.cassandra.c10.ttypes import NotFoundException
 from pycassa.index import *
@@ -75,18 +79,17 @@ import urllib2
 @check_ip_comp
 def check_signalingd(cf):
     params=[cf.get('signalingd',i) for i in ('host','port','exist_mac')]
-    #url_str= "http://%s:%s/tssm.php?mac=%s" %tuple(params) 
     url_str= "http://%s:%s" %tuple(params[:2]) 
     res=urllib2.urlopen(url_str).read()
-    #expectstr='SIGNAL='
     expectstr='It works'
     assert 0 <= res.find(expectstr)
         
 import json
 
-@check_ip_comp
 def check_mydlinkNBS(cf):
-    params=[cf.get('mydlinkNBS',i) for i in  ('host','port','appid','priv')]
+    modname='mydlinkNBS'
+    params=[cf.get(modname,i) for i in  ('host','port','appid','priv')]
+    path=cf.get(modname,'path')
     url_str= "http://%s:%s/oauth/access_token?app_id=%s&priv_code=%s&grant_type=app_credential" %tuple(params)
     try:
         res=urllib2.urlopen(url_str).read()
@@ -101,13 +104,14 @@ def check_mydlinkNBS(cf):
         elif e.code == 502:
              instruct = "communication between Nginx and uwsgi fails. Please check Nginx configuration and uwsgi is running."
         raise Exception("%d:%s, %s" %(e.code,e.read(), instruct))   
+    restart(params[0],modname,path)
            
           
 def check_log(host,logfile,msg):    
     res=os.system('fab -f check_remote.py -H root@%s check_log:"%s","%s"' %(host,logfile,msg))
     if(0 != res): 
         raise Exception("log not found in ip: %s" %host)
-            
+        
 import socket,time
 
 def check_morpheus(cf, modname):
@@ -132,9 +136,6 @@ def check_morpheusalert(cf):
 def check_morpheusevent(cf):
     check_morpheus(cf,'morpheusevent')
    
-from BeautifulSoup import BeautifulSoup
-
-              
 from pyactivemq import ActiveMQConnectionFactory
 
 def send_amqmsg(host,port,queuename,msg, varify=False):
@@ -165,8 +166,9 @@ def check_activemq(cf):
 
 @check_ip_comp 
 def check_gsender(cf):
-    (host,port,queuename)=[cf.get('gsender',i) for i in ('host','port','queuename')]
-
+    modname='gsender'
+    (host,port,queuename,path)=[cf.get(modname,i) for i in ('host','port','queuename','path')]
+    
     msg ='monitor::%f' %(time.time())
     send_amqmsg(host,port,queuename,msg)
         
@@ -179,9 +181,23 @@ def check_gsender(cf):
         except Exception, e:
             pass
     if err:
-        raise Exception("log not found in ip: %s" %host)                
+        raise Exception("log not found in ip: %s" %host)     
+                   
+    restart(host,modname,path)
+
+def reachable(modname):
+    print 'TBD'
+    return True
+            
+def restart(host,modname,path):
+    if not reachable(modname):
+        raise Exception ('unreachable')
+    print host,modname,path
+    res=os.system('fab -f check_remote.py -H root@%s restart_%s:"%s"' %(host,modname,path))
+    if(0 != res): 
+        raise Exception("error restart %s, in %s" %(modname,host))        
                     
-import ConfigParser     
+import ConfigParser
 def init_conf():
     cf = ConfigParser.ConfigParser()               
     assert 1==len(cf.read(conffile))
