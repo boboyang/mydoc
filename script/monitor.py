@@ -5,6 +5,8 @@ conffile="evtdeploy.ini"
 import traceback
 import mailer
 
+RUN_FAB="fab -f check_remote.py --hide=status,running,user,stdout"
+
 #decarator
 def check_ip_comp(f):           # func
     def _(cf,*a, **kw):         # func args
@@ -20,7 +22,7 @@ def check_ip_comp(f):           # func
             
 import os          
 def check_machine(ip,comp):
-    res=os.system('fab -f check_remote.py -H root@%s check_os:%s' %(ip,comp))
+    res=os.system('%s -H root@%s check_os:%s' %(RUN_FAB,ip,comp))
     if(0 != res): 
         raise Exception("machine error, ip: %s, comp: %s" %(ip,comp))
 
@@ -35,8 +37,7 @@ def check_memcached(cf):
     if(len(stat)==0):
 		raise Exception("server not available")
     version = stat[0][1]['version']
-
-    restart(host,modname,path)
+    #restart(host,modname,path)
     
     
 import pycassa
@@ -88,7 +89,7 @@ import json
 
 def check_mydlinkNBS(cf):
     modname='mydlinkNBS'
-    params=[cf.get(modname,i) for i in  ('host','port','appid','priv')]
+    params=[cf.get(modname,i) for i in ('host','port','appid','priv')]
     path=cf.get(modname,'path')
     url_str= "http://%s:%s/oauth/access_token?app_id=%s&priv_code=%s&grant_type=app_credential" %tuple(params)
     try:
@@ -98,17 +99,14 @@ def check_mydlinkNBS(cf):
             assert i in d['data'].keys()
             
     except urllib2.HTTPError, e:
-        instruct=''
-        if e.code == 500:
-            instruct = "communication between NBS and Nexus fails. Please inform the administrator to check NBS configuration file: '/opt/env/py4mydlink/mydlinkNBS/production.ini'."
-        elif e.code == 502:
-             instruct = "communication between Nginx and uwsgi fails. Please check Nginx configuration and uwsgi is running."
-        raise Exception("%d:%s, %s" %(e.code,e.read(), instruct))   
-    restart(params[0],modname,path)
+        for err in ('err500','err502'):
+            if err.code == int(err.lstrip('err')):
+                raise Exception("%d:%s, %s" %(e.code,e.read(), cf.get(modname,err)))   
+    #restart(params[0],modname,path)
            
           
 def check_log(host,logfile,msg):    
-    res=os.system('fab -f check_remote.py -H root@%s check_log:"%s","%s"' %(host,logfile,msg))
+    res=os.system('%s -H root@%s check_log:"%s","%s"' %(RUN_FAB,host,logfile,msg))
     if(0 != res): 
         raise Exception("log not found in ip: %s" %host)
         
@@ -136,6 +134,7 @@ def check_morpheusalert(cf):
 def check_morpheusevent(cf):
     check_morpheus(cf,'morpheusevent')
    
+"""
 from pyactivemq import ActiveMQConnectionFactory
 
 def send_amqmsg(host,port,queuename,msg, varify=False):
@@ -184,16 +183,16 @@ def check_gsender(cf):
         raise Exception("log not found in ip: %s" %host)     
                    
     restart(host,modname,path)
+"""
 
 def reachable(modname):
-    print 'TBD'
+    print 'TBD: reachable'
     return True
             
 def restart(host,modname,path):
     if not reachable(modname):
         raise Exception ('unreachable')
-    print host,modname,path
-    res=os.system('fab -f check_remote.py -H root@%s restart_%s:"%s"' %(host,modname,path))
+    res=os.system('%s -H root@%s restart_%s:"%s"' %(RUN_FAB,host,modname,path))
     if(0 != res): 
         raise Exception("error restart %s, in %s" %(modname,host))        
                     
@@ -213,9 +212,10 @@ def notify(cf,fname):
     
     """ %(comp,ip,port)
     txt+=traceback.format_exc()
+    logging.exception(Exception(txt))
     params=[cf.get('Mailer',i) for i in ('From','Passwd','Server','Tos','Subject')]
     params.append(txt)
-    mailer.send(*params)
+    #mailer.send(*params)
     sendSMS()
     
 def sendSMS():
@@ -235,8 +235,8 @@ def main():
         check_signalingd,
         check_nexus,
         check_mydlinkNBS,
-        check_activemq,
-        check_gsender,
+#        check_activemq,
+#        check_gsender,
         check_cassandra,
     ]
     cf=init_conf()
@@ -244,9 +244,11 @@ def main():
     for fn in checks:
         try:
             fn(cf)
+            msg=fn.func_name +' OK'
+            print msg
+            logging.info(msg)
         except Exception, e:
             err |=True
-            logging.exception(e)
             notify(cf,fn.func_name)
     if err:raise
                 
