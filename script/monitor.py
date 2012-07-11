@@ -25,7 +25,6 @@ def check_ip_comp(f):           # func
 
 import os
 
-
 def check_computer(ip, comp):
     _logger.debug('Verifying "%s" at %s', comp, ip)
     cmd_line = '%s -H root@%s check_os:%s' % (RUN_FAB, ip, comp)
