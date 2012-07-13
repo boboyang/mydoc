@@ -29,8 +29,7 @@ import:
     from X import *
     import sys,os   
     sys.path:
-        - .append() 
-        - .insert()
+        .append() 
     
 data structure:
 - dict:
@@ -82,10 +81,13 @@ data structure:
     s.split(';'):    
         " ".join(s.split())
     ''.join(sorted('cat'))
-    
+
+---
+triple oprator:
+    fn=lambda x,a,b:a if x else b
 ---
 class:
-    super(type, obj) -> bound super object; 
+    super(type, self) -> bound super object; 
     unbound method: class method
     bound method: object method
 
@@ -254,11 +256,12 @@ metaclass
         return the modified class    
     ex:
         class myMetaclass(type):
-            def __new__(cls, name, bases, attrs):
+            def __new__(cls, name, bases, attrs):   #attrs is a dict
+                attrs.update(...)
                 ...
-                return type.__new__(cls, name, bases, up_attrs)
+                return type.__new__(cls, name, bases, attrs)
         class myObj:
-            __metaclass__=UpperAttrMetaclass                
+            __metaclass__=myMetaclass                
 ---
 descriptor:
     intro:
@@ -274,6 +277,12 @@ descriptor:
     application:
         @property:
             property(fget=None, fset=None, fdel=None, doc=None) -> property attribute
+            ex:
+                class C(object):
+                    def getx(self): return self.__x
+                    def setx(self, value): self.__x = value
+                    def delx(self): del self.__x
+                    x = property(getx, setx, delx, "I'm the 'x' property.")
         bound method:
         classmethod(function) -> method
             Convert a function to be a class method.

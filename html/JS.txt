@@ -31,9 +31,9 @@ js grammer:
         注释与C,C++,java,php相同
         代码段要封闭
     variable:
-        var i,str="abc":
-            in func, limited as local variable, or it'll be global
-        推荐使用匈牙利命名法
+        var i,str="abc":    #local variable， use it as much as possible
+        i=3                 #global variable
+        变量作用域: whole function, 没有块级作用域
         number:
             ex:1e3
         string:
@@ -43,6 +43,15 @@ js grammer:
         sequence
         condition
         circulation
+    class:
+        function myClass():{
+            var x=1;    #private
+            var y=2;
+            this.foo=function(){
+                ...
+            }
+        }
+        
 oo programming:
     JSON: 是一种轻量级数据交换格式。JSON非常易于人阅读与编写，同时利于机器解析与生成
     JSON obj:
