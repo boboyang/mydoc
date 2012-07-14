@@ -16,16 +16,31 @@ def check_ip_comp(f):           # func
     def _(cf,*a, **kw):         # func args
         modname=f.func_name.split('check_')[1]
         ips=cf.get(modname,'host').split(',')
-        path,pidfile=None,None
+        paths,pidfile=None,None
         if cf.has_option(modname,'path'):
-            path=cf.get(modname,'path')
+            paths=cf.get(modname,'path')
+            paths=map(str.strip,paths.split(','))
         if cf.has_option(modname,'pidfile'):
             pidfile=cf.get(modname,'pidfile')
+            
+        err = False    
+        pidfiles=[]
         if pidfile and not pidfile.startswith('/'):
-            pidfile=path+pidfile
+            if paths:
+                for p in paths:
+                    pidfiles.append(p+pidfile)
+            else:
+                pidfiles.append(pidfile)
         for ip in ips:
-            if ip and modname:
-                check_computer(ip,modname, pidfile)
+            if ip and modname and pidfiles:
+                for pfile in pidfiles:
+                    try:
+                        check_computer(ip,modname, pfile)
+                    except Exception, e:
+                        _logger.error(e)
+                        err = True
+        if err:
+            raise
         r = f(cf,*a, **kw) 
         return r
     _.func_name = f.func_name
@@ -42,7 +57,7 @@ def check_computer(ip, comp,pidfile):
     #_logger.debug('Executing "%s"......', cmd_line)
     res = os.system(cmd_line)
     if(0 != res):
-        raise Exception('Problem occurs when checking %s running at %s, pidfile:%s' %(comp,ip,pidfile))
+        raise Exception('Problem occurs when checking %s running at %s' %(comp,ip))
     _logger.debug('"%s" is running at %s', comp, ip)
 
 
@@ -291,17 +306,6 @@ def check_gsender(cf):
     modname = 'gsender'
     (host, port, queuename,paths,errlog) = [cf.get(modname, i) for i in ('host', 'port', 'queuename','path','errlog')]
     paths=map(str.strip,paths.split(','))
-    #check all pid exist
-    err = False
-    for path in paths:
-        try:
-            res=os.system('%s -H root@%s check_gsenderpid:"%s"' %(RUN_FAB,host,path+pidfile))
-            if(0 != res): 
-                raise Exception("%s pid not exist in %s, %s" %(modname,host,path))    
-        except Exception, e:
-            err = True
-    if err:
-        raise
     #send amq msg
     msg = 'monitor::%f' % (time.time())
     if not send2gsenderbyNexus(cf, msg):
