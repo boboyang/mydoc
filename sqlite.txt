@@ -1,0 +1,7 @@
+sqlite3 XXX.db
+    .help
+    .tables
+    .schema tablename
+    .dump
+    Select * from tablename;
+
