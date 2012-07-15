@@ -1,43 +1,49 @@
-# require
-sudo apt-get install tcl8.5
-
-cd ~/Downloads
-#wget http://redis.googlecode.com/files/redis-2.4.4.tar.gz
-tar xzf redis-2.4.4.tar.gz
-cd redis-2.4.4
-# readme
-sudo make;make test;
-sudo make install
-
-cd  utils
-sudo ./install_server.sh 
-# deamon server start
-sudo /etc/init.d/redis_6379 start
-# or sudo redis-server /etc/redis/6379.conf 
-# sudo /etc/init.d/redis_6379 stop
-#redis-benchmark
-whereis redis-cli
-redis-cli
-
-----------------------
-
-#redis commands
-
-$redis-cli
-redis 127.0.0.1:6379>
->quit
-$
-set foo bar
-get foo
-incr mycounts #automic operation
-del foo
-ttl foo # -1 means never expire
-expire foo 120 # 120 seconds
-ttl foo
-#for containers
-rpush friends "tom"
-rpush friends "bob"
-lpush friends 'sam'
-lrange friends 0 -1
-llen friends
-#lpop rpop
+require:
+    sudo apt-get install tcl8.5
+src:
+    wget http://redis.googlecode.com/files/redis-2.4.4.tar.gz
+install:
+    as default
+benchmark:
+    redis-benchmark
+conf:
+    /etc/redis.conf
+daemon redis-server:
+    path:
+        centOS: /etc/init.d/
+        arch:   /etc/rc.d/
+    sudo /etc/rc.d/redis start
+redis-cli:
+    help    
+    set foo bar
+    get foo
+    incr mycounts #automic operation
+    del foo
+    ttl foo # -1 means never expire
+    expire foo 120 # 120 seconds
+    ttl foo
+    #for containers
+    rpush friends "tom"
+    rpush friends "bob"
+    lpush friends 'sam'
+        apply: 
+            maintain max latest data, such as latest 50 comments    
+        ex:
+            lpush comments 'good day'
+            ...
+            lrange comments 0 10
+            #help ltrim
+            
+    lrange friends 0 -1
+    llen friends
+    #lpop rpop
+    zadd:
+        ZADD key score member
+        Add a member to a sorted set, or update its score if it already exists
+        apply:
+            maintail top 100 score members         
+        ex:
+            zdd leaderboard 65 bob
+            ...
+            zrevrange leaderboard 0 99 withscores
+                 
