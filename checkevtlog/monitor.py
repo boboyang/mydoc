@@ -14,16 +14,19 @@ _testOnly = True
 #decarator
 def check_ip_comp(f):           # func
     def _(cf,*a, **kw):         # func args
-        modname=f.func_name.split('check_')[1]
-        ips=cf.get(modname,'host').split(',')
-        paths,pidfile=None,None
-        if cf.has_option(modname,'path'):
-            paths=cf.get(modname,'path')
-            paths=map(str.strip,paths.split(','))
-        if cf.has_option(modname,'pidfile'):
-            pidfile=cf.get(modname,'pidfile')
-            
-        err = False    
+        modname = f.func_name.split('check_')[1]
+        ips = cf.get(modname, 'host')
+        ips = ips.split(',')
+        port, paths, pidfile = None, None, None
+        if cf.has_option(modname, 'port'):
+            port = cf.get(modname, 'port')
+        if cf.has_option(modname, 'path'):
+            paths = cf.get(modname, 'path')
+            paths = map(str.strip, paths.split(','))
+        if cf.has_option(modname, 'pidfile'):
+            pidfile = cf.get(modname, 'pidfile')
+
+        err = False
         pidfiles=[]
         if pidfile and not pidfile.startswith('/'):
             if paths:
@@ -32,10 +35,12 @@ def check_ip_comp(f):           # func
             else:
                 pidfiles.append(pidfile)
         for ip in ips:
-            if ip and modname and pidfiles:
+            if ip and modname:
+                if not pidfiles:
+                    pidfiles=[pidfile]
                 for pfile in pidfiles:
                     try:
-                        check_computer(ip,modname, pfile)
+                        check_computer(ip,modname, port, pfile)
                     except Exception, e:
                         _logger.error(e)
                         err = True
@@ -49,42 +54,36 @@ def check_ip_comp(f):           # func
 
 import os
 
-def check_computer(ip, comp,pidfile):
+def check_computer(ip, comp,port, pidfile):
     _logger.debug('Verifying "%s" at %s', comp, ip)
-    cmd_line = '%s -H root@%s check_os:"%s"' % (RUN_FAB, ip, comp)
+    cmd_line = '%s -H root@%s check_os:comps="%s"' % (RUN_FAB, ip, comp)
+    if port:
+        cmd_line += ',port=%s' % port
     if pidfile:
-        cmd_line +=',"%s"' %pidfile
-    #_logger.debug('Executing "%s"......', cmd_line)
+        cmd_line += ',pidfile="%s"' % pidfile
+    _logger.debug('Executing "%s"......', cmd_line)
     res = os.system(cmd_line)
     if(0 != res):
         raise Exception('Problem occurs when checking %s running at %s' %(comp,ip))
     _logger.debug('"%s" is running at %s', comp, ip)
 
 
-def check_service(comp, host, port):
-    _logger.debug('Checking service port (%s) of "%s" at %s......', port, comp, host)
-    cmd_line = '%s -H root@%s check_service_port:port=%s >> /dev/null 2>&1' % (RUN_FAB, host, port)
-    #_logger.debug('<<check_service>> Executing "%s"......', cmd_line)
-    res = os.system(cmd_line)
-    if(0 != res):
-        raise Exception('Problem occurs when checking service port (%s) of "%s" running at %s' % (port, comp, host))
-    _logger.debug('Service port (%s) of "%s" at %s is opened', port, comp, host)
-
-
 import subprocess
+
 
 def retrieve_config(host, conf_file, pattern):
     _logger.debug('Get the config (%s) from "%s" at %s......', pattern, conf_file, host)
     cmd_line = '%s --hide=status,running,user -H root@%s get_config:conf_file="%s",pattern="%s"' % (FAB_CMD, host, conf_file, pattern)
     process = subprocess.Popen(cmd_line, shell=True, stdout=subprocess.PIPE)
     (s_stdout, s_stderr) =  process.communicate()
+    assert len(s_stdout.split('out: ')) == 2, _logger.error('Duplicated setting (%s) in %s at %s = (%s)', pattern, conf_file, host, s_stdout)
     #_logger.debug('get_conf: (%s) is "%s"', pattern, s_stdout)
     res = s_stdout.split('out: ')[1].rstrip()
     return res
 
 
 def check_configs(cf, comp, t_comp):
-    target = retrieve_config(cf.get(comp, 'host'), cf.get(comp, 'conf_file'), cf.get(comp, t_comp + '_entry'))
+    target = retrieve_config(cf.get(comp, 'host'), cf.get(comp, 'path') + cf.get(comp, 'conf_file'), cf.get(comp, t_comp + '_entry'))
     t_server_list = target.split('=')[1].split(',')
     t_server_list.sort()
     target = ','.join(t_server_list)
@@ -94,15 +93,41 @@ def check_configs(cf, comp, t_comp):
     c_server_list = map(lambda s: s + ':%s' % port, host_list.split(','))
     c_server_list.sort()
     c_target = ','.join(c_server_list)
-    _logger.debug('compare: %s vs %s', target, c_target)
+    _logger.debug('compare: %s vs. %s', target, c_target)
     if target != c_target:
-        _logger.error('%s setting(=%s) in %s is different from monitor tool(%s)',
+        _logger.error('%s setting(=%s) in %s at %s is different from monitor tool(%s)',
             t_comp,
             target,
             comp,
+            cf.get(comp, 'host'),
             c_target)
         raise Exception('Check %s setting in %s Error!' % (t_comp, comp))
 
+
+def check_activemq_config(cf, comp, c_path):
+    amq_conf = retrieve_config(cf.get(comp, 'host'), c_path + cf.get(comp, 'amq_conf_file'), cf.get(comp, 'activemq_entry')).split('?')[0].split('=')[1]
+    _logger.debug('config "%s" in %s is "%s"', cf.get(comp, 'activemq_entry'), comp, amq_conf)
+    c_amq = 'tcp://%s:%s' % (cf.get('activemq', 'host'), cf.get('activemq', 'port'))
+    _logger.debug('compare: %s vs. %s', c_amq, amq_conf)
+    if c_amq != amq_conf:
+        _logger.error('ActiveMQ setting(%s) in %s is different from monitor tool(%s)',
+            amq_conf,
+            comp,
+            c_amq)
+        raise Exception('Check ActiveMQ setting in %s Error!' % comp)
+
+
+def check_db_config(cf, comp):
+    db_conf = retrieve_config(cf.get(comp, 'host'), cf.get(comp, 'path') + cf.get(comp, 'db_file'), cf.get(comp, 'db_entry')).split('?')[0].lstrip()
+    _logger.debug('config "%s" in %s is "%s"', cf.get(comp, 'db_entry'), comp, db_conf)
+    c_db = '%sjdbc:postgresql://%s:%s/%s' % (cf.get(comp, 'db_entry'), cf.get('db', 'host'), cf.get('db', 'port'), cf.get('db', 'dbname'))
+    _logger.debug('compare: %s vs. %s', c_db, db_conf)
+    if c_db != db_conf:
+        _logger.error('DB setting(%s) in %s is different from monitor tool(%s)',
+            db_conf,
+            comp,
+            c_db)
+        raise Exception('Check DB setting in %s Error!' % comp)
 
 import memcache
 
@@ -127,7 +152,6 @@ from pycassa.index import *
 def check_IPDBd(cf):
     modname = 'IPDBd'
     (host, port) = [cf.get(modname, i) for i in ('host', 'port')]
-    check_service(modname, host, port)
 
 
 @check_ip_comp
@@ -137,12 +161,11 @@ def check_cassandra(cf):
     hosts = ip.split(',')
     for h in hosts:
         server = [h + ':%s' % port]
-        check_service(modname, h, port)
         _logger.debug('Establishing the connection to Cassandra at %s (port=%s)......', h, port)
         pool = pycassa.ConnectionPool(cas_keyspace, server_list=server, timeout=4)
         for i in ['event_timeline', 'alert_timeline']:
             timeline = cf.get(modname, i)
-            _logger.debug('Access Cassandra column family(%s) at %s (port=%s)', timeline, ip, port)
+            _logger.debug('Access Cassandra column family(%s) at %s (port=%s)', timeline, server, port)
             col = pycassa.ColumnFamily(pool, timeline)
             if not col:
                 raise Exception('Problem occurs when read the column family %s', timeline)
@@ -163,11 +186,12 @@ from thrift.protocol import TBinaryProtocol
 
 @check_ip_comp
 def check_nexus(cf):
-    modname='nexus'
+    modname = 'nexus'
     if _testOnly:
-        for i in (modname,'IPDBd','memcached','cassandra'):
+        check_db_config(cf, modname)
+        check_activemq_config(cf, modname, cf.get(modname, 'path'))
+        for i in (modname, 'IPDBd', 'memcached', 'cassandra'):
             check_configs(cf, modname, i)
-
     params = [cf.get('nexus', i) for i in  ('host', 'port', 'appid')]
     transport = TSocket.TSocket(params[0], int(params[1]))
     transport = TTransport.TFramedTransport(transport)
@@ -203,6 +227,7 @@ def check_signalingd(cf):
     assert 0 <= res.find(expectstr)
 """
 
+@check_ip_comp
 def check_nginx(cf):
     """
         We will try to get one non-existing static file from nginx and expect 404 error.
@@ -210,7 +235,6 @@ def check_nginx(cf):
     modname = 'nginx'
     params = [cf.get(modname, i) for i in ('host', 'port', 'path')]
     _logger.debug('Verifying "Nginx" at %s', cf.get(modname, 'host'))
-    check_service(modname, params[0], params[1])
     url_str = "http://%s:%s/%s" % tuple(params)
     _logger.debug('Executing "%s"', url_str)
     try:
@@ -272,6 +296,7 @@ def check_morpheus(cf, modname):
         return msg
 
     if _testOnly:
+        check_db_config(cf, modname)
         for i in (modname, 'nexus', 'memcached', 'cassandra'):
             check_configs(cf, modname, i)
     host,port,pri,logfile=[ cf.get(modname,i) for i in  ('host','port','pri','logpfile')]
@@ -295,7 +320,6 @@ def check_activemq(cf):
     """
     modname = 'activemq'
     (host, port) = [cf.get(modname, i) for i in ('host', 'port')]
-    check_service(modname, host, port)
 #    from tools import now_str
 #    (host,port,queuename)=[cf.get('activemq',i) for i in ('host','port','queuename')]
 #    msg =now_str()
@@ -304,8 +328,8 @@ def check_activemq(cf):
 @check_ip_comp
 def check_gsender(cf):
     modname = 'gsender'
-    (host, port, queuename,paths,errlog) = [cf.get(modname, i) for i in ('host', 'port', 'queuename','path','errlog')]
-    paths=map(str.strip,paths.split(','))
+    (host, queuename, paths, errlog) = [cf.get(modname, i) for i in ('host', 'queuename', 'path', 'errlog')]
+    paths = map(str.strip, paths.split(','))
     #send amq msg
     msg = 'monitor::%f' % (time.time())
     if not send2gsenderbyNexus(cf, msg):
@@ -316,7 +340,8 @@ def check_gsender(cf):
     err = True
     for path in paths:
         try:
-            check_log(host, path+errlog, msg)
+            check_activemq_config(cf, modname, path)
+            check_log(host, path + errlog, msg)
             err = False
         except Exception, e:
             pass
@@ -342,16 +367,22 @@ def init_conf():
     assert 1 == len(cf.read(conffile))
     return cf
 
+
 def comp_info(cf, fnname):
     comp = fnname[fnname.find('_') + 1:]
-    (ip, port) = [cf.get(comp, i) for i in ('host', 'port')]
+    ip = cf.get(comp, 'host')
     txt = """
     Component:  %s
     IP:         %s
-    Port:       %s
-    """ % (comp, ip, port)
+    """ % (comp, ip)
+    if cf.has_option(comp, 'port'):
+        port = cf.get(comp, 'port')
+        txt += """
+        Port:       %s
+        """ % port
     return txt
-        
+
+
 def notify(cf, txt):
     txt += traceback.format_exc()
     params = [cf.get('Mailer', i) for i in ('From', 'Passwd', 'Server', 'Tos', 'Subject')]
@@ -384,22 +415,23 @@ def setupLogger(flname, conloglevel=logging.INFO, fileloglevel=logging.INFO, fmt
 
 from optparse import OptionParser
 
+
 def main():
     parser = OptionParser(usage='Usage: monitor [options]')
     parser.add_option('-c', '--component',
-        action = 'store', type = 'string', dest = 'component', default = None,
-        help = 'specify the component to verify.\t\t\t' +
+        action='store', type='string', dest='component', default=None,
+        help='specify the component to verify.\t\t\t' +
                 'Available: morpheusalert,morpheusevent,IPDBd,memcached,nexus,nginx,nbs,activemq,gsender,cassandra')
     parser.add_option('-d', '--debuglevel',
-        action = 'store', type = 'int', dest = 'debuglevel', default = 6,
-        help = 'select the log level for the console(0~7)')
+        action='store', type='int', dest='debuglevel', default=6,
+        help='select the log level for the console(0~7)')
     parser.add_option('-l', '--loglevel',
-        action = 'store', type = 'int', dest = 'loglevel', default = 6,
-        help = 'select the log level for the log file (0~7)')
-    parser.add_option('-m', '--monitor', action = 'store_false', dest = 'testonly',
-        help = 'conduct the monitoring procedure with e-mail notification and problem recovery')
-    parser.add_option('-t', '--testonly', action = 'store_true', dest = 'testonly', default = True,
-        help = 'conduct the check only without further action')
+        action='store', type='int', dest='loglevel', default=6,
+        help='select the log level for the log file (0~7)')
+    parser.add_option('-m', '--monitor', action='store_false', dest='testonly',
+        help='conduct the monitoring procedure with e-mail notification and problem recovery')
+    parser.add_option('-t', '--testonly', action='store_true', dest='testonly', default=True,
+        help='conduct the check only without further action')
     (options, args) = parser.parse_args()
     if options.loglevel < 0 or options.loglevel > 7:
         parser.print_help()
@@ -434,16 +466,17 @@ def main():
         check_name = 'check_' + str.lower(options.component)
         for fn in checks:
             if str.lower(fn.func_name) == check_name:
-                checks=[fn]
+                checks = [fn]
                 break
         else:
             _logger.debug('Unknown Component:%s', options.component)
             exit(-2)
     else:
         _logger.debug('Start the full checking process......')
-        
+
     _logger.debug('Options: %s', options)
     err = False
+    _logger.info('-------------- Start one checking cycle --------------')
     for fn in checks:
         try:
             _logger.debug('Executing "%s"......', fn.func_name)
@@ -452,8 +485,8 @@ def main():
             _logger.info(msg)
         except Exception, e:
             err |= True
-            info=comp_info(cf,fn.func_name)
-            _logger.error(e.message+info)
+            info = comp_info(cf, fn.func_name)
+            _logger.error(e.message + info)
             if not options.testonly:
                 notify(cf, info)
     if err: raise

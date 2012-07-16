@@ -4,8 +4,9 @@ def fabrun(cmd):
     res=fabric.api.run(cmd)
     assert res.succeeded
     return res
-    
-def check_os(comps,pidfile=None):
+
+
+def check_os(comps, port=None, pidfile=None):
     check_dic={
         "mem":"if [ $((`free -m |grep Mem: |awk '{print $4}'`)) -lt 2 ]; then echo 'no mem';fi",
         "disk":"df|awk '{print $5 $6}' |awk -F'%' '{if ($1 >80 && $1 <=100)print $2\": no space\"}'",
@@ -15,32 +16,36 @@ def check_os(comps,pidfile=None):
         res=fabrun(v)
         if(len(res)>0): 
             raise Exception(k,v,res)
-    
-    #check component exist    
+    if port:
+        check_port(port)
+
     if pidfile:
-        check_pid(pidfile)        
-    else:            
+        check_pid(pidfile)
+    else:
         for i in comps.split('/'):
-            res = fabrun("ps ax|grep %s|grep -v grep" %i)
-            assert len(res)>0
+            res = fabrun("ps ax|grep %s|grep -v grep" % i)
+            assert len(res) > 0
 
 
-def check_service_port(port):
-    cmd_line = 'netstat -nl | grep ":%s" | grep -v grep' % (port)
-    res = fabrun(cmd_line)
+def check_port(port):
+    cmd = 'netstat -nl | grep ":%s" | grep -v grep' % (port)
+    res = fabrun(cmd)
     assert(len(res) > 0)
     return res
 
 
 def get_config(conf_file, pattern):
-    cmd_line = 'grep -i "^%s=" %s' % (pattern, conf_file)
+    if pattern[-1] == '>':
+        cmd_line = 'grep -i "%s" %s' % (pattern, conf_file)
+    else:
+        cmd_line = 'grep -i "^%s=" %s' % (pattern, conf_file)
     res = fabrun(cmd_line)
     assert(len(res) > 0)
     #print('%s in %s is "%s', pattern, conf_file, res.rstrip())
     return res.rstrip()
 
-          
-def check_log(logfile,msg):
+
+def check_log(logfile, msg):
     res = fabrun('if [ -f %s ]; then grep "%s" "%s"; fi' %(logfile, msg,logfile))
     assert len(res)>0
 
@@ -50,12 +55,6 @@ def check_pid(pidfile):
     cmd=" && ".join((get_pid, check_exist))
     fabrun(cmd)    
     
-def check_gsenderpid(pidfile):
-    get_pid="PID=`cat %s |cut -d ' ' -f2`" %pidfile
-    check_exist="kill -0 $PID"
-    cmd=" && ".join((get_pid, check_exist))
-    fabrun(cmd)
-        
 def restart_memcached(path,pidfile):
     cd = "cd %s" %path
     get_pid="PID=`cat %s`" %pidfile

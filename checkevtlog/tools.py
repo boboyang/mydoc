@@ -2,6 +2,7 @@ from datetime import datetime
 def now_str():
     return datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     
+"""
 from pyactivemq import ActiveMQConnectionFactory
 
 def send_amqmsg(host,port,queuename,msg, varify=False):
@@ -21,3 +22,4 @@ def send_amqmsg(host,port,queuename,msg, varify=False):
     if varify:
         rev = consumer.receive(len(msg)+1)
         assert rev.text==msg
+"""
