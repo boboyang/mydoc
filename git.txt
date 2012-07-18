@@ -44,3 +44,9 @@ git push -u origin master
 
 #ignore 
 ./.git/info/exclude
+
+#tag
+git tag  #show
+git tag -a xxx -m 'xxx'
+git push --tags
+
