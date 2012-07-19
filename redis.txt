@@ -15,11 +15,11 @@ daemon redis-server:
     sudo /etc/rc.d/redis start
 redis-cli:
     help    
-    keys pattern: get all keys with pattern
-    type key
+    keys *: get all keys
+        keys pattern: get all keys with pattern
+    type [key]
     fushall
     config get *
-    
     set foo bar
     get foo
     incr mycounts #automic operation

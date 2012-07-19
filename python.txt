@@ -19,6 +19,8 @@ __buildin__:
         Return a list of the results of applying the function to the items of
 the argument sequence(s). 
         map(lambda x: x*2,[1,2,3]):  -> [2, 4, 6]
+    reduce():
+        reduce(function, sequence[, initial]) -> value    
     enumerate:    
         [i for i in enumerate(['a','b','c'])]:
          #result:  [(0, 'a'), (1, 'b'), (2, 'c')]
@@ -339,6 +341,21 @@ limitation:
     stream = open("example.yaml", 'r')
     print yaml.load(stream)
 
+---
+string format:
+    %r :    repr()
+    %x/%X:  16bit/16bit upper
+    %#x:    0xXXX
+    %e:     scientific
+    %%:     %
+    -:      left align
+    +:      '+'num
+    m.n:    min m length, n numbers after '.'    
+---
+exception:
+    try-except-else-finally
+    with:
+        from __future__ import with_statement
 ---
 Bigtable, Dynamo
 
