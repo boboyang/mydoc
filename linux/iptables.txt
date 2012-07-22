@@ -5,11 +5,14 @@ http://linux.vbird.org/linux_server/0250simple_firewall.php#netfilter_syntax_icm
 filter（default）：INPUT/OUTPUT/FORWARD
 NAT： PREROUTING/OUTPUT/POSTROUTING
 
+#flush all
+    iptables flush
+
 #dump rules
-iptables-save
+    iptables-save
 
 # list rules
-iptables -L -n -v
+    iptables -L -n -v
 
 # service:
 /etc/init.d/iptables {start|stop|restart|condrestart|status|panic|save}
