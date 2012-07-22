@@ -1,0 +1,29 @@
+#config
+    sda6 /
+    sda7 /var
+    sda9 /home
+
+liveusb boot
+
+#chroot
+mkdir /mnt/arch
+mount /dev/sda6 /mnt/arch
+cd /mnt/arch
+mount -t proc proc proc/
+mount -t sysfs sys sys/
+mount -o bind /dev dev/
+mount -t devpts pts dev/pts/
+mount /dev/sda7 var/
+mount /dev/sda9 home/
+chroot . /bin/bash
+
+#if wlan0 not up
+    ifconfig wlan0 up
+    
+# prepare wlan0
+wpa_passphrase mydlink01 dlink930 > /etc/wpa_supplicant.conf
+wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
+dhcpcd wlan0
+#ping www.baidu.com
+
+#...
