@@ -59,9 +59,7 @@ rm /etc/profile.d/locale.sh
 pacman -Syu
 
 #speed up 
-pacman -S reflector aria2
-cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
-reflector -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+pacman -S aria2
 
 #vim /etc/pacman.conf
 #add
@@ -70,11 +68,6 @@ reflector -l 5 --sort rate --save /etc/pacman.d/mirrorlist
 #uncomment below:
 #[multilib]
 #Include = /etc/pacman.d/mirrorlist
-
-# vi /etc/pacman.d/mirrorlist
-Server = http://mirrors.163.com/archlinux/$repo/os/$arch
-Server = http://mirrors.sohu.com/archlinux/$repo/os/$arch
-Server = ftp://mirrors.sohu.com/archlinux/$repo/os/$arch
 
 pacman -Syy
 
@@ -91,7 +84,7 @@ pacman -S curl freemind git thunderbird stardict feh scrot base-devel cmake ccac
 
 yaourt -S briss
 
-sed -i 's/^MODULES=()/^MODULES=(acpi-cpufreq cpufreq_ondemand cpufreq_powersave)/g' /etc/rc.conf
+sed -i 's/^MODULES=()/^MODULES=(acpi-cpufreq cpufreq_ondemand cpufreq_powersave)/g' /etc/rc.conf 
 #
 #DAEMONS=(hwclock syslog-ng acpid dbus @cpufreq slim wicd crond)
 

@@ -52,8 +52,11 @@ redis-cli:
             zdd leaderboard 65 bob
             ...
             zrevrange leaderboard 0 99 withscores
-    hmset name dic:
-        hash multi set
-    hgetall name: return dict
+    hash:
+        hmset name dic:
+            hash multi set
+        hgetall name: return dict
+    set:
+        SMEMBERS key
     
              
