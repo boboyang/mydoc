@@ -1,5 +1,5 @@
 #remove first column
-history | awk '{$1="";print}'>tmp.txt
+history -w tmp.txt
 #vim tmp.txt
 #:%s/^ //g
 
@@ -43,15 +43,13 @@ history | awk '{$1="";print}'>tmp.txt
 #/etc/pacman.d/mirrolist
 #uncomment 163 server
 
-#MBA, GRUB or syslinux
-
 #reboot
 
 # prepare wlan0
 wpa_passphrase mydlink01 dlink930 > /etc/wpa_supplicant.conf
 wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
 dhcpcd wlan0
-#ping www.baidu.com
+#test: ping www.baidu.com
 
 
 pacman -S filesystem --force
@@ -61,7 +59,7 @@ pacman -Syu
 #speed up 
 pacman -S aria2
 
-#vim /etc/pacman.conf
+vi /etc/pacman.conf
 #add
 #XferCommand = /usr/bin/aria2c -s 5 %u
 
@@ -71,16 +69,18 @@ pacman -S aria2
 
 pacman -Syy
 
-#use aria2c individually
-#aria2c %urlfile
-#man aria2c
-#ex: -s 5 -o -c
-
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
-#network & desktop
-pacman -S vim wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs openssh xlockmore pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc galculator xarchiver thunar-archive-plugin thunar-volman mupdf gedit skype chromium flashplugin icedtea-web ntfs-3g
-pacman -S curl freemind git thunderbird stardict feh scrot base-devel cmake ccache wireshark-gtk ethtool sysstat gdb 
+#desktop
+pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs xlockmore xarchiver thunar-archive-plugin thunar-volman ntfs-3g
+#office
+pacman -S freemind stardict feh scrot galculator gedit mupdf vim 
+#internet
+pacman -S skype chromium flashplugin icedtea-web thunderbird openssh
+#multimedia
+pacman -S pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious gvfs-afc 
+#dev
+pacman -S base-devel cmake ccache wireshark-gtk ethtool sysstat gdb curl git   
 
 yaourt -S briss
 

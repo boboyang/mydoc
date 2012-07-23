@@ -65,7 +65,8 @@ ssh bsdc@60.251.172.83 -p 33220
 pw:bsdc@2012
 
 #beijing
-ssh root@124.205.163.89 -p 1210
+#ssh root@124.205.163.89 -p 1210
+ssh root@124.193.81.251
 pw:mydlink01
 
 #tw

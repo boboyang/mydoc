@@ -1,0 +1,4 @@
+man aria2c
+
+aria2c %urlfile
+    #ex: -s 5 -o -c
