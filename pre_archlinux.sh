@@ -72,7 +72,9 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #desktop
-pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd cpufrequtils acpid gamin dbus xfce4-power-manager xfce4-battery-plugin tree abs xlockmore xarchiver thunar-archive-plugin thunar-volman ntfs-3g
+pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei openntpd gamin dbus tree abs xlockmore xarchiver thunar-archive-plugin thunar-volman ntfs-3g
+#power
+pacman -S cpufrequtils acpid xfce4-power-manager xfce4-battery-plugin
 #office
 pacman -S freemind stardict feh scrot galculator gedit mupdf vim 
 #internet
@@ -134,7 +136,7 @@ cd ~/abs/
 tar zxvf qterm.tar.gz 
 cd qterm
 makepkg -s
-pU qterm-XXX
+pU qterm-[TAB]
 
 #osdlyrics
 cd ~/abs/

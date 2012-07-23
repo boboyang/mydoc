@@ -13,7 +13,8 @@ find / -type f -size +1000000k
 #folder:
 cd,pwd,mkdir,rmdir
 #create link
-ln -s ~/env favor
+ln -s src des
+    use absolute path if link folder
 $PATH
 ls
 

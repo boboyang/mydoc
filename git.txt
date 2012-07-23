@@ -30,10 +30,19 @@ git add -A
 git add .
 git commit -m "add api for device"
 git diff
-git branch
 git push 151 master
 git push -u origin master
 
+#branch
+    show: 
+        git branch
+    switch to existed: 
+        git checkout XXX
+    create new:
+        git branch XXX    
+    rm:
+        git branch -d XXX
+        
 #ignore 
 ./.git/info/exclude
 
