@@ -12,5 +12,5 @@ usepeerdns
 debug
 lock
 connect-delay 5000
-name mydlinkcn
-password mydlinkqwe
+name 
+password 

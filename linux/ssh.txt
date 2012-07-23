@@ -1,0 +1,76 @@
+#分类：
+secure txt: ssh
+UI:         VNC
+
+public key:    用来加密
+    ~/.ssh/id_rsa.pub
+private key:    用来解密
+    ~/.ssh/id_rsa
+
+因为网路连线是双向的，所以，每个人应该都要有对方的『公钥』才对。
+双方都有自己的私匙和对方的公匙，所以整个叫非对称式金钥系统。
+client的key每次都随机生成
+
+anti: man-in-the-middle attack:
+    ~/.ssh/known_hosts:
+
+safety:
+    password auth:
+        client encode passwd by server's public key
+        cannot avoid man-in-the-middle attack
+    key auth:
+        server has client's pub key:    
+            ~/.ssh/authorized_keys:
+        client send it's pub key to server 
+        server verified it, then use it to encode challenge(random str) to client, 
+        client decode it by self's pri key, and encode it by server's pub key, and send back
+        server decode by self' pri key, and verify it
+
+#server:
+sudo apt-get install openssh-server
+ps -e |grep ssh  	#check if started
+
+StrictModes no
+PubkeyAuthentication yes
+AuthorizedKeysFile      .ssh/authorized_keys
+
+sudo /etc/rc.d/sshd start 
+
+#default conf
+/etc/ssh/sshd_config
+#set this to local config, to improve connection speed
+GSSAPIAuthentication no
+
+/etc/ssh/ssh_host*
+
+#client:
+~/.ssh/known_hosts
+
+sftp
+scp     #ssh copy
+
+＃创建SSH密匙
+ssh-keygen -C 'whille@163.com' -t rsa
+
+#scdc server 
+ssh whillewang@scdc.mydlink.com -p 2226
+#client
+scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:~/
+
+#port forward:
+    local:
+        -L port:host:hostport host2
+        listen local port, and make connection to remote port
+    remote:
+        -R port:host:hostport host2
+        remote computer listen, and connect local port 
+#dynamic bind:
+    -D port:
+        sudo ssh -qTfnN -D 7070 usassh@free.usassh.com -p 443
+ 
+＃提交密匙 到github
+https://github.com/accYount/ssh
+选择Add another public key。Title随便取，Key是一段东西。
+找到刚才创建密匙的那个目录下找到id_rsa.pub文件，把它打开可以看到一堆文字，拷贝下来黏贴到github页面key的空白处。然后Apply，就好了。
+
+

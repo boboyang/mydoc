@@ -4,8 +4,8 @@ if [ $# != 1 ] ; then
 	exit 1;
 fi
 
-VPN_ADDR=61.221.35.248
-IFACE=wlan0
+VPN_ADDR=199.68.197.226
+IFACE=ppp0
 
 function getIP(){
 	/sbin/ifconfig $1 |grep "inet "|awk '{print $2}'
@@ -42,7 +42,7 @@ function start(){
 	sleep 2    #delay again to make that the PPP connection is up.
 
 	route add $VPN_ADDR gw $GW_ADDR $IFACE
-	route add default gw $(getIP ppp0)
+	route add default gw $(getIP $IFACE)
 	route delete default gw $GW_ADDR
 }
 
