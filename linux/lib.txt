@@ -7,4 +7,5 @@
 
 ldconfig
 
-#then ldd [somapp], correct sahred lib can be shown
+#show dependency
+ldd [libXXX] 
