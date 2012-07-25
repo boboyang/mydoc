@@ -16,8 +16,12 @@ cd,pwd,mkdir,rmdir
 ln -s src des
     use absolute path if link folder
 $PATH
-ls
 
+ls:
+    ls -l
+    ls -ld # show directory
+   
+ 
 #file:
 cp,rm,mv
 
@@ -47,9 +51,17 @@ ll temp.txt
 umast  #file mode creation mask
 
 #file hidden attrs
-chattr
+    #only on ext2/ext3
+    chattr: 
+        need root permission
+        chattr +i XXX:
+            cannot be changed
+        chattr -i XXX
+        chattr +a XXX:
+            only append allowed
+    
 lsattr
-
+    lsattr [-adR] XXX
 
 #Linux目录配置的依据--FHS:     Filesystem Hierarchy Standard
  

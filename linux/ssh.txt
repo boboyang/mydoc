@@ -73,4 +73,10 @@ https://github.com/accYount/ssh
 选择Add another public key。Title随便取，Key是一段东西。
 找到刚才创建密匙的那个目录下找到id_rsa.pub文件，把它打开可以看到一堆文字，拷贝下来黏贴到github页面key的空白处。然后Apply，就好了。
 
+#debug
+    ssh -vv
+    in server: vi /var/log/secure
 
+chown root /root
+chgrp root /root    
+    
