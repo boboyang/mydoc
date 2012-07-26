@@ -109,7 +109,11 @@ nose: UT
     func:   setUp(), tearDown()
     run: nosetests:
         -h, -s
-        
+    coverage: a plugin
+        pip install coverage
+        nosetests --with-coverage --cover-html
+            default coverage report in ./cover/ folder
+                
 ---
 performance:
     profile:
