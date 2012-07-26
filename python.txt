@@ -109,6 +109,8 @@ nose: UT
     func:   setUp(), tearDown()
     run: nosetests:
         -h, -s
+    test specific func:
+        nosettests XX.py:XXX
     coverage: a plugin
         pip install coverage
         nosetests --with-coverage --cover-html
