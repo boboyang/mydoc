@@ -31,6 +31,10 @@ history:
         #or 
         history |awk {'print $2'}
 
+man bash: special PARAMETERS:
+    $!: last execute process id
+    $@: cmd args, used by script
+
 shutdown:
     shutdown –h now # shutdown now
     shutdown -r +10 # restart 10 minutes later
