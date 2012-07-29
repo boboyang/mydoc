@@ -4,4 +4,10 @@ userdel -r test
 #create passward
 passwd
 
+-group:
+    groups: show groups
+    groupadd
+    groupdel
+
+grppasswd
 
