@@ -1,0 +1,6 @@
+pcreate -t alchemy mypyramid
+python setup.py develop
+
+initialize_mypyramid_db development.ini
+
+pserve development.ini 

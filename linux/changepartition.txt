@@ -1,0 +1,21 @@
+tar -zcfp --ignore-failed-read /run/media/whille/usbdata/home.tar.gz /home/whille
+
+
+sudo umount /home
+#resize 
+
+sudo fdisk /dev/sda8
+m   #help
+d   #delete
+n   #new
+
+
+sudo mount /dev/sda8 /home
+
+sudo tar -zxvf /run/media/whille/usbdata/home.tar.gz /home/
+
+vim /etc/fstab
+modify /home
+
+reboot
+
