@@ -1,0 +1,68 @@
+df -h
+sudo fdisk -l
+
+prepare:
+    #change USELVM="no" to USELVM="yes" in /etc/rc.conf
+    确保 lvm2 在 /etc/mkinitcpio.conf HOOKS 部分的 filesystems 前面，这样您的内核就可以在启动时找到 LVM 卷。
+
+fdisk /dev/sda
+    t : 8e
+    w
+
+#format
+mkfs.ext3 /dev/sda9
+
+pvcreate /dev/sda9
+#pvdisplay
+
+vgcreate main /dev/sda9
+#vgdisplay
+lvcreate -L8.8G -nlv_home main
+lvdisplay
+
+mkdir /mnt/newhome
+mount /dev/main/lv_home /mnt/newhome
+
+init 1
+
+cp -avx /home/* /mnt/newhome
+    #about 20 min
+    
+cd /
+umount /dev/sda9
+mv home home.old
+mkdir home
+umount /mnt/newhome
+mount /dev/main/lv_home /home
+
+然后，应该设置服务器以使我的新 /home 分区可以在每次启动机器时使用。首先修改 /etc/fstab 以使它包括新的 /home 项：
+# /etc/fstab: static file system information.
+#
+# fs                mountpoint       type         opts          dump/pass
+/dev/main/lv_home   /home            reiserfs     defaults      2 2
+
+然后，我对初始化脚本进行了一些小小改动。我修改了 "checkroot" 启动脚本，使以下命令可以在根分区重新安装读／写后立即运行：
+/sbin/vgscan
+/sbin/vgchange -a y
+
+接下来，我修改了在关机时运行的文件系统卸装脚本，使以下命令在卸装了所有文件系统 后立即运行：
+/sbin/vgchange -a n
+
+完成了这些步骤后，我重新引导了机器，让我高兴的是一切都工作正常。在接下去的一天左右的时间里完全没有问题，随后我删除了 /home.old 以释放根文件系统上的一些空间。太棒了！到 LVM 的转换成功了。
+
+
+#Grow logical volume
+    fdisk /dev/sda:
+        t(partition 8): 8e
+        w
+    mkfs.ext3 /dev/sda8
+    pvcreate /dev/sda8
+    #pvdisplay 
+    #vgdisplay 
+    vgextend main /dev/sda8
+    #vgdisplay 
+    #lvdisplay
+    lvextend -l +100%FREE main/lv_home
+    lvdisplay
+    resize_reiserfs /dev/main/lv_home
+  

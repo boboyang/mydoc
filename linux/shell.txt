@@ -102,3 +102,5 @@ cmp
 for i in `ls linux.*`; do mv $i `echo $i|sed 's/linux.//'`;done
 
 rsync -avz -e ssh ~/workspace/fake-sigd/  root@172.18.195.112:fake-sigd
+
+

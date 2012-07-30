@@ -1,0 +1,6 @@
+#date to hwclock
+    sudo date -s XX:XX:XX
+    hwclock --systohc
+
+# hwclock to date
+    hwclock --hctosys
