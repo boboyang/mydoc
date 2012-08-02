@@ -355,6 +355,7 @@ string format:
     %e:     scientific
     %%:     %
     -:      left align
+    %10s:   right align with 10 char space
     +:      '+'num
     m.n:    min m length, n numbers after '.'    
 ---
