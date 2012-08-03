@@ -11,3 +11,9 @@ passwd
 
 grppasswd
 
+sudo:
+    su -: change to root
+    sudo -i: temp use root permission, load root profile
+
+root:
+    visudo: edit /etc/sudoers   # sudo securities

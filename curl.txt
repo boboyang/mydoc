@@ -1,5 +1,5 @@
 curl -x agent ip:port url
-curl --socks5 localhost:7070 url  # suport ssh open 7070 proxy by socks5
+curl --socks5-hostname localhost:7070 url  # suport ssh open 7070 proxy by socks5
      
-
 -v: verbose
+-A: userAgent, #ex:  Mozilla/4.0
