@@ -60,10 +60,10 @@ scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:~/
 #port forward:
     local:
         -L port:host:hostport host2
-        listen local port, and make connection to remote port
+        local port listen, and forward to remote port by host2
     remote:
         -R port:host:hostport host2
-        remote computer listen, and connect local port 
+        remote host/port listen, and forward to local port by host2
 #dynamic bind:
     -D port:
         sudo ssh -qTfnN -D 7070 usassh@free.usassh.com -p 443

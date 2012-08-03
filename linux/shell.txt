@@ -63,6 +63,12 @@ stderr 2, 2> or 2>>
 >tmp.txt        #empty file
 tee             #to both screen and file
 
+&:backgroup
+    cmd with exist if termial closed 
+nohup:
+    nohup [cmd] >/dev/null
+    fabric use it to run remote bg cmd
+
 # || &&
 [ ! -d "/tmp/abc" ] && mkdir -p "/tmp/abc" && touch /tmp/abc/hehe
 ls /tmp/abc && echo "exit" || echo "not exit"
