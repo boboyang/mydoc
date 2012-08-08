@@ -51,6 +51,6 @@ tag
     git tag -a xxx -m 'xxx'
     git push --tags
 
-git archive TAG [subpath] --> stdout
+git archive TAGNAME [subpath] --> stdout
     ex: git archive verification-v1.0 checkevtlog |gzip > ~/verification-v1.0.tar.gz
 
