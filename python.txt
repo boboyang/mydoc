@@ -32,6 +32,7 @@ import:
     import sys,os   
     sys.path:
         .append() 
+    os.path.expanduser('~/')
     
 data structure:
 - dict:
