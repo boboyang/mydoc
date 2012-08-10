@@ -1,6 +1,44 @@
-pcreate -t alchemy mypyramid
-python setup.py develop
-
-initialize_mypyramid_db development.ini
-
-pserve development.ini 
+Configurator:
+    imperative:
+        add_route()
+        add_view()
+    declarative:   
+        @view_config(name='xx',request_method='xx')
+        scan()
+    make_wsgi_app()
+    
+create project:
+    Scaffolds:
+        starter:    URL mapping via URL dispatch and no persistence mechanism
+        zodb:       URL mapping via traversal and persistence via ZODB.
+        alchemy:    URL mapping via URL dispatch and persistence via SQLAlchemy
+    create:
+        pcreate -s alchemy mypyramid        
+    install:
+        python setup.py develop
+        for alchemy db:
+            initialize_mypyramid_db development.ini
+    test:
+        python setup.py test -q
+    make tarball:
+        python setup.py sdist    
+    run:
+        pserve development.ini
+    reload: for developing
+        #code changing make server restart automatically
+        pserve development.ini --reload
+    structure:
+        ini:
+            develop.ini
+                [app:main]
+                use = egg:mypyramid
+                ...
+                [server:main]       # WSGI settings
+                host = 
+                port =
+                ...
+            product.ini   
+            setup.py
+                requires=[...]  # packages needed to install
+                  
+        
