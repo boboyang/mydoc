@@ -1,10 +1,11 @@
 Configurator:
+    config = Configurator()
     imperative:
-        add_route()
-        add_view()
+        config.add_route()
+        config.add_view()
     declarative:   
         @view_config(name='xx',request_method='xx')
-        scan()
+        config.scan()
     make_wsgi_app():
         return a Router instance
     
@@ -61,7 +62,7 @@ create project:
  
 Request Processing:
     ref:http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/router.html
-    root_factory -> root(model) -> context(url) -> viewcallble(request) -> response
+    root_factory -> root(model) -> resource(url) -> viewcallble(request) -> response
             
 Url dispatch: Map urls to views, with pattern
     route config:
@@ -70,4 +71,86 @@ Url dispatch: Map urls to views, with pattern
             config.scan()
         pattern:
             foo/{baz}/{bar}
-                                    
+        matchdict:
+            request.matchdict['baz']:
+    url str:
+        request.route_url()
+    sub route:
+        def xxx(config):
+            config.add_route()
+        config.include(xxx, route_prefix='/yyy')
+    route factory:
+        config.add_route(..., factory='mypyramid.xxx.yyy')
+    Security:
+            self.__acl__ =[...]    
+            http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/security.html#security-chapter
+            
+views:
+    callables:
+        as func:
+        as class:
+            class MyView(object):
+                def __init__(self, request):
+                    self.request = request
+                def __call__(self):
+                    return Response('hello')
+    exceptions as response:
+        HTTPUnauthorized()
+        HTTPUnauthorized()
+        from pyramid.httpexceptions import exception_response
+        raise exception_response(401)
+    redirect:
+        return HTTPFound(location='http://example.com')    
+    handle POST:
+        use UTF-8 
+        request.params['password']
+        
+Renderer:
+    built-in:
+        string
+        json
+            e.g.:@view_config(renderer='json')
+    Varying Attributes:
+        must return request.response
+        e.g.:
+            request.response.status = '404 Not Found'
+            return {'URL':request.URL}  #implicit return request.response
+            
+Templates: to render dynamic data of view response
+    direct use:
+        return render_to_response('templates/foo.pt',
+                              {'foo':1, 'bar':2},
+                              request=request)
+    via config:
+        @view_config(renderer='templates/foo.pt')
+        def xxx(request):
+            ...
+                                      
+    System Values used by template:
+        request(req)
+        context
+        renderer_name
+        view                          
+    mako:
+        @view_config(renderer='foo.mak')
+        ${foo}
+    jinja2:
+        paster create -t pyramid_jinja2_starter
+               
+@view_config:
+    ref:http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/viewconfig.html
+    args:
+        permission
+        http_cache:
+            =0                          # never cache
+            =(3600, {'public':True})    # 1 hour, public cache control 
+        name: travesal style
+        route_name: url dispatch style
+        request_method: (typically "GET", "POST", "PUT", "DELETE", or "HEAD")
+        request_params:
+            e.g. request_param="foo=123"
+        accept
+        header   
+    @view_defaults:
+        new in Pyramid 1.3. to decrate a class
+         
