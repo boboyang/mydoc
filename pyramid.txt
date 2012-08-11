@@ -5,7 +5,8 @@ Configurator:
     declarative:   
         @view_config(name='xx',request_method='xx')
         scan()
-    make_wsgi_app()
+    make_wsgi_app():
+        return a Router instance
     
 create project:
     Scaffolds:
@@ -24,21 +25,49 @@ create project:
         python setup.py sdist    
     run:
         pserve development.ini
+            :pserve starts the WSGI server defined within the [server:main] section
     reload: for developing
         #code changing make server restart automatically
         pserve development.ini --reload
     structure:
-        ini:
-            develop.ini
-                [app:main]
-                use = egg:mypyramid
-                ...
-                [server:main]       # WSGI settings
-                host = 
-                port =
-                ...
-            product.ini   
-            setup.py
-                requires=[...]  # packages needed to install
-                  
-        
+        develop.ini
+            [app:main]
+            use = egg:mypyramid
+            ...
+            [server:main]       # WSGI settings
+            host = 
+            port =
+            ...
+            [uwsgi]
+            ...
+        product.ini   
+        setup.py
+            requires=[...]  # packages needed to install
+        mypyramid:
+            __init__.py:
+                main():
+                    make a Configurator instance, config and returns a Pyramid WSGI application.
+            views.py
+                pattern:           
+                    @view_config()
+                    def xxx(request):   #a view callable
+                        return Response 
+                views folder: suplementation
+                    __init__.py:    indicate views is a package
+                    views.py
+            static
+            templates
+            tests.py              
+ 
+Request Processing:
+    ref:http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/router.html
+    root_factory -> root(model) -> context(url) -> viewcallble(request) -> response
+            
+Url dispatch: Map urls to views, with pattern
+    route config:
+        match view:
+            config.add_route(name, url)
+            config.scan()
+        pattern:
+            foo/{baz}/{bar}
+                                    
