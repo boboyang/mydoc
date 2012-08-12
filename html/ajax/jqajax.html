@@ -1,0 +1,23 @@
+<html>
+<head>
+<script type="text/javascript">
+		
+$("#btnget").click(function(){
+	$.get("http://qleelulu.atx41.idc800.net/jQuery/Ajax.aspx", {Action:"get",Name:"lulu"}, function (data, textStatus){
+			// data 可以是 xmlDoc, jsonObj, html, text, 等等.
+			//this; // 这个Ajax请求的选项配置信息，请参考下图
+			alert(data);
+			//alert(textStatus)
+			//alert(this);
+	});
+});
+
+</script>
+</head>
+
+<body>
+<input value="Load" type="button" id="btnget">
+</body>
+
+</html>
+

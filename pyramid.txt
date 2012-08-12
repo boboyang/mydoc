@@ -18,8 +18,6 @@ create project:
         pcreate -s alchemy mypyramid        
     install:
         python setup.py develop
-        for alchemy db:
-            initialize_mypyramid_db development.ini
     test:
         python setup.py test -q
     make tarball:
@@ -44,6 +42,12 @@ create project:
         product.ini   
         setup.py
             requires=[...]  # packages needed to install
+            entry_points="""\
+            [paste.app_factory]
+            main = mypyramid:main
+            [console_scripts]
+            initialize_mypyramid_db = mypyramid.scripts.initializedb:main
+            """
         mypyramid:
             __init__.py:
                 main():
@@ -154,3 +158,39 @@ Templates: to render dynamic data of view response
     @view_defaults:
         new in Pyramid 1.3. to decrate a class
          
+Static Assets:
+    config.add_static_view(name=, path=)
+        name: a URL prefix
+    override:
+        config.override_asset(to_override=,override_with=)
+    
+session:
+    enable session:
+        default session factory:
+            from pyramid.session import UnencryptedCookieSessionFactoryConfig
+            my_session_factory = UnencryptedCookieSessionFactoryConfig('itsasecret')
+            config = Configurator(session_factory = my_session_factory)
+        alternative session factory:
+             pyramid_beaker
+    Using a Session Object:
+        request.session: use like a dict
+        Extra attributes:
+            created()
+            invalidate()
+    Flash Messages:
+        a queue of messges stored in session
+        apply:
+            to display a status message only once to the user  
+        use:
+            reques.session
+                .flash('xxx')
+                .pop_flash()
+    Preventing Cross-Site Request Forgery Attacks:
+        token = request.session.get_csrf_token()
+        if token != request.POST['csrf_token']:
+            raise ValueError('CSRF token did not match')
+        # invalidate
+        token = request.session.new_csrf_token()
+                    
+Events:
+    an event is an object broadcast by the Pyramid framework at interesting points during the lifetime of an application.

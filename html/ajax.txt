@@ -1,0 +1,5 @@
+AJAX:
+    Asynchronous JavaScript and XML.
+    
+load:
+    $(selector).load(url,data,callback)
