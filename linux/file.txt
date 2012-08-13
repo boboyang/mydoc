@@ -12,6 +12,8 @@ find / -type f -size +1000000k
 
 #folder:
 cd,pwd,mkdir,rmdir
+    cd -: cd last path
+
 #create link
 ln -s src des
     use absolute path if link folder

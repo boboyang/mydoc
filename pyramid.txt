@@ -77,8 +77,7 @@ Url dispatch: Map urls to views, with pattern
             foo/{baz}/{bar}
         matchdict:
             request.matchdict['baz']:
-    url str:
-        request.route_url()
+    request.route_url()
     sub route:
         def xxx(config):
             config.add_route()
@@ -194,3 +193,22 @@ session:
                     
 Events:
     an event is an object broadcast by the Pyramid framework at interesting points during the lifetime of an application.
+    
+cmd line:
+    pviews development.ini PATH
+    pshell development.ini#main   [app:main] in .ini
+        registry.settings
+        Ctrl+D: exit
+    proutes development.ini : display all routes
+    prequest:
+        prequest development.ini#section_name PATH: send request    # default section_name is main, can be amit
+        -d: --display-headers
+        -mPOST < somefile    
+        curl -d "a=1&b=2" 'http://localhost:6543/test/post' 
+    Writing a Script:
+        from pyramid.paster import bootstrap
+        env = bootstrap('development.ini')
+        print env['request'].route_url('home')
+        clear up:
+            env['closer']()
+
