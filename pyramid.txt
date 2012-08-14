@@ -20,6 +20,8 @@ create project:
         python setup.py develop
     test:
         python setup.py test -q
+    nosetest:
+        nosetests --cover-package=tutorial --cover-erase --with-coverage
     make tarball:
         python setup.py sdist    
     run:
@@ -87,8 +89,9 @@ Url dispatch: Map urls to views, with pattern
     route factory:
         config.add_route(..., factory='mypyramid.xxx.yyy')
     Security:
-            self.__acl__ =[...]    
-            http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/security.html#security-chapter
+        ACL:    access control list
+            self.__acl__ = [(Allow, 'bob', 'read'), (Deny, 'fred', 'write')]
+        http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/security.html#security-chapter
             
 views:
     callables:
