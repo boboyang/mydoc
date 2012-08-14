@@ -1,8 +1,8 @@
 Configurator:
     config = Configurator()
     imperative:
-        config.add_route()
-        config.add_view()
+        config.add_route('route_name', urlpath)
+        config.add_view(xxx. route_name='yyy')
     declarative:   
         @view_config(name='xx',request_method='xx')
         config.scan()
@@ -47,6 +47,8 @@ create project:
             main = mypyramid:main
             [console_scripts]
             initialize_mypyramid_db = mypyramid.scripts.initializedb:main
+            [paste.paster_command]
+            ?
             """
         mypyramid:
             __init__.py:
@@ -230,3 +232,48 @@ unittest:
         self.config.testing_securitypolicy()
         request = testing.DummyRequest()
         request.context = testing.DummyResource()
+        
+security:
+    request -> view lookup -> security -> view
+    concepts:
+        authentication: who
+        authorization:  permission or forbidden
+    enable:
+        from pyramid.config import Configurator
+        from pyramid.authentication import AuthTktAuthenticationPolicy
+        from pyramid.authorization import ACLAuthorizationPolicy
+        authentication_policy = AuthTktAuthenticationPolicy('asecret')  
+        authorization_policy = ACLAuthorizationPolicy()
+        config = Configurator()
+        config.set_authentication_policy(authentication_policy)
+        config.set_authorization_policy(authorization_policy)
+    use:
+        view_config(...,permission='add')
+        config.set_default_permission() 
+    assign ACL to resource objs:
+        from pyramid.security import Everyone,Allow
+        class Blog(object):
+            __acl__ = [
+                (Allow, Everyone, 'view'),
+                (Allow, 'group:editors', 'add'),
+                (Allow, 'group:editors', 'edit'),
+                ]
+    
+Configuration Introspection:
+    ref:
+        http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/introspector.html
+    e.g.:
+        introspector = request.registry.introspector
+        route_intr = introspector.get('routes', route_name)     
+        return Response(str(route_intr['pattern']))
+    category:
+        routes:
+            name,pattern,factory,...
+            
+app extending:
+    extend view:
+        from originalapp import some_views
+        config.include(some_views)
+    override assets:
+        http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/assets.html#overriding-assets-section
+     

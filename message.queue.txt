@@ -1,0 +1,20 @@
+These 3 messaging technologies have different approaches on building distributed systems :
+
+RabbitMQ: 
+    is one of the leading implementation of the AMQP protocol (along with Apache Qpid). Therefore, it implements a broker architecture, meaning that messages are queued on a central node before being sent to clients. This approach makes RabbitMQ very easy to use and deploy, because advanced scenarios like routing, load balancing or persistent message queuing are supported in just a few lines of code. However, it also makes it less scalable and “slower” because the central node adds latency and message envelopes are quite big.
+
+ZeroMq:
+    is a very lightweight messaging system specially designed for high throughput/low latency scenarios like the one you can find in the financial world. Zmq supports many advanced messaging scenarios but contrary to RabbitMQ, you’ll have to implement most of them yourself by combining various pieces of the framework (e.g : sockets and devices). Zmq is very flexible but you’ll have to study the 80 pages or so of the guide (which I recommend reading for anybody writing distributed system, even if you don’t use Zmq) before being able to do anything more complicated that sending messages between 2 peers.
+
+ActiveMQ:
+    is in the middle ground. Like Zmq, it can be deployed with both broker and P2P topologies. Like RabbitMQ, it’s easier to implement advanced scenarios but usually at the cost of raw performance. It’s the Swiss army knife of messaging :-).
+
+Finally, all 3 products:
+
+    have client apis for the most common languages (C++, Java, .Net, Python, Php, Ruby, …)
+    have strong documentation
+    are actively supported
+
+plus:
+    http://www.oschina.net/news/17973/message-queue-shootout
+    
