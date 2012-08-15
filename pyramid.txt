@@ -18,6 +18,8 @@ create project:
         pcreate -s alchemy mypyramid        
     install:
         python setup.py develop
+        if model changed:
+            initialize_mypyramid_db development.ini
     test:
         python setup.py test -q
     nosetest:
@@ -34,6 +36,8 @@ create project:
         develop.ini
             [app:main]
             use = egg:mypyramid
+            #for mysql
+            sqlalchemy.url = mysql://username:password@127.0.0.1/dbname?charset=utf8&use_unicode=0
             ...
             [server:main]       # WSGI settings
             host = 
@@ -279,4 +283,29 @@ app extending:
         config.include(some_views)
     override assets:
         http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/assets.html#overriding-assets-section
+        
+Add-Ons:
+    href:http://docs.pylonsproject.org/en/latest/docs/pyramid.html#pyramid-add-on-documentation
+    install: pip install xxx
+    setup:
+        setup.py:
+            requires = [...'xxx']
+        __init__.py:    
+            config.include('xxx')
+    pyramid_beaker:
+        href:   http://beaker.readthedocs.org/en/latest/configuration.html
+        .ini:
+            [app:myapp]
+            session.type = ext:memcached
+            session.url = 127.0.0.1:11211
+            session.lock_dir = %(here)s/sessions/lock
+        __init__.py:
+            from pyramid_beaker import session_factory_from_settings
+            session_factory = session_factory_from_settings(settings)
+            config.set_session_factory(session_factory)
+    pyramid_mailer:
+        Attachments: http://pyramid_mailer.readthedocs.org/en/latest/#attachments
+    pyramid_jinja2:
+        jinja2.directories = myparamid:templates
+            
      

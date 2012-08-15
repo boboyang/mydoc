@@ -1,0 +1,62 @@
+template:
+    delimiters:
+        {% ... %}   :execution.   
+        {{ ... }}   :prints the result of the expression to the template.
+    Variables:
+        Variables may have attributes, e.g.:  {{foo.bar}}
+    filter: |
+        to modify variables. like a pipeline
+    Tests:
+    Comments:   {# ... #}, multiline
+    Escaping:
+        use ''
+        {% raw %} ... {% endraw %}
+    Template Inheritance:
+        base.html:
+            {% block xxx %} 
+            ...
+            {% endblock %}
+        child.html:
+            {% extends "base.html" %}
+            {% block xxx %}
+            ...
+            {% endblock %}
+        {{ super() }}:  parent block
+        Block Nesting and Scope:
+            {% for item in seq %}
+                <li>{% block loop_item %}{{ item }}{% endblock %}</li>
+            {% endfor %}
+    control structure:
+        for:
+            {% for user in users if not user.hidden %} ... {% end for %}
+        if:
+            {% if %} ...{% elif %}... {% else %} ...{% endif %}
+        macro: use like a function
+            {% macro func(*args) %} ...{% endmacro %} 
+            use:
+                <p>{{ func(...) }}</p>
+        call:
+        filter:
+        include:
+        set:
+        import:
+            {% import 'forms.html' as forms %}
+            {% from 'forms.html' import input as input_field, textarea %}
+    Builtin Filters:    http://jinja.pocoo.org/docs/templates/#list-of-builtin-filters
+        abs(num)
+        capitalize(s)
+        efault(value, default_value=u'', boolean=False)
+        dictsort(value, case_sensitive=False, by='key')
+        groupby(value, attribute)
+        lower(s)
+        random(seq)
+        replace(s, old, new, count=None)
+    Builtin Tests:      http://jinja.pocoo.org/docs/templates/#list-of-builtin-tests
+        defined(value):
+            {% if variable is defined %}
+    Global Functions:   http://jinja.pocoo.org/docs/templates/#list-of-global-functions
+        range([start], stop[, step])
+        class joiner(sep=', '):
+            
+        
+            
