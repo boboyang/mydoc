@@ -321,9 +321,11 @@ encode/decode:
         base64.decodestring(str)
     urlescape:
         import urllib(2)
-        urllib.quote(str)
-        urllib.unquote(str)
-
+        s2=urllib.quote(s1)
+        s1=urllib.unquote(s2)
+    query:  ('k=v&...')
+        str=urllib.urlencode(dic):
+        dic=urlparse.parse_qs(str)
 ---
 pip:
     pip install XXX

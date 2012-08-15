@@ -5,3 +5,6 @@ pcreate -l  #show a list of all available templates.
 pcreate -t appengine_starter mygaeproject
 python bootstrap.py --distribute
 ./bin/buildout
+
+run:
+    google_appengine/dev_appserver.py project_path
