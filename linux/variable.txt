@@ -11,7 +11,7 @@ name="while's name"
 name=${name}" is me"
 
 #export variable to use in sub shell
-export name
+export name=XXX
 sh
 echo $name
 exit

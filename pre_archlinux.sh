@@ -76,7 +76,7 @@ pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim zlib sudo consolekit ibus ibus-
 #power
 pacman -S cpufrequtils acpid xfce4-power-manager xfce4-battery-plugin
 #office
-pacman -S freemind stardict feh scrot galculator gedit mupdf vim 
+pacman -S freemind stardict feh scrot galculator gedit gedit-plugins mupdf vim 
 #internet
 pacman -S skype chromium flashplugin icedtea-web thunderbird openssh
 #multimedia
