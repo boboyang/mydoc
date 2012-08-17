@@ -27,7 +27,10 @@ modify .git/config, add
 
 git status
 git add -A
-git add .
+git add:
+     .  # all 
+    git add somepath/.* # all of somepath
+
 git commit -m "add api for device"
 git diff
 git push 151 master

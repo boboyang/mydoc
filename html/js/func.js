@@ -1,8 +1,6 @@
 // this:在函数调用模式下，this被绑定到全局对象上。这个是javascript语言设计上的一个错误。 可以采用以下方法避免：   
 // var that = this;
 
-//closure: a func inside func
-
 var fade=function(node){
     var level=1;
     var step=function(){
