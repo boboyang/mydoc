@@ -1,0 +1,98 @@
+<script defer="defer" language="javascript" type="text/javascript"> 
+<!-- 
+var _offset = 0; 
+function _$id(_obj) { 
+return document.getElementById(_obj); 
+} 
+function _$Pages(_i) { 
+_curPage=_i; 
+_$id("Content").innerHTML=_contentArray[_i]; 
+for (var i=0;i<_contentArray.length;i++) 
+{ 
+if (i==_i) 
+_$id("soojs_"+(_i+1)).style.backgroundColor="#ff9900"; 
+else 
+_$id("soojs_"+(i+1)).style.backgroundColor=""; 
+} 
+}
+var _contentArray; 
+var _curPage=0; 
+var _totalPage; 
+
+function _$prePage(){ 
+_curPage--; 
+if(_curPage>=0){ 
+_$Pages(parseInt(_curPage)); 
+} 
+else{ 
+_curPage=0; 
+_$Pages(parseInt(_curPage)); 
+} 
+} 
+
+function _$nextPage(){ 
+_curPage++; 
+if(_curPage<_totalPage){ 
+_$Pages(parseInt(_curPage)); 
+} 
+else{ 
+_curPage=_totalPage-1; 
+} 
+} 
+$(function() { 
+var _s=''; 
+var neirong=_$id("Content").innerHTML; 
+_contentArray=neirong.split("#page#"); 
+if(_contentArray.length>1){ 
+_totalPage=_contentArray.length; 
+_$id("Content").innerHTML=neirong.replace("#page#"," "); 
+_s+="<a href='#' onclick='javascript:_$prePage("+_curPage+")'>上一页</a>"; 
+for (var i=0;i<_contentArray.length;i++) { 
+_s+=('<a href="#" onclick="javascript:_$Pages('+i+');" onfocus="this.blur()" title="Page&nbsp;'+(i+1)+'" id="soojs_'+(i+1)
++'">'+"&nbsp;"+(i+1)+"&nbsp;"+'</a>&nbsp;&nbsp;&nbsp;&nbsp;'); 
+} 
+_s+="<a href='#' onclick='javascript:_$nextPage("+_curPage+")'>下一页</a>"; 
+_$id("Pages").innerHTML=_s; 
+_$Pages(0); 
+} 
+
+} 
+); 
+//--> 
+</script>
+<style type="text/css"> 
+#Content { 
+margin: 1px 1px 0px 1px; 
+_margin: 1px 1px 0px 1px; /* CSS Hack For IE6 */ 
+text-align: left; 
+} 
+#Pages { 
+width: 400px; 
+height: 20px; 
+margin: 0px; 
+text-align: right; 
+} 
+#Pages a{ 
+display:inline; 
+} 
+#Pages a:link{color:#000000} 
+#Pages a:hover{color:#FF0000} 
+#Pages a:active{color:#3300FF} 
+</style>
+#page#
+<div id="Content"> 
+<html>
+<div align="top" style="width:1024;height:100;border:solid;border-width:2;">
+<img src="C:\\image.jpg" height="100" width="1024"></img>
+</div>
+<div style="width:1024;height:200;">
+<div style="width:300;height:200;border:solid;border-width:2;float:left;"></div>
+<div style="width:300;height:200;border:solid;border-width:2;float:right;"></div>
+</div>
+<div align="bottom" style="height:100;width:1024;border:solid">
+<center>Hello World</center>
+</div>
+</html>
+
+<div id="Pages"></div> 
+</div>

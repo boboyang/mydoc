@@ -32,6 +32,10 @@ create project:
     reload: for developing
         #code changing make server restart automatically
         pserve development.ini --reload
+    debug-tool:
+        Settings
+        Performance: need enable
+        Routes
     structure:
         develop.ini
             [app:main]
