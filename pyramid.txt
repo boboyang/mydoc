@@ -89,6 +89,10 @@ Url dispatch: Map urls to views, with pattern
             foo/{baz}/{bar}
         matchdict:
             request.matchdict['baz']:
+        query string:
+            query_string = request.params.get('keyword',None)
+        archor: location of a page
+            #foo    
     request.route_url()
     sub route:
         def xxx(config):
