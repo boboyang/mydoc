@@ -1,0 +1,51 @@
+<p>
+<input type="file" id="fileinput" />
+</p><p>
+<output id="fname"></output>
+</p><p>
+<textarea readonly="readonly">
+ABC。
+</textarea>
+<output id="pagenum" type="text" value = "xxx"></output>
+</p>
+<div id="example">Text text text</div>
+<input id="curpage" value="0" style="width:50px;">
+/
+<input id="totalpage" value=""style="width:50px;" disabled>
+<div align="center">居中</div>
+
+<script type="text/javascript">
+  function checkSupport(){
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      return true;
+    } else {
+      alert('The File APIs are not fully supported by your browser.');
+      return false;
+    }
+}
+  function readSingleFile(evt) {
+    if (!checkSupport()) {
+      return;
+    }
+    //Retrieve the first (and only!) File from the FileList object
+    var f = evt.target.files[0]; 
+    if (f) {
+      var r = new FileReader();
+      r.onload = function(e) { 
+          alert("" + f.name);
+          var contents = e.target.result;
+          alert( "Got the file.\n" 
+              +"name: " + f.name + "\n"
+              +"type: " + f.type + "\n"
+              +"size: " + f.size + " bytes\n"
+              + "starts with: " + contents.substr(1, contents.indexOf("\n"))
+        );  
+      }
+      r.readAsText(f);
+    } else { 
+      alert("Failed to load file");
+    }
+  }
+
+  document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
+</script>
