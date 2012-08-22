@@ -1,0 +1,49 @@
+<script src="jquery.js"></script>
+<!--put it before js-->
+<input type="file" id="attach" />
+<p>
+<input type="file" id="fileinput" />
+</p><p>
+
+<script type="text/javascript">
+
+    $("#attach").change(function() { 
+      alert('I Changed');
+    });
+    $("#fileinput").change(function(evt) { 
+    var f = evt.target.files[0]; 
+    if (f) {
+      alert(f.name);
+      var r = new FileReader();
+      r.onload = function(e) { 
+          var contents = e.target.result;
+          alert( "Got the file.\n" 
+              +"name: " + f.name + "\n"
+              +"type: " + f.type + "\n"
+              +"size: " + f.size + " bytes\n"
+              +"starts with: " + contents.substr(1, contents.indexOf("\n"))
+        );  
+      }
+      r.readAsText(f);
+    }
+    });
+
+$(document).ready(function(){
+    function navi(arg){
+        alert(arg);
+    }
+    $("#navidown").click(function(){
+        navi(1);
+    });
+    $("#naviup").click(function(){
+        navi(-1);
+    });
+});
+</script>
+
+<output id="fname"></output>
+</p><p>
+<output id="pagenum" type="text" value = "xxx"></output>
+</p>
+<div id="example">Text text text</div>
+

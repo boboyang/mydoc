@@ -1,0 +1,74 @@
+<html>  
+  <head>  
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">  
+    <style type="text/css">  
+     .droparea{  
+        width:500px;  
+        height:300px;  
+        border:1px solid grey;  
+        line-height:300px;  
+        text-align:center;  
+        overflow:auto;  
+     }  
+    </style>  
+    <script type="text/javascript" src="js/jquery-1.8.0.js"></script>  
+  </head>  
+  <body>  
+    <div id="drop" class ='droparea'>  
+    请将图片放到这里！  
+    </div>  
+    <div id="droptxt" class ='droparea' >  
+    请将txt放到这里！  
+    </div>  
+    <script type="text/javascript">  
+    $(function(){  
+      var ignoreDrag = function(e){  
+         e.originalEvent.stopPropagation();  
+         e.originalEvent.preventDefault();  
+         }  
+      var dragover = function(e){  
+         ignoreDrag(e);  
+      }  
+      var dragenter  = function(e){  
+         ignoreDrag(e);  
+      }  
+      var drop = function(e){
+        ignoreDrag(e);  
+        var dt = e.originalEvent.dataTransfer;  
+        var files = dt.files;  
+        var fr = new FileReader();  
+        fr.onload = function(e){  
+            var image = new Image();  
+            image.src = e.target.result;  
+            $('#drop').append(image)  
+        }  
+        fr.readAsDataURL(files[0]);  
+      }  
+      var droptxt = function(e){
+        ignoreDrag(e);  
+        var dt = e.originalEvent.dataTransfer;  
+        var files = dt.files;  
+        var f = files[0];
+        if (!f){
+            return;
+        }
+        var fr = new FileReader();  
+        //Retrieve the first (and only!) File from the FileList object
+        fr.onload = function(e){  
+          var contents = e.target.result;
+          var info =  "Got the file.\n" 
+            +"name: " + f.name + "\n"
+            +"type: " + f.type + "\n"
+            +"size: " + f.size + " bytes\n"
+            +"starts with: " + contents.substr(1, contents.indexOf("\n"));  
+          alert(info);
+          $('#drop').append(info)  
+        }  
+        fr.readAsText(files[0]);  
+      }  
+      $('#drop').bind('dragenter',dragenter).bind('dragover',dragover).bind('drop',drop); 
+      $('#droptxt').bind('dragenter',dragenter).bind('dragover',dragover).bind('drop',droptxt);  
+    });  
+    </script>  
+  </body>    
+</html>  

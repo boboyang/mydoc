@@ -1,0 +1,11 @@
+jquery:
+    a js framework
+
+grammar:
+    jQuery(selector, [context])
+        ex:
+            $("div.foo").click(function() {...});
+                
+this v.s. $(this):
+    this is html element
+    $(this) is jquery object
