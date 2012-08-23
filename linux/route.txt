@@ -21,7 +21,9 @@ IPADDR=192.168.1.200 #设置成另外一个ip
 
 动态路由器架设：quagga (zebra + ripd)
 
-mydlink:
-防火墙地址：(124.193.81.250:8888)172.18.195.254:8888  admin/admin0920
-路由器地址: 172.18.195.253  admin/admin017930
-交换机地址：172.18.195.252
+mac2ip: same wan:
+    cat /proc/net/arp |grep CC:B2:55:5f:2f:98 -i
+    arp -a |grep MAC -i
+    nbtscan:
+        nbtscan 172.18.195.0/24
+

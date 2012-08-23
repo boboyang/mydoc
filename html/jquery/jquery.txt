@@ -1,10 +1,15 @@
 jquery:
     a js framework
 
-grammar:
-    jQuery(selector, [context])
-        ex:
-            $("div.foo").click(function() {...});
+event:
+    click():
+        def:
+            $(selector).click(function(){...})
+        call:
+            $(selector).click()
+    bind():
+        def:
+            $(selector).bind(event,data,function)
                 
 this v.s. $(this):
     this is html element
