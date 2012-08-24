@@ -1,0 +1,23 @@
+
+#resume for hibernate
+
+in /boot/syslinux/syslinux.cfg
+APPEND root=/dev/sda6 ro resume=/dev/sda8
+
+add 'resume' to the HOOK in the /etc/mkinitcpio.conf , then 'sudo mkinitcpio -p linux'
+
+#auto mount/umount usb
+sudo vim /etc/polkit-1/localauthority/50-local.d/10-storage-group-mount-override.pkla
+
+Action=org.freedesktop.udisks2.filesystem-mount;org.freedesktop.udisks.drive-eject;org.freedesktop.udisks.drive-detach;org.freedesktop.udisks.luks-unlock;org.freedesktop.udisks.inhibit-polling;org.freedesktop.udisks.drive-set-spindown
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+
+/settings/window manager:
+    switch workspace: 
+        Ctrl+Alt+right arrow
+    show desktop:
+        Ctrl+Alt+d
+
+

@@ -1,0 +1,99 @@
+#partition
+/dev/sda2 ext4 /      20Gb	 primary
+/dev/sda5 ext4 /home [remaining] logic 
+/dev/sda3 swap         5Gb   	 primary
+
+device for boot loader: /dev/sda1
+
+remember Ctrl+C to stop
+
+#wi-fi:
+accout:mydlink01;password:dlink930
+SSID: mydlink01
+
+sudo apt-get update
+
+#set su root password
+sudo passwd root
+
+#memcached test 
+memcached -d m 64 -l 127.0.0.1 -p 11211
+netstat -ant|grep 11211
+echo "test memcached">data
+memccp data --servers=127.0.0.1:11211
+memccat data --servers=127.0.0.1:11211
+
+telnet localhost 11211
+get data
+quit
+
+
+#gedit
+sudo apt-get install gedit-plugins
+$ gconf-editor
+展开左边的树节点，找到 /apps/gedit-2/preferences/encodings 节点并单击它。
+双击右边的 auto_detected 键，打开“编辑键”对话框。
+单击列表右边的“添加”按钮，输入“GB18030”，单击确定按钮。
+列表的最底部新增加了一个“GB18030”。单击选中它，并单击右边的 “向上” 按钮直到 “GB18030” 位于列表的顶部为止。
+单击确定按钮，关闭配置编辑器。
+
+$ curl -kL http://github.com/utahta/pythonbrew/raw/master/pythonbrew-install | bash
+$ . $HOME/.pythonbrew/etc/bashrc
+$ pythonbrew install 2.7.2
+$ pythonbrew switch 2.7.2
+$ python -V
+
+#scdc
+ssh whillewang@scdc.mydlink.com -p 2221
+#password: whillewang2011
+
+
+#pydev
+site:   http://pydev.org/updates
+
+mysql -u root -p
+#create database csp_development libmysqld-dev
+#create database md_global;
+#修改密码
+mysqladmin -u用户名 -p password 新密码
+
+创建SSH密匙
+ssh-keygen -C 'whille@163.com' -t rsa
+提交密匙
+https://github.com/accYount/ssh
+选择Add another public key。Title随便取，Key是一段东西。
+cat ~/.ssh/id_rsa.pub
+把它打开可以看到一堆文字，拷贝下来黏贴到github页面key的空白处。然后Apply，就好了。
+
+git clone git@github.com:mydlink/shibboleth.git 
+
+# su root
+sudo passwd root
+******（输入原先的root口令）
+******（输入新的root口令，可以保持原样。我就保持的原样）
+******（再次输入新的root口令）
+su root
+
+# OWA email setting: thunderbird + davmail
+cd ~/Downloads
+#get cer file
+http://60.248.210.43/certsrv/
+username: DCN\Whille_Wang
+passwd:     ******
+select install CA, actually downloading a cernew.cer to ~/Downloads/
+
+#setup davmail
+OWA:    https://mbs.dlink.com.tw
+port:   all check, plus 1000(default setting is ok)
+Encryption/Client Certificate(DavMail to Exchange):
+Client key store type: PKCS12
+Client kye store:      /home/whille/Downloads/certnew.cer 
+Advanced/Exchange Protocol: EWS
+
+#thunderbird setting in UI
+email:  Whille_Wang@cn.dlink.com
+IMAP:
+server name:    localhost   port: 1143
+SMTP:
+server name:    localhost   port: 1025
+

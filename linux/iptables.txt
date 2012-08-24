@@ -22,7 +22,6 @@ if rule1:
 elif rule2:
 ...
 
-
 # drop ssh to localhost 
 iptables -A INPUT -i wlan0 -p tcp --dport 22 -j DROP
 
@@ -43,7 +42,7 @@ do
    iptables -A INPUT -i eth0 -p icmp --icmp-type $typeicmp -j ACCEPT
 done
 
-#final file:
+#edit file:
 /etc/sysconfig/iptables
 #check
 chkconfig --list iptables

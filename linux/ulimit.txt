@@ -1,0 +1,10 @@
+#show all
+ulimit -a
+
+#set unlimited
+ulimit -i unlimited
+ulimit -l unlimited
+ulimit -n 1000000
+ulimit -q unlimited
+ulimit -s unlimited
+ulimit -u unlimited
