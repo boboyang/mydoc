@@ -172,6 +172,7 @@ ipython:
 
 ---
 virtualenv: deploy a clean env
+    pS python2-virtualenv
     mkdir ~/my_env && cd ~/my_env/
     virtualenv2 --no-site-packages ~/my_env
     . ~/my_env/bin/activate

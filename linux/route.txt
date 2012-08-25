@@ -27,3 +27,12 @@ mac2ip: same wan:
     nbtscan:
         nbtscan 172.18.195.0/24
 
+# forward ip to other PC
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+iptables -t nat -I PREROUTING -p tcp --dport 6543 -j DNAT --to 172.18.195.12
+iptables -t nat -I POSTROUTING -p tcp --dport 6543 -j MASQUERADE
+
+service iptables save
+service iptables restart
