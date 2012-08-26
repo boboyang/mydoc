@@ -1,0 +1,21 @@
+firewall settings:
+
+wan1:124.193.81.248/29 gw:.249
+lan1:172.18.195.0/24 gw: .254
+
+dmznet:192.168.100.0/24
+wan2net 192.168.120.0/24
+
+dhcppool    172.18.195.10-172.18.195.120
+dns1    202.106.0.20
+vpnip   172.18.195.178      
+ 
+mydlink1    172.18.195.61        
+mydlink2    172.18.195.62        
+mydlinkftp  172.18.195.10        
+mydlink4    172.18.195.64        
+mydlink1-public-ip  124.193.81.251       
+mydlink2-public-ip  124.193.81.252       
+mydlink3-public-ip  124.193.81.253       
+mydlink4-public-ip  124.193.81.254
+

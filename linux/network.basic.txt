@@ -100,3 +100,8 @@ netmask
 gateway
 DNS   #set in /etc/resolv.conf, ex: nameserver 219.141.136.10
 
+#ping
+Ping uses ICMP ECHO, which by default is blocked by your firewall. You'll need to grant ICMP access to your instances by updating the firewall restrictions that are tied to your security group.
+ec2-authorize default -P icmp -t -1:-1 -s 0.0.0.0/0
+Check out the latest developer guide for details.
+Section: Instance Addressing and Network Security -> Network Security -> Examples
