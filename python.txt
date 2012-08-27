@@ -171,20 +171,6 @@ ipython:
         plot(X,Y)
 
 ---
-install pip:
-    curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
-    python get-pip.py
-
----
-virtualenv: deploy a clean env
-    pip install virtualenv
-    mkdir ~/my_env && cd ~/my_env/
-    virtualenv --no-site-packages ~/my_env
-    . ~/my_env/bin/activate
-    #...
-    deactivate
-    
----
 pyrex/Cython
     Pyrex is a Python-like language that is used to create C modules for Python.
     why it:

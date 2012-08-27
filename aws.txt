@@ -1,0 +1,20 @@
+
+Elastic IP: 固定IP
+    first instance is free
+    OP:
+        https://console.aws.amazon.com/ec2/
+        Elastic IPs
+        Allocate New Address
+        Associate Address
+        
+Instance:
+    Launch new: will use a new key pair
+    Terminate: removed
+    Stop:
+    
+ssh without pem:
+    first, ssh with -i **.pem
+    add local id_rsa.pub content to ~/.ssh/authorized_keys
+    
+        
+

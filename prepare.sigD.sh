@@ -16,7 +16,6 @@ tar zxvf libffi-3.0.9.tar.gz
 cd libffi-3.0.9
 ./configure &&make&&sudo make install
 
-<<<<<<< HEAD
 tar zxvf glib-2.30.2.tar.gz 
 cd glib-2.30.2
 ./configure &&make&&sudo make install
