@@ -10,11 +10,12 @@ name="while's name"
 #append
 name=${name}" is me"
 
-#export variable to use in sub shell
-export name=XXX
-sh
-echo $name
-exit
+export: variable to use in sub shell
+    export :show all
+        export |grep XXX:   search XXX 
+    export name=XXX
+    unset name: delete variable
+    
 
 # `XXX` execute first
 #example:

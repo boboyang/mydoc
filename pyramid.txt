@@ -1,3 +1,6 @@
+install:
+    pip install pyramid
+    
 Configurator:
     config = Configurator()
     imperative:
