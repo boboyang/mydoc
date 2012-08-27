@@ -8,10 +8,13 @@ whereis nginx
 #default conf
 ./conf/nginx.conf
 
-#start
-/usr/local/nginx/sbin/nginx
-/usr/local/nginx/sbin/nginx -c XXX.conf #specify other conf
-
+start
+    process:
+        /usr/local/nginx/sbin/nginx
+        /usr/local/nginx/sbin/nginx -c XXX.conf #specify other conf
+    daemon:
+        /etc/init.d/nginx start
+            NGINX_CONF_FILE="XXX/nginx.conf"
 
 #restart
 sudo kill -HUP `cat logs/nginx.pid`
@@ -60,7 +63,7 @@ debug = false
 
 uwsgi:
     # start uwsgi
-    ./uwsgi --ini-paste xxx/mydlinkNBS/production.ini
+    uwsgi --ini-paste xxx/production.ini
     # stop
     uwsgi --stop log/uwsgi.pid
     #reload

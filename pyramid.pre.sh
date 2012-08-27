@@ -14,3 +14,15 @@ pip install pyramid
 
 #cd some-project
 #python setup.py develop
+
+#nginx
+sudo yum -y install make glibc-devel gcc openssl openssl-devel ncurses ncurses-devel python-devel libxml2 libxml2-devel nginx
+
+pip install uwsgi
+
+# start uwsgi
+uwsgi --ini-paste xxx/production.ini
+# stop
+#uwsgi --stop log/uwsgi.pid
+#reload
+#uwsgi --reload log/uwsgi.pid

@@ -29,6 +29,7 @@ git status
 git add -A
 git add:
      .  # all 
+    git add -u    # 
     git add somepath/.* # all of somepath
 
 git commit -m "add api for device"
@@ -45,6 +46,7 @@ git push -u origin master
         git branch XXX    
     rm:
         git branch -d XXX
+        git rm $(git ls-files --deleted)  # rm deleted file
         
 #ignore 
 ./.git/info/exclude
