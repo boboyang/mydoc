@@ -12,9 +12,6 @@ ipY
 #pyramid
 pip install pyramid
 
-#cd some-project
-#python setup.py develop
-
 #nginx
 sudo yum -y install make glibc-devel gcc openssl openssl-devel ncurses ncurses-devel python-devel libxml2 libxml2-devel nginx
 
@@ -30,9 +27,14 @@ sudo -i
 echo 3000 > /proc/sys/net/core/somaxconn
 
 #start
-uwsgi --ini-paste-logged mypyramid/production.ini &
+cd ~/my_env/mypyramid
+python setup.py develop
+
+uwsgi --ini-paste-logged  ~/my_env/mypyramid/production.ini &
 sudo cp ~/my_env/mypyramid/tools/uwsgi.nginx.conf /etc/nginx/nginx.conf
 sudo /etc/init.d/nginx restart
+
+#use DNS, oray
 
 # test
 # curl http://localhost
