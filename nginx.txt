@@ -61,11 +61,3 @@ threads = 5
 max-requests = 65536
 debug = false
 
-uwsgi:
-    # start uwsgi
-    uwsgi --ini-paste xxx/production.ini
-    # stop
-    uwsgi --stop log/uwsgi.pid
-    #reload
-    uwsgi --reload log/uwsgi.pid
-

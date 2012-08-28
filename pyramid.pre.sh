@@ -20,9 +20,23 @@ sudo yum -y install make glibc-devel gcc openssl openssl-devel ncurses ncurses-d
 
 pip install uwsgi
 
-# start uwsgi
-uwsgi --ini-paste xxx/production.ini
 # stop
-#uwsgi --stop log/uwsgi.pid
+#uwsgi --stop uwsgi.pid
 #reload
-#uwsgi --reload log/uwsgi.pid
+#uwsgi --reload uwsgi.pid
+
+#system tunning
+sudo -i
+echo 3000 > /proc/sys/net/core/somaxconn
+
+#start
+uwsgi --ini-paste-logged mypyramid/production.ini &
+sudo cp ~/my_env/mypyramid/tools/uwsgi.nginx.conf /etc/nginx/nginx.conf
+sudo /etc/init.d/nginx restart
+
+# test
+# curl http://localhost
+# nginx log:
+#    /var/log/nginx/
+    
+
