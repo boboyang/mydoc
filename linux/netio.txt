@@ -17,3 +17,7 @@ max CPU: 30%, MEM:30%
 #sigD
 ./signalingd -h 0.0.0.0 -H 80 -S 443 -m 172.18.195.210:11211 -q 172.18.195.210 -t 10 -n 400 -r MP -s MP -i 1 -x -c
 ethtool eth0
+
+
+watch more /proc/net/dev
+watch ifconfig
