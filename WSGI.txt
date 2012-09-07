@@ -1,8 +1,0 @@
-def:    Web Server Gateway Interface
-    Python Web Server Gateway Interface
-ref:    http://www.python.org/dev/peps/pep-3333/
-components:
-    app
-    container:
-    middleware
-    
