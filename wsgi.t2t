@@ -1,0 +1,66 @@
+
+%!Target : html
+%!encoding: utf-8
+%!options: --toc --toc-level 2 --css-sugar
+
++ Intro +
+| def | ( Python) Web Server Gateway Interface 
+| ref | http://www.python.org/dev/peps/pep-3333/ |
+
+components:
+    app
+    container
+    middleware
+    
++Specification+[spec]
+| splited  to server/app |
+
+- server/gateway
+```
+def run_with_cgi(application):
+    environ = dict(os.environ.items())
+    ... # modify environ
+    def write(data):    # stdout http response
+        ...
+    def start_response(status, response_headers, exc_info=None):
+        ...
+        return write
+    result = app(environ, start_response)
+    for data in result:
+        write(data)
+```
+- app/framework
+```
+def app(environ, start_response):
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/plain')]
+    start_response(status, response_headers)
+    return ['Hello world!\n']
+```    
+- middleware
+usage:
+    - redirect url
+    - allow multi-app in same process 
+    - load balance 
+    - content postprocessing 
+
+            
++ environ +[env]
+
+| REQUEST_METHOD |
+| SCRIPT_NAME | URL's "path" that corresponds to the application object, so that the application knows its virtual "location".
+| PATH_INFO 
+| QUERY_STRING
+| CONTENT_TYPE
+| CONTENT_LENGTH 
+| SERVER_NAME/SERVER_PORT
+| SERVER_PROTOCOL | "HTTP/1.0" or "HTTP/1.1" |
+
++uwsgi+[uwsgi]
+    a binary protocol used by the uWSGI server.
+    The first 4 bytes of a uwsgi packet describe the type of information.
+    Every uwsgi request generates an uwsgi response. 
+    
+----------------------------------------
+http://whille.gicp.net
+

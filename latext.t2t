@@ -1,0 +1,10 @@
+pS  poppler-glib poppler-qt
+pS texlive-bin texlive-latexextra
+pS texlive-langcjk
+pS texlive  #editor
+
+%gen pdf
+latex tmp.tex
+dvipdf tmp.dvi 
+
+%\\ : return line
