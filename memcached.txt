@@ -44,3 +44,14 @@ safety:
         # iptables -P INPUT DROP
         # iptables -A INPUT -p tcp -s 192.168.0.2 –dport 11211 -j ACCEPT
         # iptables -A INPUT -p udp -s 192.168.0.2 –dport 11211 -j ACCEPT
+        
+=test=
+start:
+    memcached -d m 64 -l 127.0.0.1 -p 11211
+echo "test memcached">data
+memccp data --servers=127.0.0.1:11211
+memccat data --servers=127.0.0.1:11211
+
+telnet localhost 11211
+get data
+quit    

@@ -1,44 +1,20 @@
 ＃查看网络服务
-cat /etc/services
+cat /etc/services |less
 
-# update projects to server
-
-cd env
-scp -r mydlink_v3 root@172.18.195.214:env/mydlink_v3
-scp -r servicesmock root@172.18.195.214:env/servicesmock
+scp -r 
+rsync -avz -e 
 
 #SCDC
 ssh -L 8901:localhost:8901 -p 2226 whillewang@scdc.mydlink.com
 #scp -P 2226 ~/.ssh/id_rsa.pub whillewang@scdc.mydlink.com:temp_key
-
-
-#rsync 112
-rsync -avz -e ssh ./ root@172.18.195.112:/root/fake-sigd
-
-ssh bsdc@60.251.172.83 -p 33220
-pw:bsdc@2012
-
-#beijing
-#ssh root@124.205.163.89 -p 1210
-ssh root@124.193.81.251
-pw:mydlink01
 
 #tw
 ssh bsdc@60.251.172.83 -p 33220 (gateway and syslog-ng client)
 ssh root@10.32.100.193
 ssh root@10.32.100.195  (syslog-ng server)
 
-#QA
-ssh lancelot@10.32.29.26
-cd  /home/nate/somecode/new-agent-dev/sigc_test/
-sudo -i
-pwd:lancelot
-
-ssh root@207.232.83.183
-
 #QA new
-ssh to .216 first
-
+ssh to .216 first for vpn
 ssh david@10.32.29.26
 david123
 
@@ -64,9 +40,7 @@ vim /etc/sysconfig/network-scripts/ifcfg-eth0
 onboot = no
 vi /etc/resolv.conf
 nameserver 207.232.83.1
-[3:50:58 PM] David Guo: V1 : 10.32.35.101
-
-
+V1 : 10.32.35.101
 
 #aws
 bsdc@ec2-122-248-206-15.ap-southeast-1.compute.amazonaws.com

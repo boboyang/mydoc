@@ -1,3 +1,18 @@
+#alias
+# ~/.bashrc
+alias la='ls -a --color=auto'
+alias ll='ls -aoth --color=auto'
+alias ls='ls --color=auto'
+alias pQs='sudo pacman -Qs'
+alias pS='sudo pacman -S'
+alias pU='sudo pacman -U'
+alias txC='iconv -f gb2312 -c -t utf-8'
+
+# abs install e.g.:
+    cd ~/abs/
+    tar zxvf osdlyrics.tar && cd osdlyrics
+    makepkg -s
+    pU osdlyrics-0.4.2-2-i686.pkg.tar.xz
 
 #resume for hibernate
 
@@ -6,15 +21,62 @@ APPEND root=/dev/sda6 ro resume=/dev/sda8
 
 add 'resume' to the HOOK in the /etc/mkinitcpio.conf , then 'sudo mkinitcpio -p linux'
 
+#https://wiki.archlinux.org/index.php/PolicyKit
 #auto mount/umount usb
-sudo vim /etc/polkit-1/localauthority/50-local.d/10-storage-group-mount-override.pkla
-
-Action=org.freedesktop.udisks2.filesystem-mount;org.freedesktop.udisks.drive-eject;org.freedesktop.udisks.drive-detach;org.freedesktop.udisks.luks-unlock;org.freedesktop.udisks.inhibit-polling;org.freedesktop.udisks.drive-set-spindown
+sudo vim /etc/polkit-1/localauthority/50-local.d/org.freedesktop.udisks2.pkla
+-----
+[Storage Permissions]
+Identity=unix-group:storage
+Action=org.freedesktop.udisks2.filesystem-mount;org.freedesktop.udisks2.modify-device
 ResultAny=yes
 ResultInactive=yes
 ResultActive=yes
 
-/settings/window manager:
+#suspend and hibernate
+/etc/polkit-1/localauthority/50-local.d/org.freedesktop.upower.pkla
+--------
+[Suspend/hibernate permissions]
+Identity=unix-group:power
+Action=org.freedesktop.upower.hibernate;org.freedesktop.upower.suspend
+ResultAny=yes
+ResultInactive=yes
+ResultActive=yes
+
+
+# ntfs of windows:
+sudo mkdir /mnt/winC
+edit /etc/fstab
+/etc/group : make sure whille in users group
+https://wiki.archlinux.org/index.php/NTFS-3G_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+
+#goldendict:
+- dict setting: F3
+    /home/whille/.stardict/dic
+- get dict:
+    wget http://down4.zw91.com/down/stardict_ciku.zip
+    tar xvf stardict_ciku.zip ~/.stardic/dic/
+
+#hot key
+#Alt + F2: run
+#Alt + F8:resize window
+#Alt + F9:min window
+#Alt + F10:max window
+
+#xflock4: lock screen
+#sudo pm-hibernate
+#sudo pm-suspend
+#Ctrl + T: open new tab
+#Ctrl + W: close tab
+#Ctrl + Page up/Page down
+#Ctrl + L: clear term text
+
+# sshd,  root
+#rc.d {start|stop|restart} sshd
+# ssh client
+#$ ssh -p port user@server-address
+
+#switch workspace
+    /settings/window manager:
     switch workspace: 
         Ctrl+Alt+right arrow
     show desktop:

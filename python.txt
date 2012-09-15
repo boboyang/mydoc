@@ -35,6 +35,9 @@ import:
     os.path.expanduser('~/')
     
 data structure:
+-basic:
+    hex(255)
+    int('ab', 16)
 - dict:
     d = {"k1":"v1", "k2":"v2"}
     d = dict(mapping):

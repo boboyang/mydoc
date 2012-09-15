@@ -10,12 +10,16 @@ name="while's name"
 #append
 name=${name}" is me"
 
-export: variable to use in sub shell
+#export
+export: set variable to use in sub shell, store  in mem, so effect only in current login
     export :show all
         export |grep XXX:   search XXX 
     export name=XXX
     unset name: delete variable
     
+    #make it all the time
+    vi /etc/profile
+    vi ~/.bashrc    
 
 # `XXX` execute first
 #example:

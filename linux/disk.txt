@@ -42,8 +42,9 @@ mount /dev/main/lv_home /home
 /dev/main/lv_home   /home            reiserfs     defaults      2 2
 
 然后，我对初始化脚本进行了一些小小改动。我修改了 "checkroot" 启动脚本，使以下命令可以在根分区重新安装读／写后立即运行：
+modprobe dm-mod
 /sbin/vgscan
-/sbin/vgchange -a y
+/sbin/vgchange -ay
 
 接下来，我修改了在关机时运行的文件系统卸装脚本，使以下命令在卸装了所有文件系统 后立即运行：
 /sbin/vgchange -a n

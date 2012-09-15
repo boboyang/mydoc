@@ -1,3 +1,4 @@
+#user
 useradd
 userdel -r test
 
@@ -6,10 +7,12 @@ passwd
 
 -group:
     groups: show groups
+        groups [user]
     groupadd
     groupdel
 
-grppasswd
+# user in group
+grppasswd -a/d [user] [group]
 
 sudo:
     su -: change to root

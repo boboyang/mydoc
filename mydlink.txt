@@ -19,3 +19,5 @@ mydlink2-public-ip  124.193.81.252
 mydlink3-public-ip  124.193.81.253       
 mydlink4-public-ip  124.193.81.254
 
+#remote access
+ssh root@124.193.81.251

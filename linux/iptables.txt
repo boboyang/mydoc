@@ -14,6 +14,12 @@ NAT： PREROUTING/OUTPUT/POSTROUTING
 # list rules
     iptables -L -n -v
 
+
+#edit file:
+vi /etc/sysconfig/iptables
+#check
+chkconfig --list iptables
+
 # service:
 /etc/init.d/iptables {start|stop|restart|condrestart|status|panic|save}
 
@@ -41,11 +47,6 @@ for typeicmp in $icmp_type
 do
    iptables -A INPUT -i eth0 -p icmp --icmp-type $typeicmp -j ACCEPT
 done
-
-#edit file:
-/etc/sysconfig/iptables
-#check
-chkconfig --list iptables
 
 9.3.4 超阳春用户端防火墙设计
 

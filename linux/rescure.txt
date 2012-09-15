@@ -26,7 +26,7 @@ chroot . /bin/bash
     ifconfig wlan0 up
     
 # prepare wlan0
-wpa_passphrase mydlink01 dlink930 > /etc/wpa_supplicant.conf
+wpa_passphrase [router] [key] > /etc/wpa_supplicant.conf
 wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
 dhcpcd wlan0
 #ping www.baidu.com
@@ -43,3 +43,7 @@ modify it if disk partition changed
 #swap
 sudo mkswap /dev/sda7
 sudo swapon /dev/sda7
+
+#recover from mistakes in /etc/fstab
+mount -o remount,rw /        # so changed can be made to files like /etc/shadow/,/etc/fstab
+passwd  #change root password if you forgot
