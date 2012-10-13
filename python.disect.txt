@@ -1,0 +1,48 @@
+
+
+PyObject: PyObject_HEAD 
+PyVarObject: PyVarObject_HEAD
+
+PyObject_HEAD:
+    _PyObject_HEAD_EXTRA:
+        *_ob_next;
+        *_ob_prev;
+    ob_refcnt;  
+    _typeobject *ob_type;
+
+_typeobject:
+    PyObject_VAR_HEAD:
+        PyObject_HEAD
+        ob_size;    /* Number of items in variable part */
+    *tp_name;
+    tp_basicsize, tp_itemsize;
+    tp_dealloc;
+    tp_print;
+    ...
+    
+        
+PyIntObject:  
+    PyObject_HEAD   // as kind of derived class
+    long ob_ival;
+
+PyTypeObject:
+    PyInt_Type:
+        "int"
+        sizeof(PyIntObject)    
+
+// small int are saved in PyIntObject arrays, with ref counts       
+static PyIntObject *small_ints[NSMALLNEGINTS + NSMALLPOSINTS];
+
+// big int are in blocks
+
+struct _intblock {
+    struct _intblock *next;
+    PyIntObject objects[N_INTOBJECTS];
+};
+
+typedef struct _intblock PyIntBlock;
+
+static PyIntBlock *block_list = NULL;
+static PyIntObject *free_list = NULL;
+
+

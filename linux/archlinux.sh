@@ -69,7 +69,7 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #desktop
-pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim unrar zlib sudo consolekit ibus ibus-sunpinyin openntpd gamin dbus tree abs xlockmore thunar-volman ntfs-3g
+pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim unrar zlib sudo consolekit ibus ibus-sunpinyin openntpd gamin dbus tree abs xlockmore thunar-volman ntfs-3g rdesktop
 #power
 #office
 pacman -S aspell-en enchant freemind goldendict feh galculator gedit gedit-plugins txt2tags mupdf vim xfce4-screenshooter chmsee thunar-vfs-1 libreoffice-{common,base,calc,draw,impress,math,writer,gnome}
@@ -77,12 +77,12 @@ pacman -S aspell-en enchant freemind goldendict feh galculator gedit gedit-plugi
 #internet
 pacman -S aria2 skype chromium flashplugin icedtea-web thunderbird openssh bin32-wine 
 #multimedia
-pacman -S pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious mcomix
+pacman -S pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious mcomix ffmpeg
 
-yaourt -S wine-thunder wqy-microhei briss qterm osdlyrics aliedit libXinerama libXft bcompare 
+yaourt -S wine-thunder wqy-microhei pS ttf-arphic-uming briss qterm osdlyrics aliedit libXinerama libXft bcompare 
 
 #dev
-pacman -S base-devel cmake ccache wireshark-gtk ethtool sysstat gdb curl git gvfs-afc ctags cscope memcached redis libmemcached tk mysql 
+pacman -S base-devel cmake ccache wireshark-gtk ethtool sysstat gdb curl git svn gvfs-afc ctags cscope memcached redis libmemcached tk mysql nbtscan traceroute
 
 #DAEMONS=(hwclock syslog-ng acpid dbus slim wicd crond)
 

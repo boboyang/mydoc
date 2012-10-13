@@ -8,6 +8,10 @@ man:
     man 7 signal    # signal(7)
     man -k XXX      # use keyword
 
+grep:
+    -P : use --perl-regexp, to grep \d \w, ...
+        grep "^.* subject:mydlink alert:70000001 - Device disconnected" gsender.log |grep  -P '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}' -o |sort -r |x=$(date -d "`head -1` " +%s) && [ $x -gt 1349763124 ]
+    
 #terminal
     Shift+Ctrl+C: copy  
     Shift+Ctrl+V: paste
@@ -100,6 +104,7 @@ awk
     # printf columns > 3
     awk '{$1=$2=$3="";print}' file
 
+    
 diff -u originalfile newfile > f.patch
 patch -p0 originalfile f.patch
 cmp
@@ -109,4 +114,13 @@ for i in `ls linux.*`; do mv $i `echo $i|sed 's/linux.//'`;done
 
 rsync -avz -e ssh ~/workspace/fake-sigd/  root@172.18.195.112:fake-sigd
 
-
+date:
+to timestamp:
+    date +%s        # now
+    date -d "2012-10-09 14:37:59" +%s
+timestamp to readable:
+    date            # now
+    date "+%Y-%m-%d %H:%M:%S"   #now with format
+    date -d @1349764687
+    
+    

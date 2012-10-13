@@ -45,7 +45,7 @@ ResultActive=yes
 
 # ntfs of windows:
 sudo mkdir /mnt/winC
-edit /etc/fstab
+sudo vim /etc/fstab
 /etc/group : make sure whille in users group
 https://wiki.archlinux.org/index.php/NTFS-3G_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 
@@ -82,4 +82,14 @@ https://wiki.archlinux.org/index.php/NTFS-3G_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%
     show desktop:
         Ctrl+Alt+d
 
+#hpprinter
+pS cups python2-pyqt python-reportlab
+yaourt hplip 
+yaourt -S hplip-plugin
+sudo groupadd hp
+sudo gpasswd -a whille lp
+sudo /etc/rc.d/cupsd start
+hp-setup
 
+chrome tmp files: 
+~/.cache/chromium/Default/Cache/

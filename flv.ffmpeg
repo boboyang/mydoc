@@ -1,0 +1,16 @@
+
+using ffmpeg to split or join flv
+
++split+
+
+ffmpeg -i video.flv -ss 00:00:00 -t 00:15:00 -vcodec copy -acodec copy video1.flv
+ffmpeg -i video.flv -ss 00:15:00 -t 00:15:00 -vcodec copy -acodec copy video2.flv
+
+Now -i mean imput and -ss means start time offset and -t means duration, -vcodec means video codec (copy – the same) and -acodec copy means copy the same audio codec. video1/2/3 etc is the output.flv
+
++join+
+avidemux2_cli –audio-codec copy –video-codec copy –output-format flv –load video1.flv –append video2.flv –save video.flv
+
+#Or if you have more than 2 videos to join:
+avidemux2_cli –audio-codec copy –video-codec copy –output-format flv –load video1.flv –append video2.flv –append video3.flv –save video.flv
+

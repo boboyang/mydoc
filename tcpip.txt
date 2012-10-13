@@ -1,0 +1,238 @@
++IP+
+http://www.networksorcery.com/enp/protocol/ip.htm
+
+++data format++
+(name):(len)
+ver:4:
+    4(IP4)/6(IP6)
+header len:4
+    max 2**4*4Byte=32Byte
+TOS(Type of Service):8
+total len:16
+    max 2**16 Byte = 65535 Byte    
+Id:16
+Flags:16
+    0x02: Disable Fragment(DF)
+    Fragment offset:13
+TTL(Time to Live):8
+    init: 32 or 64, 
+    -- when pass a router
+    dropped if zero, and send ICMP to src ip
+Protocol:8    
+    ICMP:1
+    IGMP:2
+    TCP:6
+    UDP:17
+header checksum:16
+    C=Sigma(^i) # ^:每16bit取反
+    validate: ^C + C = Sigma(i + ^i) = Sigma(111...1)  # all '1'
+src ip:32
+dst ip:32
+optional:
+data:
+    
+subnet benefit:
+    make router table smaller
+        
++ARP: address resolving protocol+
+    32IP --> 48MAC
+        RARP: reverse
+    broadcast msg
+    
+gratuitous ARP:
+    arp self IP
+    aim:
+        check self IP is not taken
+        update self MAC to others
+        
+arp:
+    -a: show cache
+    -d IP: delete 
+    -s IP
+       
++ICMP+        
+internet control msg protocol
+
+++date format++
+(name):(len)
+type code:8 8
+     0  0: echo reply(ping)
+     8  0: echo request(ping)
+    17  0: addr mask request  
+        id:16
+        seq num:16
+        addr mask:32
+    18  0: addr mask reply     
+    13  0: timestamp request(ask another ip, precision: ms)
+        id:16
+        seq num:16
+        originate timestamp:32
+        rev timestamp:32
+        transmit timestamp:32    
+    14  0: timestamp reply
+        ... (same as: 13 0)
+    11  0: TTL exceeded( usally when reply a traceroute)    
+     3 xx: package not reachable, error IP header +tcp/udp header are put in ICMP data
+        3  1: host unreachable
+        3  3: port unreachable
+        3  4: need framentation but (Disable Fragment)DF is set in IP Flags
+        3 10: host admin prohibited     # such as telnet a non-exist port 
+checksum:16
+data:
+
++ping+
+    use ICMP
+    -R: record router
+        drawback: 
+            not supported by all router
+            mono direction
+            max 9 IP recorded
+        better choice: traceroute
+        
++traceroute+
+    print the route packets trace to network host
+    method:
+        send UDP to an unreachable port(>30000)
+        first set TTL=1; 1st router reply ICMP(11 0); record 1st router
+        set TTL=2; ...; record 2nd router
+        ...
+        max hop reached
+    use ICMP, count TTL
+    --mtu: auto detect MTU
+        imply -F -N 1
+    manual detect MTU:
+        traceroute HOST PACKETLEN -F, e.g.:
+             traceroute 172.18.195.30 1501 -F   #fail
+             will cause ICMP(3 4) error
+            
++IP routing+
+
+netstat 
+    -rn
+    -an --inet: all tcp/udp sock    
+    Flag:
+        G: Gateway
+        
+        
++UDP+
+
+++date format++
+(name):(len):
+src port:16
+dst port:16
+len:16
+checksum:16(validation not must)
+data:
+
++broadcast & multicast+
+
+multicast address:
+    D class IP, start with 1110
+    224.0.0.0~239.255.255.255
+    
++IGMP+
+for multicast
+http://www.networksorcery.com/enp/protocol/igmp.htm
+
++DNS+
+a kind of UDP, usally dst port: 53
+
+++data format++
+ID:16
+Flags:16
+    0x0100: standard query
+    0x8180: standard query response, no error
+Questions num:16
+Answer RRs:16       # Resource Records num
+Authority RRs:16
+Additional RRs:16
+Queries:32*_
+    Name:
+    Type:16
+        A:Host address
+        NS:name server
+        CNAME:canonical name for an alias
+    Class:16
+        default:1(internet)
+Answers:32*_(optional)
+    NAME,TYPE,Class: # same as Queries
+    TTL:32           # client keep time, in sec
+    Data len:16      # in Bytes
+    Data:
+Authoritative nameservers:
+Additional records:
+
++TFTP+
+Trivial File Transfer Protocol server
+a kind of UDP, no user/passwd, for nodisk system boot
+
+tftpd - server program
+    
++TCP+
+robustness:
+    segment
+    timeout re-send
+    ack
+    checksum
+    re-order
+    drop dulplication
+    flow control
+
+++data format++
+src port:16
+dst port:16
+seq num:32
+ack num:32
+header len:4
+Flags:12
+    reserve:6
+    URG(urgent)
+    ACK
+    PSH(push)
+    RST(reset)
+    SYN(sync)
+    FIN(finish)
+window size:16
+checksum:16
+urgent pointer:16
+options:    # count in TCP header
+    max segment size:32
+data:   # optional, such as in SYN or FIN
+    
+application:
+    http, telnet, ftp, smtp,...    
+        
+++TCP con/discon++
+
+test 
+    e.g.:   telnet 172.18.195.66 8162  # an server
+    use wireshark, filter tcp.stream
+    
+con:                # three-way handshake
+    --> SYN
+    <-- SYN,ACK     # ack num = seq num+1    
+    --> ACK
+discon:             # four-way handshake
+    --> FIN         # active close
+    <-- FIN,ACK    
+    <-- FIN
+    --> FIN,ACK    
+        
+timeout con strategy:
+    re-syn in 2,4,8,16,32 sec                
+
+half close:
+    close send, still receive
+    program impl:
+        close: full close
+        shutdown: half close
+    why:
+        to get data finished in server
+        
+2MSL:   
+    TIME_WAIT = 2 * MSL(max segment lifetime)    
+    for active closer, wait 2MSL after four-way discon ACK, meanwhile frozen its port
+    purpose:
+        1. re-send, if server dose not rcv its ACK
+        2. prevent passive closer abnormal, if active closer make new con, with same ip:port
+        

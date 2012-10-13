@@ -45,6 +45,6 @@ while [ condition ]
 do    
 done  
 
-for var in con1 con2 con3
-do
-done
+for:
+    for var in con1 con2 con3;do ...;done
+    for i in {1..10};do echo $i; echo $[i+1];done

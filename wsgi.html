@@ -2,7 +2,7 @@
 <HTML>
 <HEAD>
 <META NAME="generator" CONTENT="http://txt2tags.org">
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=GBK">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
 </HEAD>
 <BODY>
 
@@ -14,8 +14,9 @@
   <UL>
   <LI><A HREF="#toc1">1. Intro</A>
   <LI><A HREF="#spec">2. Specification</A>
-  <LI><A HREF="#env">3. environ</A>
+  <LI><A HREF="#toc3">3. start_response</A>
   <LI><A HREF="#uwsgi">4. uwsgi</A>
+  <LI><A HREF="#toc5">5. error handling</A>
   </UL>
 
 </DIV>
@@ -59,35 +60,55 @@ def run_with_cgi(application):
     ... # modify environ
     def write(data):    # stdout http response
         ...
+    # deal with headers    
     def start_response(status, response_headers, exc_info=None):
         ...
         return write
     result = app(environ, start_response)
+    #deal with body
     for data in result:
         write(data)
 </PRE>
 
 <LI>app/framework
 <PRE>
+#function method
 def app(environ, start_response):
     status = '200 OK'
+    # a list of (header_name, header_value) tuples, name are case-insensitive 
     response_headers = [('Content-type', 'text/plain')]
     start_response(status, response_headers)
     return ['Hello world!\n']
+
+# class method
+class AppClass
+def __init__(self, environ, start_response):
+        self.environ = environ
+        self.start = start_response
+
+    def __iter__(self):
+        status = '200 OK'
+        response_headers = [('Content-type', 'text/plain')]
+        self.start(status, response_headers)
+        yield 'Hello world!\n'
+        
 </PRE>
 
 <LI>middleware
+def: 
+    between server and app, do pre and pro processing
 usage:
     <UL>
     <LI>redirect url
     <LI>allow multi-app in same process 
-    <LI>load balance ++
+    <LI>load balance 
     <LI>content postprocessing 
+a middleware component must yield at least one value each time its underlying application yields a value.
+    <P></P>
     </UL>
+<LI>environ +[env]
+<P></P>
 </UL>
-
-<A NAME="env"></A>
-<H1>3. environ</H1>
 
 <TABLE BORDER="1">
 <TR>
@@ -118,6 +139,13 @@ usage:
 </TR>
 </TABLE>
 
+<A NAME="toc3"></A>
+<H1>3. start_response</H1>
+
+<P>
+start_response can be called more than once, but with exc_info if again. This is to ensure that buffered and asynchronous applications can replace their originally intended output with error output, up until the last possible moment.
+</P>
+
 <A NAME="uwsgi"></A>
 <H1>4. uwsgi</H1>
 
@@ -126,6 +154,25 @@ usage:
     The first 4 bytes of a uwsgi packet describe the type of information.
     Every uwsgi request generates an uwsgi response. 
 </P>
+
+<A NAME="toc5"></A>
+<H1>5. error handling</H1>
+
+<PRE>
+try:
+    status = "200 Froody"
+    response_headers = [("content-type", "text/plain")]
+    start_response(status, response_headers)
+    ...
+    return ["normal body goes here"]
+except:
+    # XXX should trap runtime issues like MemoryError, KeyboardInterrupt
+    #     in a separate handler before this bare 'except:'...
+    status = "500 Oops"
+    response_headers = [("content-type", "text/plain")]
+    start_response(status, response_headers, sys.exc_info())
+    return ["error body goes here"]
+</PRE>
 
 <HR NOSHADE SIZE=1>
 

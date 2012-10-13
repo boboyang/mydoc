@@ -1,4 +1,5 @@
 ifconfig
+    -a:
 ifdown/ifup
 ip  #parent of ifdown/ifup
 ip route
@@ -26,11 +27,12 @@ DNS2:   219.141.136.10      # router ip, for foreign WWW
 
 
 # test
-ping    #use ICMP 64bytes
-#如果你的主机与待侦测主机并不在同一个网域内，那么TTL预设使用255 ，如果是同一个网域内，那么TTL预设则使用64喔
-
-#用ping追踪路径中的最大MTU数值
-ping -c 2 -s 1472 -M do 192.168.1.1 # if >1472, 0 received
+ping    #use ICMP 
+    #TTL: 64 in LAN; 255 in WAN
+    #用ping追踪路径中的最大MTU数值
+        ping -c 2 -s 1472 -M do 192.168.1.1 # if >1472, 0 received
+    -R : record route 
+        max 9 IP can be recorded
 
 网路介面	MTU
 Ethernet	    1500
@@ -41,6 +43,7 @@ traceroute -n tw.yahoo.com
 
 #列出目前的所有网路连线状态
 netstat -an
+    -in
 #秀出目前已经启动的网路服务 
 sudo netstat -plunt
 

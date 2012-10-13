@@ -1,4 +1,4 @@
-/opt/datastax-cqlsh/cqlsh localhost 9160
+/opt/dse-2.0-1/bin/cqlsh localhost 9160
 
 cqlsh> 
 
@@ -44,7 +44,7 @@ cd /opt/dse-1.0-3/bin/
 在cassandra其他节点端，运行#./dse cassandra
 
 # import schema
-/opt/datastax-cqlsh/cqlsh localhost 9160 <   /opt/dse-1.0-3/resources/cassandra/bin/createSITE_cassandra.cql 
+/opt/dse-2.0-1/bin/cqlsh localhost 9160 <   /opt/dse-1.0-3/resources/cassandra/bin/createSITE_cassandra.cql 
 
 
 # monitor nodetool

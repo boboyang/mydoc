@@ -93,10 +93,25 @@ triple oprator:
     fn=lambda x,a,b:a if x else b
 ---
 class:
+    
+    def __call__(self):     # call like a function
+        ...
+    
     super(type, self) -> bound super object; 
     unbound method: class method
     bound method: object method
 
+---
+re
+    special characters:
+        (?:...):        non-capture, optional,
+        (?P<name>...):  grouped expression that is named. ... can be get by m.group('name')
+        (?=...):        lookahead assertion. 
+            e.g.: Isaac (?=Asimov) will match 'Isaac ' only if it’s followed by 'Asimov'.
+        (?!...):        negative lookahead assertion
+        (?<=...):       lookbehind assertion.
+            e.g.: (?<=abc)def match 'def' lead by 'abc'
+        (?<!...):       negative lookbehind assertion    
 ---
 multiprocessing
     .Pool
@@ -298,29 +313,65 @@ descriptor:
 mq: 
     Rabbitmq
     
----
-encode/decode:
++web+
+    URL:         
+        scheme://netloc/path;params?query#frag
+        data = urlparse.urlparse(urlstr)
+            : .scheme .hostname .netloc .path .params .port .username .fragment .password .query 
+        urlparse.urlunparse(data) 
+    net_loc:     
+        user:passwd@host:port
+    path:        '/' delimited
+    query:       '&'.join('k=v')
+        str=urllib.urlencode(dic):
+        dic=urlparse.parse_qs(str)
+        urlparse.urljoin(baseurl, newurl) # keep net_loc, replace path
+    quote:  
+        urllib.quote(urldata,safe='/')    # not quote '/'
+        urllib.quote_plus()               # besides, ' ' -> '+' 
+        urllib.unquote()
+        urllib.unquote_plus()    
+    execute:
+        f = .urlopen(urlstr, POSTdata) 
+        .urlretrieve(url)           # download entire HTML 
+    urllib2:
+        auth, proxy
+        urllib2?   
     HTML
         escape:
             import cgi
-            res = cgi.escape('<')
+            res = cgi.escape('<')   #'%3C'
         unescape:
             import HTMLParser
             hp=HTMLParser.HTMLParser() 
             hp.unescape(res) 
-    base64:
-        3*8bit ->4*6bit( 00 before 6 bit), add '=' at end,
-        length=4/3 of orginal
-        import base64
-        base64.encodestring(str)
-        base64.decodestring(str)
-    urlescape:
-        import urllib(2)
-        s2=urllib.quote(s1)
-        s1=urllib.unquote(s2)
-    query:  ('k=v&...')
-        str=urllib.urlencode(dic):
-        dic=urlparse.parse_qs(str)
+    
+CGI:
+    common gateway interface
+    helloworld:
+        import CGIHTTPServer
+        CGIHTTPServer.test()
+    overview:
+        client <--> web server <--> CGI app
+    enable tracebacks:
+        import cgitb
+        cgitb.enable()
+    problem:
+        does not scale, cgi process is created for each request and thrown away 
+    solve:
+        server API:
+            apache,nginx
+            precreated working process/thread
+        external process:
+            fastCGI    
+        wsgi:
+            e.g.:
+                python -m wsgiref.simple_server
+base64:
+    3*8bit ->4*6bit( 00 before 6 bit), add '=' at end,
+    length=4/3 of orginal
+    str.encode('base64')
+            
 ---
 pip:
     pip install XXX
@@ -333,6 +384,11 @@ pydev:
     Window > Preferences > Pydev > Interpreter:
         New
         /usr/bin/python2
+        
++pep8+
+    pip install pep8
+    pep8 *.py --ignore E501
+    
 ---
 limitation:
     GIL: Global Interpreter Lock
@@ -355,7 +411,8 @@ string format:
     -:      left align
     %10s:   right align with 10 char space
     +:      '+'num
-    m.n:    min m length, n numbers after '.'    
+    m.n:    min m length, n numbers after '.' 
+       
 ---
 exception:
     try-except-else-finally
@@ -363,4 +420,12 @@ exception:
         from __future__ import with_statement
 ---
 Bigtable, Dynamo
+
+---
+paste:
+    framework of web frameworks
+    subcomponents:
+        WebOb:  wsgi env wrapper
+        Paste Deploy:   find and config wsgi app
+        Paste Script,...
 

@@ -1,0 +1,25 @@
+解决freemind中文乱码
+
+由于 Freemind 要应用到 Java 运行时环境，显示中文字体乱码是由于 JRE 的字体造成的，所以更改 JRE 的字体即可。
+
+1. 找一个可用于中文显示的字体。比如： wqy 字体。
+
+   确认字体已经安装于系统
+   $ ls /usr/share/fonts/wenquanyi/wqy-microhei/wqy-microhei.ttc
+2. 找到 JRE 的字体目录
+
+   sun-jre/jdk:
+   /usr/lib/jvm/java-6-sun/jre/lib/fonts/
+   openjdk:
+   /usr/lib/jvm/java-1.6.0-openjdk/jre/lib/fonts
+3. 新建fallback目录，以openjdk的路径为例子
+
+   $ mkdir -p /usr/lib/jvm/java-1.6.0-openjdk/jre/lib/fonts/fallback
+4. 创建软链接到fallback目录
+
+   $ ln -s  /usr/share/fonts/wenquanyi/wqy-microhei/wqy-microhei.ttc /usr/lib/jvm/java-1.6.0-openjdk/jre/lib/fonts/fallback/
+5. 建立字体缓存
+
+   $ mkfontdir
+   $ mkfontscale
+6. 重新启动FreeMind即可！

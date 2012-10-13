@@ -1,0 +1,5 @@
+
+response:
+    3xx: redirection
+        301: page has moved permanently
+        302: move temporary

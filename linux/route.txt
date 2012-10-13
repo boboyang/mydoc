@@ -24,6 +24,7 @@ IPADDR=192.168.1.200 #设置成另外一个ip
 mac2ip: same wan:
     cat /proc/net/arp |grep CC:B2:55:5f:2f:98 -i
     arp -a |grep MAC -i
+        search LAN MAC, should be comunicated before, like ping. 
     nbtscan:
         nbtscan 172.18.195.0/24
 
