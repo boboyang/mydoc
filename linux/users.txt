@@ -5,6 +5,11 @@ userdel -r test
 #create passward
 passwd
 
+id [user]   #show his group
+
+#edit
+sudo vim /etc/group
+
 -group:
     groups: show groups
         groups [user]

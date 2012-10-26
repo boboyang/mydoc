@@ -69,7 +69,7 @@ pacman -Syy
 # run `grep "pacman -S vim" pre_archlinux.sh`
 
 #desktop
-pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim unrar zlib sudo consolekit ibus ibus-sunpinyin openntpd gamin dbus tree abs xlockmore thunar-volman ntfs-3g rdesktop
+pacman -S wicd wicd-gtk rp-pppoe xorg xfce4 slim unrar zlib sudo consolekit ibus ibus-sunpinyin openntpd gamin dbus tree abs xlockmore thunar-volman ntfs-3g rdesktop bash-completion
 #power
 #office
 pacman -S aspell-en enchant freemind goldendict feh galculator gedit gedit-plugins txt2tags mupdf vim xfce4-screenshooter chmsee thunar-vfs-1 libreoffice-{common,base,calc,draw,impress,math,writer,gnome}

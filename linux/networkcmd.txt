@@ -69,20 +69,21 @@ wget    #download
 
 #pick package
 tcpdump
--i interface
--w file
--c count
-port
--s snapsize
+    -i interface
+    -w file
+    -c count
+    port
+    -s snapsize
+        -s0: full len(65535)
 
-sudo tcpdump -i eth0 -nn port 21
-tcpdump -i eth0 "tcp port 27017"
-tcpdump -x -i eth0 "host 172.18.195.111"
-tcpdump -i lo  port 11231 -s0 -w event.cap
+    sudo tcpdump -i eth0 -nn port 21
+    tcpdump -i eth0 "tcp port 27017"
+    tcpdump -x -i eth0 "host 172.18.195.111"
+    tcpdump -i lo  port 11231 -s0 -w event.cap
 
-# snap to cap and open by wireshark
-sudo tcpdump -i eth0 port 80 -w tmp.cap
-wireshark -r tmp.cap -R http
+    # snap to cap and open by wireshark
+    sudo tcpdump -i eth0 port 80 -s0 -w tmp.cap
+    wireshark -r tmp.cap -R http
 
 #nc
 nc localhost 25

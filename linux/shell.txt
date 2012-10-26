@@ -25,6 +25,7 @@ grep:
     ^U	#clear line
 
 uname -r        #linux version
+uname -m        #32/64 bit
 
 history:
     !!			# execute last cmd
@@ -123,4 +124,20 @@ timestamp to readable:
     date "+%Y-%m-%d %H:%M:%S"   #now with format
     date -d @1349764687
     
+# find date later than a timestamp
+$ cat test.txt | sh test.sh  
+# test.txt
+2012-10-09 14:05:26  
+2012-10-09 14:11:18  
+2012-10-09 14:12:03 
+    
+#!/bin/sh
+
+SEARCH=`date -d "2012-10-09 14:11:09" +%s`
+while read DATETIME ; do
+    THIS=`date -d "$DATETIME" +%s`
+    if [ "$SEARCH" -le "$THIS" ] ; then
+        echo $DATETIME
+    fi
+done    
     

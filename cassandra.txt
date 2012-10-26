@@ -18,7 +18,7 @@ easy_install thrift pycassa
 
 sudo mkdir -p -m 777 /var/log/cassandra /var/lib/cassandra
 
-/opt/dse-1.0-3/resources/cassandra/bin/cassandra-cli -h localhost
+/opt/dse-2.0-1/resources/cassandra/bin/cassandra-cli -h localhost
 
 use MydlinkEvent;
 get MdDeviceAlertTimeline['F07D68077FFA:30466658'][1334816725291018];
@@ -30,7 +30,7 @@ count MdDeviceEventTimeline['00EF70033327:70033327'];
 select * from MdDeviceEvent where event_id='1025' and event_time='1334884621294893';
 
 # clear data
-cd /opt/dse-1.0-3/resources/cassandra/conf/
+cd /opt/dse-2.0-1/resources/cassandra/conf/
 #vim log4j-server.properties
 rm -f /var/log/cassandra/system.log
 #vim cassandra.yaml
@@ -39,12 +39,12 @@ rm -rf /var/lib/cassandra/commitlog
 rm -rf /var/lib/cassandra/data
 
 #run cassandra
-cd /opt/dse-1.0-3/bin/
+cd /opt/dse-2.0-1/bin/
 # ./dse cassandra -t
 在cassandra其他节点端，运行#./dse cassandra
 
 # import schema
-/opt/dse-2.0-1/bin/cqlsh localhost 9160 <   /opt/dse-1.0-3/resources/cassandra/bin/createSITE_cassandra.cql 
+/opt/dse-2.0-1/bin/cqlsh localhost 9160 <   /opt/dse-2.0-1/resources/cassandra/bin/createSITE_cassandra.cql 
 
 
 # monitor nodetool

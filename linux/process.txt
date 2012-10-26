@@ -24,6 +24,12 @@ echo $$
 w           #cpu load
 free -m     #memory usage
 
-uname -a
-
 vmstat 
+
+sar
+    -f filename # reading logfile
+    -r          # check memory
+    e.g.:
+        sar -f /var/log/sa/sa13 #date 13
+        sar -r -f /var/log/sa/sa13
+

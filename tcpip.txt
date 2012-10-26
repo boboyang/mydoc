@@ -1,3 +1,61 @@
+tools:
+    wireshark
+    sock program:
+        wget http://www.icir.org/christian/downloads/sock-0.3.2.tar.gz
+
++overview+
+TCP/IP:
+    app             # ping,ftp,telnet,traceroute,dns,snmp,smtp,nfs
+    transmission    # TCP,UDP,ICMP,IGMP
+    network         # IP,ARP,RARP
+    dat link        # mac driver
+ 
+OSI 7 layer
+    7. application      HTTP,FTP,SMTP,POP3,NFS,SSH...
+    6. presentation
+    5. session
+    4. transport    TDP, UDP
+    3. network      IP,ICMP
+    2. data-link    APR/RARP
+    1. physical
+
+++fixed port++
+cat /etc/services|less
+e.g.:
+    7   echo
+    9   discard  # server drop all recv
+    13  datetime
+    19  chargen 
+    20	FTP-data 
+    21	FTP
+    22	SSH
+    23	Telnet   # no passwd, un-secure
+    25	SMTP     # send, for mail server
+    53	DNS      # client set in /etc/resolv.conf   
+    80	WWW
+    110	POP3，   # mail recv
+    443	https
+    ...
+
+    
++data-link layer+
+eth0, wlan, ppp ...
+
+++eth protocol(RFC894)++
+length(byte)     6        6        2
+format:       dst MAC, src MAC,  type,       data
+IP                               0X0800   IP package(46~1500) CRC(4)
+ARP                              0X0806   请求/应答(28)        PAD(18)
+RARP                             0X8035   请求/应答(28)        PAD(18)
+
+the MAC is of machine in private net. when communicate with public net, one MAC is usally router's. 
+
+speed: 10/100/1000Mbps
+device:
+    eth:    RJ-45
+传输协定：CSMA/CD
+MTU：1500,...
+    
 +IP+
 http://www.networksorcery.com/enp/protocol/ip.htm
 
@@ -30,10 +88,43 @@ src ip:32
 dst ip:32
 optional:
 data:
+
+++ip class++
+Class A : 0 xxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx   ==> NetI_D的开头是0
+Class B : 10 xxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx   ==> NetI_D的开头是10
+Class C : 110 xxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx   ==> NetI_D的开头是110
+Class D : 1110 xxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx   ==> NetI_D的开头是1110 
+Class E : 1111 xxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx   ==> NetI_D的开头是1111
+
+十进位的表示： 
+Class A :   0.xx.xx.xx ~ 127.xx.xx.xx 
+Class B : 128.xx.xx.xx ~ 191.xx.xx.xx 
+Class C : 192 .xx.xx.xx ~ 223.xx.xx.xx 
+...
+
+IP class:
+    public ip
+    private ip
+    Class A：10.0.0.0 - 10.255.255.255
+    Class B：172.16.0.0 - 172.31.255.255
+    Class C：192.168.0.0 - 192.168.255.255
     
-subnet benefit:
-    make router table smaller
-        
+subnet:
+    benefit: make router table smaller    
+    Network = IP/Netmask
+    Broadcast = IP/Netmask & ~Netmask
+    exmaple：
+        Netmask: 255.255.255.0    <==网域定义中，最重要的参数 
+        Network: 192.168.0.0      <==第一个IP 
+        Broadcast: 192.168.0.255    <==最后一个IP
+        可用以设定成为主机的IP数：(Network， Broadcast),即：
+            192.168.0.1 ~ 192.168.0.254
+
+CIDR(Classless Interdomain Routing):
+    format：Network/Netmask
+    ex：192.168.0.0/24
+
+    
 +ARP: address resolving protocol+
     32IP --> 48MAC
         RARP: reverse
@@ -82,6 +173,7 @@ data:
 
 +ping+
     use ICMP
+    firewall may block it
     -R: record router
         drawback: 
             not supported by all router
@@ -100,7 +192,7 @@ data:
     use ICMP, count TTL
     --mtu: auto detect MTU
         imply -F -N 1
-    manual detect MTU:
+    manual detect MTU:  # set DF in IP package
         traceroute HOST PACKETLEN -F, e.g.:
              traceroute 172.18.195.30 1501 -F   #fail
              will cause ICMP(3 4) error
@@ -181,12 +273,12 @@ robustness:
 ++data format++
 src port:16
 dst port:16
-seq num:32
-ack num:32
-header len:4
+seq num:32          # max 4G
+ack num:32          # ack-1 = data received in bits
+header len:4        # include options len; TCP len is not needed, it can be calc by IP len
 Flags:12
     reserve:6
-    URG(urgent)
+    URG(urgent)     # meanwhile set urgent pointer 
     ACK
     PSH(push)
     RST(reset)
@@ -196,7 +288,32 @@ window size:16
 checksum:16
 urgent pointer:16
 options:    # count in TCP header
-    max segment size:32
+    kind:1
+        0:finish
+        1:NOP
+        2:MSS(max segment size)
+        3:Win scale
+            len:3
+            send when open TCP connection. later win size = window size * win scale
+            only set in con stage; because it's reliable confirmed.
+            max:14, witch means scale up 2^14, so that max win size = 2^(16*14) = 1G bits.
+        8:Timestamp
+            mono up value
+            recv algrithm:
+                tsrecent:   timestamp recent, to send.
+                    if rec seq num == lastact, update tsrecent = rec timestamp
+                    when send, timestamp echo = tsrecent
+                lastact:    last ACK seq num
+            result:
+                if more than 2 sended, early timestamp will be echoed back.
+            benefit:
+                to calc RTT more accurately. 
+                PAWS(protection agains wrapped sqeueue number), small chance:
+                    if rec seq num == lastact, but timestamp < tsrecent:
+                        drop the package
+                        
+    len:1
+    data:
 data:   # optional, such as in SYN or FIN
     
 application:
@@ -210,7 +327,7 @@ test
     
 con:                # three-way handshake
     --> SYN
-    <-- SYN,ACK     # ack num = seq num+1    
+    <-- SYN,ACK     
     --> ACK
 discon:             # four-way handshake
     --> FIN         # active close
@@ -231,8 +348,149 @@ half close:
         
 2MSL:   
     TIME_WAIT = 2 * MSL(max segment lifetime)    
-    for active closer, wait 2MSL after four-way discon ACK, meanwhile frozen its port
+    for active closer, wait 2MSL after four-way discon ACK, meanwhile frozen its port.
+    
     purpose:
-        1. re-send, if server dose not rcv its ACK
+        1. during the time, if peer dose not receive step 4(ACK) and retransmit step 3(FIN), it can retransmit step 4.
         2. prevent passive closer abnormal, if active closer make new con, with same ip:port
         
+quiet time:
+    after system reboot, MSL should be waited before establish new TCP connection.
+    
+FIN_WAIT_2:
+    wait for half close from peer, maybe forever.
+    many impl close TCP after 10 min, to avoid it.
+    
+++reset++        
+    connect to non-exist port:      # in UDP, a ICMP(3 3) is got
+        --> SYN
+        <-- RST,ACK
+    abortive release:
+        RST to close, instead of FIN
+    half open:        
+        if one peer dropped line or system crash, it does not send FIN/RST, the other dose not know, still keep opened.
+        if the restarted peer open same ip:port again, and the other peer send TCP to it, the restarted will reply RST(abortive release).
+        if system shutdown, TCP FIN will send, will not cause half open.
+   
+++simultaneous open++       # four-way handshake
+    both use fixed ip:port
+    more possible, if RTT is longer
+    transaction:
+        SYN <--> SYN            J/K
+        SYN,ACK <--> SYN,ACK    K+1/J+1
+            
+++simultaneous close++        
+
+++TCP data flow++
+
+delayed ACK:
+    delay sending an ACK response by up to 500 ms
+    to send ACK with next data together, to improve performance
+    
+Nagle algrithm:
+    for small chunks, if there is unconfirmed data still in the pipe:
+        enqueue data in the buffer until an acknowledge is received
+    when to disable it:
+        for in time interaction
+
+++TCP bulk data flow++   
+
+sliding window:
+    action:
+        closing:  left -> right
+        openning: right -> right
+        shrinking:right -> left (should avoid) 
+        
+slow start:
+    cwnd: congestion window
+    cwnd=2**ack
+
+capacity(bit)=bandwith(b/s) * RTT(s)
+    RTT:    round-trip time
+    
+++TCP Timeout and Retransmission++
+question:
+    interval and freq
+
+TCP timers:
+    retransmist
+        timeout: in 1,3,6,12,24,48 sec
+    persist:    to keep window size flow
+        when receiver inform 0 win size. sender will start persist timer.
+        sender will send ACK with 1bit, time in 5,6,12,24,48 sec. Go on forever.
+    keepalive
+        for server to close half opened connection
+    2MSL
+    
++++RTT+++        
+ping can get rtt
+
+++ congestion avoidance algrithm ++
+
+++ fast retransmit and fast recovery++
+
+++T/TCP++
+    avoid 3 way handshake
+    shorten TIME_WAIT
+    
++SNMP+
+    SNMP(simple network management protocol)
+    components:
+        MIB(mgr info base)
+        SMI(structure of mgr info)
+        SNMP
+
+++protocol++
+trans protocol: mostly UDP, so timeout and retransmission needed. 
+mgr port:162     agent port:161
+    using different ports: 
+    so that a system can be both mgr or agent
+
+format:
+ver(0):1
+common str:
+PDU type:
+    0: get-req 
+    1: get-next-req
+    2: get-resp     # agent send
+    3: set-req
+    4: trap         # agent send
+req id:
+error state:
+error index:
+name:
+value:
+...
+
++telnet+
+
+NVT: network virtual terminal
+end of line:
+    CR: 0x0d    
+    LF: 0xoa
+
+IAC: interpret as command
+    0xff
+    
++ftp+
+
+request/response:
+    (type:len)
+    code:3  # NVT ASCII
+    arg:
+
+multi-line: 
+    code-...
+    ...
+    (same)code ...    
+    
+sequence:
+    client                      server
+    port1             con -->    21
+    PORT ip,port2(2*16bit)-->    21
+    port2          <--con        20(ftp-data) 
+    port2          <--data       20
+    port2          <--discon     20
+    port1          <--send OK    21             
+           
+    

@@ -10,6 +10,20 @@ mysql -h localhost -uroot -p
 #set passwd
 sudo mysqladmin -uroot -p password XXX
 
+# recover passwd
+sudo -i
+/etc/rc.d/mysqld stop
+mysqld_safe --skip-grant-tables&
+mysql -u root
+mysql> use mysql;
+mysql> update user set password=PASSWORD("NEW-ROOT-PASSWORD") where User='root';
+mysql> flush privileges;
+mysql> quit
+/etc/rc.d/mysqld stop
+/etc/rc.d/mysqld start
+mysql -u root -p
+
+
 #mysql cmd
 
 \h
