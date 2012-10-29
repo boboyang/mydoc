@@ -33,11 +33,24 @@ import:
     sys.path:
         .append() 
     os.path.expanduser('~/')
-    
+
+print:
+    redirect to file:
+        fo = open("/tmp/abc.txt", "w+")
+        print >> fo, 'ok'
+
+random:
+    os.urandom(LEN)     # random string 
+    random.random()
+    random.randint()     
+          
 data structure:
 -basic:
     hex(255)
     int('ab', 16)
+    ord('\r')
+-set:
+    op: -, |, &    
 - dict:
     d = {"k1":"v1", "k2":"v2"}
     d = dict(mapping):
@@ -134,7 +147,12 @@ nose: UT
         pip install coverage
         nosetests --with-coverage --cover-html
             default coverage report in ./cover/ folder
-                
+---
+debug:
+    import traceback
+    for line in traceback.format_stack():
+        print line.strip()
+                        
 ---
 performance:
     profile:
@@ -310,8 +328,15 @@ descriptor:
         __slot__: limit __dict__ attr
 
 ---
-mq: 
+msg queue: 
     Rabbitmq
+    zmq
+    
+---
+unicode:
+    s1= u'中国'
+    assert s1.encode('utf-8').decode('utf-8') == s1
+    urllib.unquote(urlstr).decode('gbk')
     
 +web+
     URL:         

@@ -1,5 +1,27 @@
 
+request:
+    type:
+        GET: non-commital
+        POST: 
+        PUT: update resource
+        DELETE
+    header:
+        Host: 
+            指定请求资源的Intenet主机和端口号
+        Referer:
+            允许客户端指定请求uri的源资源地址，这可以允许服务器生成回退链表，可用来登陆、优化cache等。他也允许废除的或错误的连接由于维护的目的被追踪。如果请求的uri没有自己的uri地址，Referer不能被发送。
+        User-Agent: web client info
+                    
 response:
+    2xx Successful
     3xx: redirection
         301: page has moved permanently
         302: move temporary
+    4xx: client error
+    5xx: server error
+    
+URI (Uniform Resource Identifier)
+    URN(..name)
+    URL(..locator):
+        protocol://username@hostname:port/path/filename?query#fragment
+    

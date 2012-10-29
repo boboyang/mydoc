@@ -1,0 +1,23 @@
+TCB：准许在终端中访问/sys以及/resource目录。
+你看你要访问的那个目录 是/sys 或者 /resource么 如果是的话 那么 你就需要tcb的能力
+Capabilities:
+NetworkServices：用于使用移动网络，例如：拨打电话或发送文本消息。
+LocalServices：用于通过USB、红外和蓝牙发送或接收消息。
+ReadUserData：准许读取用户数据。系统服务器和应用引擎可以自由地对他们的数据施加这一限制。
+WriteUserData：准许写入用户数据。系统服务器和应用引擎可以自由地对他们的数据施加这一限制。
+Location：准许访问手机的位置信息。
+UserEnvironment：准许访问用户及其附近环境的实时保密信息。
+PowerMgmt：准许在系统中中断任何进程或者转换机器状态（关掉设备）。
+SwEvent：准许生成或者捕获键盘以及笔输入事件。
+ReadDeviceData：准许读取系统设备驱动数据。
+WriteDeviceData：准许写入系统设备驱动数据。
+SurroundingsDD：准许访问提供外围设备输入信息的逻辑设备驱动。
+TustedUI：区分”normal”应用和”trusted”应用的UI。当一个”trusted”应用在屏幕上显示内容时，一个”normal”的应用不能伪造它。
+ProtServ：准许服务器应用可以用一个受保护的名字进行注册。受保护的名字以”!”开头。
+NetworkControl：准许修改或者访问网络协议控制。
+MultimediaDD：准许对所有多媒体设备驱动（声音、摄像头等）的访问。
+DRM：准许访问DRM保护的内容。
+TCB：准许在终端中访问/sys以及/resource目录。
+CommDD：准许访问通信设备驱动。
+DiskAdmin：准许进行硬盘管理操作，例如格式化驱动器。
+AllFiles：准许系统中的所有文件可见，而且还可对在/private下的文件进行写操作。

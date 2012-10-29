@@ -1,0 +1,13 @@
+intro:
+    http://blog.csdn.net/lake2/article/details/2245754
+
+完整的CSRF防御方案，对于Web框架来说有以下几处地方需要改动。
+
+（1）在Session中绑定token。如果不能保存到服务器端Session中，则可以替代为保存到Cookie里。
+
+（2）在form表单中自动填入token字段，比如 <input type=hidden name="anti_csrf_token" value="$token" />。
+
+（3）在Ajax请求中自动添加token，这可能需要已有的Ajax封装实现的支持。
+
+（4）在服务器端对比POST提交参数的token与Session中绑定的token是否一致，以验证CSRF攻击。
+

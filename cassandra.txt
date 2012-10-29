@@ -22,8 +22,8 @@ sudo mkdir -p -m 777 /var/log/cassandra /var/lib/cassandra
 
 use MydlinkEvent;
 get MdDeviceAlertTimeline['F07D68077FFA:30466658'][1334816725291018];
-get MdDeviceEventTimeline['00EF70000010:70000001'][1334730910010013];
-get MdDeviceEventTimeline['00EF70000010:70000001'] limit 10;
+get MdDeviceEventTimeline['00EF70000001:70000001'][1334730910010013];
+get MdDeviceEventTimeline['00EF70000001:70000001'] limit 10;
 count MdDeviceEventTimeline['00EF70033327:70033327']; 
 
 

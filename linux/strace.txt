@@ -1,18 +1,19 @@
 strace
-refer:http://www.hokstad.com/5-simple-ways-to-troubleshoot-using-strace.html
+    trace system calls and signals
+    refer:http://www.hokstad.com/5-simple-ways-to-troubleshoot-using-strace.html
 
--p  pid: attach to a process. if not, start a process by name
+-p pid: 
+    attach to a process. if not, start a process by name
 
 -c: count, performance statistic, using Ctrl+C to exit strace. can be used with -p
-
-ex:
-strace -c >/dev/null ls
+    e.g.:
+        strace -c >/dev/null ls
 
 -e XXX,YYY: filter
-ex:
-strace -e open,access iostat
-strace -p 20374 -e epoll_wait,read -c
-strace -e poll,select,connect,recvfrom,sendto nc www.news.com 80
+    e.g.:
+        strace -e open,access iostat
+        strace -p 20374 -e epoll_wait,read -c
+        strace -e poll,select,connect,recvfrom,sendto nc www.news.com 80
 
 
 

@@ -55,6 +55,10 @@ insert into mytable values('',...);
 #load data
 load data local INFILE 'xxx.txt' into table mytable;
 
+# query cache
+mysql> show variables like '%query_cache%';
+mysql> show status like '%qcache%';
+
 #backup
 mysqldump -h localhost -uroot -p mydb>mydb.sql
 #restore

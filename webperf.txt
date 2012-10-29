@@ -1,21 +1,15 @@
 IDC: 互联网数据中心,用来托管web服务器
 IDC网管 通过对交换机限速，来控制链路层的流量，从而控制server带宽。
 
+交换机、集线器(Hub)、路由器区别：
+    集线器采用的式共享带宽的工作方式，而交换机是独享带宽。
+    交换机是利用MAC地址来确定转发数据的目的地址。而路由器则是IP地址来确定数据转发的地址。
+    路由器提供了防火墙的服务
 
-交换机、集线器(Hub)、路由器区别
-
-集线器采用的式共享带宽的工作方式，而交换机是独享带宽。
-
- 交换机是利用MAC地址来确定转发数据的目的地址。而路由器则是IP地址来确定数据转发的地址。
- 路由器提供了防火墙的服务
-
-cat /proc/loadavg
-top, w 都是利用这个文件。 1,5,15 min 的cpu负载
 
 Nmon 分析系统，生成曲线
 
 IOWait: io time/ cpu time
-查看： top命令， cpu: XX%wa 
 
 进程的两种运行状态：用户态(cpu, memory)，内核态(IO, net)。
 
@@ -23,21 +17,21 @@ IOWait: io time/ cpu time
 
 1987年， Patterson、Gibson和Katz这三位工程师在加州大学伯克利分校发表了题为《A Case of Redundant Array of Inexpensive Disks(廉价磁盘冗余阵列方案)》的论文，其基本思想就是将多只容量较小的、相对廉价的硬盘驱动器进行有机组合，使其性能超过一只昂贵的大硬盘。
 
-SATA的全称是Serial Advanced Technology Attachment（串行高级技术附件，一种基于行业标准的串行硬件驱动器接口）
+SATA(Serial Advanced Technology Attachment):
+    串行高级技术附件，一种基于行业标准的串行硬件驱动器接口
 
-memory mapping: 把内存的某块地址空间与磁盘文件相关联，从而更快地访问文件。
+memory mapping: 
+    把内存的某块地址空间与磁盘文件相关联，从而更快地访问文件。
 
-strace: trace system calls and signals.
 Linux2.6之后，用户态和磁盘文件之间设置了内核缓冲区，使用了批量延迟写的策略。如果想直接读写磁盘，可以设置O_DIRECT参数。
 
 Linux2.4之后，加入sendfile(), 可以将静态文件直接送到socket fd，从而提高了速度，减少cpu/内存开销。该方法不适合太小的文件。
 
-epoll的优势在于：有大量非活跃的连接时。
+epoll的优势在于：有大量非活跃的连接时,仍保持较高吞吐量。
 
 第5章 动态脚本加速
 
 opcode
-
 
 脚本性能的跟踪与分析
 
@@ -50,7 +44,7 @@ ex：
 chrome://view-http-cache/http://static.adzerk.net/Advertisers/879d9e1805a6495a9e3cbeeffe6da2ad.png
 
 缓存协商
-Last-Modified
+Last-Modified --- time
 Etag:  ---  If-None_Match:
 md5(content) or more sophisticated
 
@@ -72,7 +66,7 @@ Cache-Control: max-age=<second>
 主要目的：基于缓存的加速。
 副作用：还能有firewall功能，不过iptables也可以做到
 
-nginx： 优势，使用了epoll， 在大并发下仍能有较高的吞吐率。
+nginx： 
 打开mode-proxy模块
 ex:
 location ~ \.*$ {
@@ -108,7 +102,6 @@ ESI： edge side include
 http://site-perf.com
 
 静态内容是IO密集型数据。
-
 
 反向代理
 
@@ -200,16 +193,20 @@ NFS Samba
 NFC 使用RPC，工作在应用层, 不适合I/O密集型文件共享。
 
 
-
 16章 数据库扩展
 1. 主从复制，读写分离。 
 主： 写，1.
 从： 读, 多。
 2.垂直分区： 按table分离数据库。
-3.水平分区（sharding）： usr_id %n
+3.水平分区（sharding）： 
 方法：
-hash：均衡，扩展数据库个数时麻烦。
-固定范围：老数据访问的压力较大，扩展行好。
+    hash(id)：
+        pro：均衡：
+        prone：扩展数据库个数时麻烦。
+    固定范围：
+        prone：老数据访问的压力较大，
+        pro：扩展性好。
+        
 映射关系：
 
 mysql proxy：帮助app实现读写分离
@@ -218,7 +215,6 @@ spock proxy：帮助app实现水平分区的访问
 17章 分布式计算
 gearman： 跨语言
 memcachedQ： 消息队列服务
-
 Map/Reduce： google，hadoop
 
     

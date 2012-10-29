@@ -7,4 +7,4 @@ poll：
     无fd size限制：通过一个pollfd数组向内核传递需要关注的事件
     
 epoll：
-    register，wait callback        
+    register && wait callback        

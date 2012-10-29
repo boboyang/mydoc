@@ -1,6 +1,9 @@
-基于WEB 的实时事件通知方案
-
-基于 WEB 的实时事件通知方式大致有五种方案：HTTP拉取方式(pull)，HTTP流，Long Polling，FlashXMLSocket方式，Java Applet。
+基于 WEB 的实时事件通知方式大致有五种方案：
+    HTTP拉取方式(pull)，
+    HTTP流(push)，
+    Long Polling，
+    FlashXMLSocket方式，
+    Java Applet。
 
 
 首先说下Comet这个词，Comet 这个词是最早由Alex Russell（DojoToolkit 的项目 Lead）提出的，称基于 HTTP 长连接、无须在浏览器端安装插件的“服务器推(Push)”技术为“Comet”。
@@ -27,8 +30,6 @@ HTTP流有两种形式：
 
 
 4.Flash XMLSocket(push机制)
-
-
 这种方案实现的基础是：
   1. 安装了 Flash 播放器，Flash 提供了 XMLSocket 类(Flash 7.0.14以上版本)。
   2.JavaScript 和 Flash 的紧密结合：在 JavaScript 可以直接调用 Flash 程序提供的接口。

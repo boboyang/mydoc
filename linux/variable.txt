@@ -1,21 +1,23 @@
 #http://vbird.dic.ksu.edu.tw/linux_basic/0320bash.php#variable
 #variable usage
 
-name=whille
-unset name
-echo $name #or ${name}
-name="while's name"
-# or name=name=while\'s\ name  #while's name
+set:
+    name=XXX
+        name="while's name"
+        name=name=while\'s\ name  #same effect
+unset:    
+    unset name  #delete variable
+show:
+    echo $name #or ${name}
+modify:
+    name=${name}" is me"
 
-#append
-name=${name}" is me"
-
-#export
+#export variable
 export: set variable to use in sub shell, store  in mem, so effect only in current login
     export :show all
         export |grep XXX:   search XXX 
     export name=XXX
-    unset name: delete variable
+    unset name: 
     
     #make it all the time
     vi /etc/profile
@@ -28,21 +30,16 @@ ls /lib/modules/$(uname -r)/kernel
 # show all env
 env
 
-#本 shell 的 PID
-echo $$
-
-# return value
-echo $?
+#special $:
+    echo $? # show last sh return value
+    echo $$ # current shell 的 PID
+        e.g.:
+            #shell in shell
+            sh
+            echo $$
+            exit
 
 locale
-
-#shell in shell
-sh
-echo $$
-sh
-echo $$
-exit
-exit
 
 #interact with user
 read -p "please input" -t 10 name

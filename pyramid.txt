@@ -204,7 +204,7 @@ session:
             reques.session
                 .flash('xxx')
                 .pop_flash()
-    Preventing Cross-Site Request Forgery Attacks:
+    Preventing Cross-Site Request Forgery Attacks(CSRF):
         token = request.session.get_csrf_token()
         if token != request.POST['csrf_token']:
             raise ValueError('CSRF token did not match')
@@ -303,7 +303,7 @@ Add-Ons:
             requires = [...'xxx']
         __init__.py:    
             config.include('xxx')
-    pyramid_beaker:
+    pyramid_beaker: session & cache 
         href:   http://beaker.readthedocs.org/en/latest/configuration.html
         .ini:
             [app:myapp]

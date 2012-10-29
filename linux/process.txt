@@ -1,5 +1,5 @@
 #job control
-&       #backgroup run
+[cmd] &       #backgroup run
 ^Z      #stop
 jobs
 fg 
@@ -12,21 +12,28 @@ kill:
         15) SIGTERM
     man 7 signal
 
-#PID and PPID  # parent PID
-ps -l          #view all
-ps aux
-pstree Aup
+#PID and PPID(parent PID)
 
-nohup   # run even log-off
-top
-echo $$
+ps:
+    -l          #view all
+    -ef         # show PID, PPID 
+    aux
 
-w           #cpu load
+pstree:
+    -Aup
+
+nohup [cmd]:
+    run even log-off or close terminal
+
+top & w:
+    get data from /proc/loadavg,   #cpu load average, in 1,5,15 min
+
+
 free -m     #memory usage
 
 vmstat 
 
-sar
+sar:    Collect, report, or save system activity information.
     -f filename # reading logfile
     -r          # check memory
     e.g.:
