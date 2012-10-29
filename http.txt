@@ -14,6 +14,9 @@ request:
                     
 response:
     2xx Successful
+        200: OK
+        201: created
+        204: no content
     3xx: redirection
         301: page has moved permanently
         302: move temporary

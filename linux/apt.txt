@@ -1,15 +1,16 @@
-http://vbird.dic.ksu.edu.tw/linux_server/0210network-secure/0220upgrade.php#apt_config
-#config
-/etc/apt/sources.list
+man apt-get
 
-apt-get --help
+apt-cache search XXX
+
+apt-get upgrade
+apt-get dist-upgrade
+
+apt-cache depends XXX #来看到软件包的所有相依性档案， 
+apt-get install 
+
+apt-get remove XXX
+apt-get autoremove
+
+apt-get clean       #下载下来的 rpm 会放置於 /var/cache/apt/archives，使用 apt-get clean 指令可以将之清除，避免占用硬碟空间 
 
 
-#schedule
-sudo gedit /etc/crontab &
-40 22 * * * root /usr/bin/apt-get update && /usr/bin/apt-get -y dist-upgrade
-
-apt-cache --help
-apt-cache search grep
-apt-cache show grep
-apt-cache depends grep
