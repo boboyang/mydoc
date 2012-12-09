@@ -31,13 +31,18 @@ ls /lib/modules/$(uname -r)/kernel
 env
 
 #special $:
-    echo $? # show last sh return value
-    echo $$ # current shell 的 PID
-        e.g.:
-            #shell in shell
-            sh
-            echo $$
-            exit
+    man bash: special PARAMETERS:
+    $? # show last sh return value
+        perror NUM  #show str meaning
+    $$ # current shell 的 PID
+        e.g.:   sh; echo $$; exit
+    $!: last execute process id
+    $# 是传给脚本的参数个数
+    $0 是脚本本身的名字
+    $1 是传递给该shell脚本的第一个参数
+    $2 是传递给该shell脚本的第二个参数
+    $@ 是传给脚本的所有参数的列表
+    $* 是以一个单字符串显示所有向脚本传递的参数，与位置变量不同，参数可超过9个
 
 locale
 

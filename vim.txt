@@ -63,6 +63,8 @@ y   #copy
 p   #paste prvious del text
 
 #search
+/XXX
+    \c  #case insensitive
 /   #search forward
 ?   #search backward
 n   #next

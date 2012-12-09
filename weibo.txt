@@ -1,0 +1,3 @@
+#test weibotext use userid and weiboid
+e.g.:
+api.t.sina.com.cn/2168298721/statuses/3519810270891661

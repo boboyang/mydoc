@@ -1,0 +1,16 @@
+block ads on webpage
+    user: global
+        db
+        easy signup/login
+        data mining
+        update block info, like autoproxy
+        
+hot blog comments:
+    free ad
+    推荐博文
+        blog.sina.com.cn
+        
+douban:
+    活动推送
+    电影排名热点：IMDB
+    

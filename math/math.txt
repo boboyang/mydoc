@@ -9,3 +9,6 @@ s.t. : subject to, 使得...满足...
     　　2-范数：║x║2=(│x1│^2+│x2│^2+…+│xn│^2)^1/2
     　　∞-范数：║x║∞=max(│x1│,│x2│,…,│xn│)
     　　
+Gradient:梯度∇
+    http://en.wikipedia.org/wiki/Gradient
+    

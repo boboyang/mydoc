@@ -1,0 +1,35 @@
+svn help xxx
+
+svn co http://xxx
+
+svn info    # get current svn site info
+
+svn add xxx
+svn commit -m 'xxx' PATH    #(./)
+
+svn lock -m '...' PATH
+svn unlock PATH
+
+update:
+svn update                  # to latest
+svn update -r m path    
+svn update -r 200 test.php  # reverse back to ver 200
+
+svn status [-v] PATH
+
+
+svn del PATH -m '...'
+svn log PATH
+svn info PATH
+
+diff:
+svn diff PATH
+svn diff -r VER1:VER2 PATH
+
+svn mkdir PATH
+
+svn revert PATH
+
+svn switch(sw) URL[PATH]
+
+svn resolved PATH

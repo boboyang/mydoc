@@ -396,17 +396,22 @@ Nagle algrithm:
 ++TCP bulk data flow++   
 
 sliding window:
+    aim: to alow sending more pack before ack.
+    how: recv buf
     action:
-        closing:  left -> right
-        openning: right -> right
+        closing:  left -> right. when pack sent and acked
+        openning: right -> right. when recver ack and free buffer 
         shrinking:right -> left (should avoid) 
         
-slow start:
+slow start: sending increase control
     cwnd: congestion window
-    cwnd=2**ack
+    cwnd=2**ack     # E increase
 
 capacity(bit)=bandwith(b/s) * RTT(s)
     RTT:    round-trip time
+    
+linux args setting: /proc/sys/net/ipv4/
+    http://blog.chinaunix.net/space.php?uid=522598&do=blog&id=291361
     
 ++TCP Timeout and Retransmission++
 question:

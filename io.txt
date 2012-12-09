@@ -1,6 +1,6 @@
 select:
     轮询
-    __FD_SETSIZE（1024）
+    __FD_SETSIZE（default:1024）
     
 poll：
     轮询

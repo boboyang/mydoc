@@ -82,7 +82,7 @@ pacman -S pulseaudio alsa-utils gstreamer0.10-plugins smplayer audacious mcomix 
 yaourt -S wine-thunder wqy-microhei pS ttf-arphic-uming briss qterm osdlyrics aliedit libXinerama libXft bcompare 
 
 #dev
-pacman -S base-devel cmake ccache wireshark-gtk ethtool sysstat gdb curl git svn gvfs-afc ctags cscope memcached redis libmemcached tk mysql nbtscan traceroute strace
+pacman -S base-devel cmake ccache wireshark-gtk ethtool sysstat gdb curl git hgsvn svn gvfs-afc ctags cscope memcached redis libmemcached tk mysql nbtscan traceroute strace
 
 #DAEMONS=(hwclock syslog-ng acpid dbus slim wicd crond)
 

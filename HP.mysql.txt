@@ -1,0 +1,76 @@
+architecture:
+    connect/auth
+    query cache/parser/optimizer
+    storage engine
+
+lock:
+    granularity:
+        table lock
+        row lock    
+            implemented in storage engine
+    cmd:
+        lock tables xxx read|write;
+        unlock tables;
+        
+            
+sql isolation:  within transaction
+    read uncommitted
+    read committed
+    repeatable read(mysql default)
+    serializable    #lock every row
+    
+autocommit:
+    show variables like 'autocommit';
+    set autocommit=1;
+    
+Multiversion Concurrency Control(MVCC):
+    row level
+    applied to:
+        read committed
+        repeatable read
+InnoDB:
+    good at many transaction with less rollback
+    default transactional storage engine for mysql
+    use MVCC
+    default repeatable read isolation
+    clustered index table
+    optimization:
+        predictable read-ahead
+        adaptive hash index
+        insert buffer
+        ...
+        
+MyISAM engine:
+    good at:
+        select and insert, fast logging
+    drawback:
+        data lost when crash
+    default storage engine, ver >5.1
+    store table in 2 files:
+        data file
+        index file
+    features:
+        lock entire table
+        delayed_key_write
+    compressed:
+        use myisampack
+        read-only
+        faster
+Table conversion:
+    alter table
+    mysqldump + mysqlimport
+    create and select
+        create table pet2 like pet;        
+        alter table pet2 engine=MyISAM;
+        insert into pet2 select * from pet;
+    
+benchmark strategies:
+    full-stack
+    single component
+    
+benchmark measure:
+    throughput
+    response time or latency
+    concurrency
+    scalability
+    

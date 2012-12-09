@@ -48,9 +48,9 @@ safety:
 =test=
 start:
     memcached -d m 64 -l 127.0.0.1 -p 11211
-echo "test memcached">data
-memccp data --servers=127.0.0.1:11211
-memccat data --servers=127.0.0.1:11211
+echo "test memcached">data  
+memcp data --servers=127.0.0.1:11211    
+memcat data --servers=127.0.0.1:11211
 
 telnet localhost 11211
 get data

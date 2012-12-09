@@ -51,7 +51,9 @@ js grammer:
                 ...
             }
         }
-        
+this:
+    var obj=new fn();
+    fn2(obj);
 oo programming:
     JSON: 是一种轻量级数据交换格式。JSON非常易于人阅读与编写，同时利于机器解析与生成
     JSON obj:

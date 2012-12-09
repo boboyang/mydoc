@@ -1,0 +1,5 @@
+#repair
+investigate:  ~/workspace/.log
+rm:
+~/workspace/.metadata/.plugins/org.eclipse.core.resources/.projects
+

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.3">
+  <zoom_level>9</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>288</x>
+      <y>306</y>
+      <w>189</w>
+      <h>351</h>
+    </coordinates>
+    <panel_attributes>PaxoxLeader
+{innerclass
+HeartbeatListener(Thread)
+--
+doAbort()
+run()
+innerclass}
+{innerclass
+HeartbeatListener(Thread)
+--
+newHB()
+doAbort()
+run()
+innerclass}
+--
+port
+leaders
+acceptors
+isPrimary
+--
+start()
+stop()
+setPrimary()
+getHistory()
+sendMessage()
+recvMessage()
+newProposal()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>513</x>
+      <y>306</y>
+      <w>153</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>PaxoxAcceptor
+--
+port
+leaders
+acceptors
+instances
+msgPump
+--
+start()
+stop()
+fail()
+recover()
+sendMessage()
+recvMessage()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>423</x>
+      <y>702</y>
+      <w>153</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>MessagePump(Thread)
+{innerclass
+MPHelper(Thread)
+--
+run()
+innerclass}
+--
+abort
+timeout
+port
+socket
+queue
+helper
+--
+run()
+doAbort()
+sendMessage()
+waitForMessage()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>468</x>
+      <y>504</y>
+      <w>134</w>
+      <h>215</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>117;27;27;198</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>414</x>
+      <y>18</y>
+      <w>90</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>Message
+--
+command
+proposalID
+instanceID
+source
+to
+value
+--
+copyAsReply()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>630</y>
+      <w>152</w>
+      <h>89</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>27;27;135;72</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>324</x>
+      <y>216</y>
+      <w>135</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>PaxosLeaderProtocol
+--
+doTransition()
+propose()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>513</x>
+      <y>198</y>
+      <w>153</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>PaxosAcceptorProtocol
+--
+doTransition()
+notifyClient()
+recvProposal()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>360</x>
+      <y>243</y>
+      <w>44</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+r1=use</panel_attributes>
+    <additional_attributes>27;27;27;63</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>558</x>
+      <y>243</y>
+      <w>44</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+r1=use</panel_attributes>
+    <additional_attributes>27;27;27;63</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>369</x>
+      <y>126</y>
+      <w>107</w>
+      <h>107</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+r1=use</panel_attributes>
+    <additional_attributes>90;27;27;90</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>432</x>
+      <y>126</y>
+      <w>170</w>
+      <h>89</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+r1=use</panel_attributes>
+    <additional_attributes>27;27;153;72</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>108</x>
+      <y>198</y>
+      <w>117</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>InstanceRecord
+--
+protocols
+highestID
+value
+--
+addProtocol()
+getProtocol()
+cleanProtocols()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>864</x>
+      <y>477</y>
+      <w>189</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>_:PaxosLeaderProtocol_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>927</x>
+      <y>477</y>
+      <w>44</w>
+      <h>395</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>27;27;27;378</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>945</x>
+      <y>549</y>
+      <w>18</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>819</x>
+      <y>504</y>
+      <w>143</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+propose
+</panel_attributes>
+    <additional_attributes>126;45;27;45</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>1089</x>
+      <y>477</y>
+      <w>108</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>_:PaxosLeader_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>1116</x>
+      <y>477</y>
+      <w>44</w>
+      <h>386</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>27;27;27;369</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>936</x>
+      <y>522</y>
+      <w>239</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+getAcceptors
+</panel_attributes>
+    <additional_attributes>198;45;180;45;27;45</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.SeqObjectActive</type>
+    <coordinates>
+      <x>1134</x>
+      <y>567</y>
+      <w>18</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+</diagram>

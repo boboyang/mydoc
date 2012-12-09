@@ -60,6 +60,12 @@ git archive TAGNAME [subpath] --> stdout
     ex: git archive verification-v1.0 checkevtlog |gzip > ~/verification-v1.0.tar.gz
 
 log:
+    git help log
+    git log <path>
+        -p: show patch
+        -NUM: show last NUM commit
+        [<since>..<until>]
+        
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
     git lg: show colorful logs
     ref: http://coolshell.cn/articles/7755.html

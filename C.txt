@@ -1,0 +1,57 @@
+global: 
+    所有文件都可见。只能定义一次：在.c/cpp. 其他地方要用 "extern int x;"引用。
+
+static:
+    隐藏可见性。
+    global static:
+        如果定义在.h, 被多处引用，那么每个文件维持一份数值。
+        
+STL:
+    特点：基于模板。数据结构和算法的分离。
+    目的：提供通用方法。
+    组成：
+        iterator: 提供了访问容器中对象的方法。像指针一样使用。不用知道对象的内容。
+            op：*it， 比较，移动：++， 复制：=
+            种类：Input: 只读。Forward，Bidirectional：--。Random： +n
+        container: vector,list,dequeue，map，set
+        algrithm: sort(), find()...    
+        
+virtual函数：
+    子类override父类， 实现polymorphsm。
+    实现：VTable： 每个类对应一个。
+    ctor()不能为虚： 因为要先ctor，再生成Vtable。
+    
+overload:
+    函数名相同，arg不同。
+    
+Little_Endian:  linux/windows
+    0x1234: 12: 34:low addr    
+Big-Endian：     net transport
+    0x1234: 34: 12:low addr
+     
+memory segment：
+    stack   |high addr,    # 由编译器自动分配释放   ，存放函数的参数值，局部变量的值等。
+    heap                   # 
+    data(static), include BSS
+    code    |low addr
+         
+pointer:
+    int *p[n];          指针数组，每个元素均为指向整型数据的指针。
+    int (*p)[n];        p为指向一维数组的指针，这个一维数组有n个整型数据。
+    int (*p)();         函数指针。
+    int (*p[10])(int)   函数指针数组，每个指针指向一个int fn(int)  
+    
+swap int，不使用第三个变量。
+aws:
+    #define swap(a, b) \
+        a=a+b;         \
+        b=a-b;         \
+        a=a-b;
+    swap2(a,b):
+        a=a^b; b=a^b; a=a^b;   
+        
+cast operator:
+    reinterpret_cast
+    static_cast
+    const_cast
+    dynamic_cast  

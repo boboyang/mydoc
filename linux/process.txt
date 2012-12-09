@@ -18,6 +18,7 @@ ps:
     -l          #view all
     -ef         # show PID, PPID 
     aux
+    -o pid,ppid,pgid,cmd
 
 pstree:
     -Aup

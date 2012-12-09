@@ -1,0 +1,103 @@
+python manage.py runserver 8080
+
+url.py:
+urlpatterns = patterns('',
+    (r'^time/$', current_datetime),
+    (r'^time/plus/(\d{1,2})/$', hours_ahead),
+)
+
+def hours_ahead(request, offset):
+    offset = int(offset)
+    ...
+    在这里我们命名变量为 offset ，你也可以任意命名它, 重要的是它的位置，它是这个函数的第二个 参数 (在 request 的后面）
+
+Template:
+    {{ person_name }}
+    # for 
+    {% for item in xxx %}
+        <li>{{ item }}</li>
+    {% if not forloop.last %} | {% endif %} # add '|' between item
+    {% endfor %}
+    {% for key, value in data.items %}
+        {{ key }}: {{ value }}
+    {% endfor %}
+
+    # if
+    {% if xxx [and|or|not ...] %}
+        ...
+    {% else %}
+        ...    
+    {% endif %}
+    # ifequal/ifnotequal
+    {% ifequal xxx yyy %}
+    {% endifequal %}
+    # filter
+    {{ name|lower }}
+    {{ my_text|escape|linebreaks }}
+    {{ship_date|date:"F j, Y" }}    
+    {# This is a comment #} #先转义文本到HTML，再转换每行到 <p> 标签
+    {{ bio|truncatewords:"30" }}
+python manage.py shell
+    模板系统能够非常简洁地处理更加复杂的数据结构，例如list、dictionary和自定义的对象
+>>> person = {'name': 'Sally', 'age': '43'}
+>>> t = Template('{{ person.name.upper }} is {{ person.age }} years old.')
+>>> c = Context({'person': person})
+>>> t.render(c)
+    # list
+    t = Template('Item 2 is {{ items.2 }}.')    
+    当模板系统在变量名中遇到点时，按照以下顺序尝试进行查找：
+        字典查找 （比如 foo["bar"] )
+        属性查找 (比如 foo.bar )
+        方法调用 （比如 foo.bar() )
+        列表类型索引查找 (比如 foo[bar] )
+    默认情况下，如果一个变量不存在，模板系统会把它展示为空字符串，不做任何事情地表示失败，
+    t.render(Context())
+    # settings.py
+    TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
+)
+    # in views.py
+    from django.template.loader import get_template, render_to_response
+    t = get_template('current_datetime.html')
+    from django.shortcuts import render_to_response
+    render_to_response(templateName, Context(...))
+    locals()
+    
+    {% include "nav.html" %}
+    # inherit
+    {% block title %}{% title %}
+    {% extends "base.html" %}
+    {% block title %}The current time{% endblock %}
+    {{ block.super }} 
+    
++ DB models +
+
+# in models.py
+from django.db import models
+class Publisher(models.Model):
+    name = models.CharField(maxlength=30)
+    ...
+
+# in settings.py    
+INSTALLED_APPS = (
+    'mysite.books',
+)
+
+python manage.py validate
+python manage.py sqlall books   # CREATE TABLE
+python manage.py syncdb         # do it for new db, such as mysql.
+    #solve problem Table '*.django_session' doesn't exist 
+python manage.py dbshell
+    ALTER TABLE xxx ADD|DROP COLUMN yyy;
+    
+
+# usage
+>>> from books.models import Publisher
+>>> p1 = Publisher(...)
+>>> p1.save()
+.objects()
+>>> publisher_list = Publisher.objects.all()
+>>> Publisher.objects.filter(country="U.S.A.", state_province="CA")
+    .get(xxx='yyy')
+    .order_by('xxx')
+p1.delete()

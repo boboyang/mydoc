@@ -21,13 +21,30 @@ mysql> flush privileges;
 mysql> quit
 /etc/rc.d/mysqld stop
 /etc/rc.d/mysqld start
-mysql -u root -p
 
+#connect
+mysql -h localhost -u root -p
+#disconnect
+mysql>quit
 
-#mysql cmd
+execute:
+    shell>mysql ... -e 'xxx'
+batch:
+    shell> mysql < batch-file > mysql.out 
+    
+    
+#mysql client cmd
+mysql>help or \h [XXX]
 
-\h
-\h show
+auto complete:
+    vim /etc/mysql/my.cnf
+    #no-auto-rehash 
+    auto-rehash 
+    or:
+    mysql>\# (rehash)
+    
+multiline:
+    ';' to end of cmd, or \r (->) to next line
 
 select version(),current_date;
 select user();
@@ -40,27 +57,75 @@ drop database mydb;
 
 #table
 SHOW TABLES;
-create TABLE mytable(
-<name> <type>...,
-...
-);
-describe mytable;
+show table status [like 'xxx'] [\G]
+create:
+    create TABLE mytable(<name> <type>..., ...);
+        type:
+            varchar(LEN)    #varied len
+            char(LEN)
+            ENUM('a','b','c')
+        property:
+            AUTO_INCREMENT
+            NOT NULL
+            PRIMARY KEY (x,[y,...])
+        create table xxx like yyy;  #same structure
+            
+    SHOW CREATE TABLE t\G
+describe mytable;   # table structure
 drop table mytable;
-alter mytable rename mytable2;
-#add field
-alter mytable add xxx int(4) default '0';
+check table mytable;
 
-#add data
-insert into mytable values('',...);
-#load data
-load data local INFILE 'xxx.txt' into table mytable;
 
+load data:
+    load data local INFILE 'xxx.txt' into table mytable;
+insert:
+    insert into mytable values('xxx',...);
+alter:
+    #rename
+    alter mytable rename mytable2;
+    #add field
+    alter mytable add xxx int(4) default '0';
+    #change engine, time consuming
+    alter table mytalbe engine=InnoDB;
+select:
+    select [distinct]... from ... where ... [group by ...] [order by x,y...[DESC]];
+    distince:   unique
+    where pattern match:
+        xxx [not] like xxx
+            "_": 1 match
+            "%": 0~n match    
+        xxx regexp [binary] xxx
+            binary: case-sensitive
+    count(*) 
+    multitable:
+        select table1.name,... 
+        from table1,table2
+        where table1.xxx=table2.xxx ...
+    max(columnname)
+    SELECT @last := LAST_INSERT_ID();
+        
+DATE:
+    curdate()    
+    year():
+        e.g.:   year(curdate())-year(birth) as age,
+    month()
+        mod(moth(curdate()),12)+1
+NULL:
+    xxx is [not] NULL        
+delete:
+    delete from mytable;  #clean table   
+update:    
+    update mytable set x='xx' where y='yy';
+         
 # query cache
 mysql> show variables like '%query_cache%';
 mysql> show status like '%qcache%';
 
 #backup
 mysqldump -h localhost -uroot -p mydb>mydb.sql
+    -d      #dump only table structure 
+    mydb mytable    #dump only mytable 
+
 #restore
 mysqladmin -uroot -p create mydb
 mysqldump  -uroot -p mydb<mydb.sql
@@ -87,3 +152,9 @@ netstat -antp |grep 3306
 
 mysql>
     show master status;
+    
+#LAN access
+#test firewall:
+    telenet xxx.xxx.xxx.xxx 3306
+    
+    

@@ -1,5 +1,7 @@
 df -h
 sudo fdisk -l
+mount:
+    show all mount
 
 prepare:
     #change USELVM="no" to USELVM="yes" in /etc/rc.conf

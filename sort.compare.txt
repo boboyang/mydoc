@@ -1,0 +1,8 @@
+﻿method	T(n)	额外空间需求	注释
+bucket sort	O(m+n)	O(m)	m:取值范围
+radix sort	O(k·n)	k*d	n:排序元素个数; <br>k:数字位数
+insertion sort	O(n^2)	n	
+bubble sort	O(n^2)	0	
+merge sort	O(nlog n)	n	
+quick sort	O(nlog n) ~ O(n^2)	0	随机分布性好时效率最高，因为每次都能分成相等的两段; <br>另外可以借助寄存器保存被比较的数字，节省了读取时间，所以实际效率较高
+heap sort	~O(nlog n)	0	自底向上比自顶向下建堆快一倍，<br>因为堆底的次序无所谓，所以自顶向上时只要从n/2开始

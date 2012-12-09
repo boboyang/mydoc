@@ -34,7 +34,7 @@ cd ~/src
 wget http://www.bradiceanu.net/files/pptpd-1.3.4-1.fc12.src.rpm
 
 rpmbuild --rebuild pptpd-1.3.4-1.fc12.src.rpm
-rpm -i ../rpmbuild/RPMS/i386/pptpd-1.3.4-1.amzn1.i386.rpm
+rpm -i ../rpmbuild/RPMS/x86_64/pptpd-1.3.4-1.amzn1.x86_64.rpm
 
 sed -i 's/^logwtmp/#logwtmp/g' /etc/pptpd.conf
 

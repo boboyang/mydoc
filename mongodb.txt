@@ -1,22 +1,44 @@
+#install
+pS mongodb
+
 #start server
-./mongod --logpath=/data/mongodb/log/log --fork
+mongod --fork --dbpath /var/lib/mongodb/ --logpath /var/log/mongodb.log --logappend 
+    --auth
+    --dbpath /var/lib/mongodb/
 
 # start client
-/home/mongodb-linux-x86_64-2.0.2/bin/mongo
-#show dbs
-use signalingd      # db name
-#show collections    # similar to SQL tables
+mongo
+>help
+>db.mycoll.help()
+>show dbs
+>use tvdb      # db created automaticaly
+>show collections    # similar to SQL tables
 
-#auto create collection: pardata
-#db.pardata.insert({name : 'Min', age : 20})
-db.pardata.find()
-db.pardata.drop()    # remove table
-
+>j = { name : "mongo" };
+>db.foo.save(j)         #auto create collection: foo
+>db.foo.insert({name : 'Min', age : 20})
+db.foo.find()   # find all in foo
+    .limit(3)
+printjson(j)
+db.foo.drop()   # remove collection
 db.dropDatabase()   # remove db
 
+#security
+>use admin
+>db.addUser('admin','12345')
+>db.auth('admin','12345')
+>db.system.users.find() 
+>db.system.users.remove( { user: username } )
 
 # clean data if disk full
 cd /data/db/ && ll
 #rm max size database
 
+# memory usage
+>db.serverStatus().mem
+mongostat -u admin -p 12345
+>db.stats()
+
+#dump
+sudo mongodump -d tvdb -u admin -p 12345
 
